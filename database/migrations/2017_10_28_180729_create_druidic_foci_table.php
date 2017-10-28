@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDruidicFocusTable extends Migration
+class CreateDruidicFociTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class CreateDruidicFocusTable extends Migration
      */
     public function up()
     {
-        Schema::create('druidic_focus', function (Blueprint $table) {
+        Schema::create('druidic_foci', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('type');
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ class CreateDruidicFocusTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('druidic_focus');
+        Schema::dropIfExists('druidic_foci');
     }
 }

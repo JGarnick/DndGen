@@ -15,7 +15,14 @@ class CreateTraitsTable extends Migration
     {
         Schema::create('traits', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
+            $table->string('description');
+            $table->integer('race_id')->nullable();
+            $table->integer('subrace_id')->nullable();
             $table->timestamps();
+			
+			$table->foreign('race_id')->references('id')->on('races');
+			$table->foreign('subrace_id')->references('id')->on('subraces');
         });
     }
 

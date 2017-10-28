@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateArcaneFocusTable extends Migration
+class CreateHolySymbolsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class CreateArcaneFocusTable extends Migration
      */
     public function up()
     {
-        Schema::create('arcane_focus', function (Blueprint $table) {
+        Schema::create('holy_symbols', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('type');
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ class CreateArcaneFocusTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('arcane_focus');
+        Schema::dropIfExists('holy_symbols');
     }
 }

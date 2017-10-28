@@ -15,7 +15,12 @@ class CreateArmorPropertiesTable extends Migration
     {
         Schema::create('armor_properties', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('armor_id');
+            $table->integer('property_id');
             $table->timestamps();
+			
+			$table('armor_id')->references('id')->on('armors');
+			$table('property_id')->references('id')->on('properties');
         });
     }
 

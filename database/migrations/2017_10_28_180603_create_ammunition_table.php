@@ -15,6 +15,9 @@ class CreateAmmunitionTable extends Migration
     {
         Schema::create('ammunition', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
+            $table->string('range');
+            $table->integer('bundle'); //how many in a bundle
             $table->timestamps();
         });
     }

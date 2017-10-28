@@ -15,7 +15,12 @@ class CreateWeaponPropertiesTable extends Migration
     {
         Schema::create('weapon_properties', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('weapon_id');
+            $table->integer('property_id');
             $table->timestamps();
+			
+			$table->foreign('weapon_id')->references('id')->on('weapons');
+			$table->foreign('property_id')->references('id')->on('properties');
         });
     }
 

@@ -15,6 +15,10 @@ class CreateToolsTable extends Migration
     {
         Schema::create('tools', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
+            $table->string('type');
+            $table->string('cost');
+            $table->string('weight');
             $table->timestamps();
         });
     }

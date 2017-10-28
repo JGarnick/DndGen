@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLanguagesTable extends Migration
+class CreateAlignmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateLanguagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('languages', function (Blueprint $table) {
+        Schema::create('alignments', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('script');
-            $table->string('speakers');
-            $table->string('type'); //standard or exotic
+            $table->string('abbr');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateLanguagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('languages');
+        Schema::dropIfExists('alignments');
     }
 }
