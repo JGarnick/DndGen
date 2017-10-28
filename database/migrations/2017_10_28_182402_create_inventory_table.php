@@ -15,14 +15,14 @@ class CreateInventoryTable extends Migration
     {
         Schema::create('inventory', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('weapon_id');
-            $table->integer('armor_id');
-            $table->integer('tool_id');
-            $table->integer('item_id');
-            $table->integer('money_id');
-            $table->integer('pack_id');
-            $table->integer('character_id');
-            $table->integer('container_id');
+            $table->integer('weapon_id')->unsigned();
+            $table->integer('armor_id')->unsigned();
+            $table->integer('tool_id')->unsigned();
+            $table->integer('item_id')->unsigned();
+            $table->integer('money_id')->unsigned();
+            $table->integer('pack_id')->unsigned();
+            $table->integer('character_id')->unsigned();
+            $table->integer('container_id')->unsigned();
             $table->timestamps();
 			
 			$table->foreign('weapon_id')->references('id')->on('weapons');

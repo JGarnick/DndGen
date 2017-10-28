@@ -26,7 +26,7 @@ class AddDisabledColumnToUsers extends Migration
     public function down()
     {
         Schema::table('users', function(Blueprint $table){
-			$table->dropColumnIfExists('disabled');
+			$table->dropColumn('disabled');
 		});
     }
 }

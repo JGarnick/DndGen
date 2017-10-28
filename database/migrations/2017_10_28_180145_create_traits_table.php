@@ -17,8 +17,8 @@ class CreateTraitsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('description');
-            $table->integer('race_id')->nullable();
-            $table->integer('subrace_id')->nullable();
+            $table->integer('race_id')->nullable()->unsigned();
+            $table->integer('subrace_id')->nullable()->unsigned();
             $table->timestamps();
 			
 			$table->foreign('race_id')->references('id')->on('races');

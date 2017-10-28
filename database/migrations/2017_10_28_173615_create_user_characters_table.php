@@ -15,8 +15,8 @@ class CreateUserCharactersTable extends Migration
     {
         Schema::create('user_characters', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
-            $table->integer('character_id');
+            $table->integer('user_id')->unsigned();
+            $table->integer('character_id')->unsigned();
             $table->timestamps();
 			
 			$table->foreign('user_id')->references('id')->on('users');
