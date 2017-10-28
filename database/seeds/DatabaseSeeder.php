@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facade\DB;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -76,6 +76,15 @@ class DatabaseSeeder extends Seeder
 		"d12",
 	];
 	
+	private $attributes = [
+		"Strength" => "Str",
+		"Dextrerity" => "Dex",
+		"Constitution" => "Con",
+		"Wisdom" => "Wis",
+		"Intelligence" => "Int",
+		"Charisma" => "Cha",
+	];
+	
 	
     /**
      * Run the database seeds.
@@ -85,17 +94,23 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // $this->call(UsersTableSeeder::class);
-		foreach($races AS $race)
+		foreach($this->races AS $race)
 		{
-			DB::table('races')->insert($race);
+			DB::table('races')->insert([
+			'name' => $race,
+			'description' => '',
+			'speed' => 0,
+			'age' => '',
+			'size' => '',
+			]);
 		}
 		
-		foreach($classes AS $class)
+		foreach($this->classes AS $class)
 		{
-			DB::table('classes')->insert($class);
+			DB::table('classes')->insert(['name' => $class]);
 		}
 		
-		foreach($skills AS $skill => $stat)
+		foreach($this->skills AS $skill => $stat)
 		{
 			DB::table('skills')->insert([
 				"name" => $skill,
@@ -103,17 +118,25 @@ class DatabaseSeeder extends Seeder
 			]);
 		}
 		
-		foreach($monies AS $money => $abbr)
+		foreach($this->monies AS $money => $abbr)
 		{
-			DB::table('skills')->insert([
+			DB::table('monies')->insert([
 				"name" => $money,
 				"abbr" => $abbr,
 			]);
 		}
 		
-		foreach($hit_die AS $dice)
+		foreach($this->hit_die AS $dice)
 		{
-			DB::table('hit_die')->insert($dice);
+			DB::table('hit_die')->insert(['die' => $dice]);
+		}
+		
+		foreach($this->attributes AS $attribute => $abbr)
+		{
+			DB::table('attributes')->insert([
+			'name' => $attribute,
+			'abbr' => $abbr,
+			]);
 		}
     }
 }

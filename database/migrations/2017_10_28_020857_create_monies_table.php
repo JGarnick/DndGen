@@ -16,6 +16,7 @@ class CreateMoniesTable extends Migration
         Schema::create('monies', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('abbr');
             $table->timestamps();
         });
     }
