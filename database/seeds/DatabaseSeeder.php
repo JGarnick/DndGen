@@ -39,6 +39,35 @@ class DatabaseSeeder extends Seeder
 		"Wizard",
 	];
 	
+	private $monies = [
+		"Copper" => "cp",
+		"Silver" => "sp",
+		"Electrum" => "ep",
+		"Gold" => "gp",
+		"Platinum" => "pp",
+	];
+	
+	private $skills = [
+		"Athletics" => "Strength",
+		"Acrobatics" => "Dexterity",
+		"Sleight of Hand" => "Dexterity",
+		"Stealth" => "Dexterity",
+		"Arcana" => "Intelligence",
+		"History" => "Intelligence",
+		"Investigation" => "Intelligence",
+		"Nature" => "Intelligence",
+		"Religion" => "Intelligence",
+		"Animal Handling" => "Wisdom",
+		"Insight" => "Wisdom",
+		"Medicine" => "Wisdom",
+		"Perception" => "Wisdom",
+		"Survival" => "Wisdom",
+		"Deception" => "Charisma",
+		"Intimidation" => "Charisma",
+		"Performance" => "Charisma",
+		"Persuasion" => "Charisma",
+	];
+	
 	
     /**
      * Run the database seeds.
@@ -56,6 +85,22 @@ class DatabaseSeeder extends Seeder
 		foreach($classes AS $class)
 		{
 			DB:table('classes')->insert($class);
+		}
+		
+		foreach($skills AS $skill => $stat)
+		{
+			DB:table('skills')->insert([
+				"name" => $skill,
+				"attribute" => $stat,
+			]);
+		}
+		
+		foreach($monies AS $money => $abbr)
+		{
+			DB:table('skills')->insert([
+				"name" => $money,
+				"abbr" => $abbr,
+			]);
 		}
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFeatsTable extends Migration
+class CreateStatBonusTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateFeatsTable extends Migration
      */
     public function up()
     {
-        Schema::create('feats', function (Blueprint $table) {
+        Schema::create('stat_bonus', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('description');
-            $table->string('prerequisite');
             $table->timestamps();
         });
     }
@@ -29,6 +26,6 @@ class CreateFeatsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('feats');
+        Schema::dropIfExists('stat_bonus');
     }
 }

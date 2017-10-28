@@ -15,6 +15,9 @@ class CreateAbilitiesTable extends Migration
     {
         Schema::create('abilities', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
+            $table->string('description');
+            $table->string('level_req');
             $table->timestamps();
         });
     }

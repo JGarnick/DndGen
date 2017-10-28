@@ -15,6 +15,15 @@ class CreateSpellsTable extends Migration
     {
         Schema::create('spells', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
+            $table->string('school');
+            $table->integer('level');
+            $table->string('range');
+            $table->string('concentration');
+            $table->string('cast_time');
+            $table->string('duration');
+            $table->string('components');
+            $table->string('at_higher_levels');
             $table->timestamps();
         });
     }

@@ -15,6 +15,12 @@ class CreateWeaponsTable extends Migration
     {
         Schema::create('weapons', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
+            $table->string('damage');
+            $table->string('cost');
+            $table->string('weight');
+            $table->string('dmg_type');
+            $table->string('weapon_type');
             $table->timestamps();
         });
     }
