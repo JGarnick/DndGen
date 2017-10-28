@@ -68,6 +68,14 @@ class DatabaseSeeder extends Seeder
 		"Persuasion" => "Charisma",
 	];
 	
+	private $hit_die = [
+		"d4",
+		"d6",
+		"d8",
+		"d10",
+		"d12",
+	];
+	
 	
     /**
      * Run the database seeds.
@@ -79,17 +87,17 @@ class DatabaseSeeder extends Seeder
         // $this->call(UsersTableSeeder::class);
 		foreach($races AS $race)
 		{
-			DB:table('races')->insert($race);
+			DB::table('races')->insert($race);
 		}
 		
 		foreach($classes AS $class)
 		{
-			DB:table('classes')->insert($class);
+			DB::table('classes')->insert($class);
 		}
 		
 		foreach($skills AS $skill => $stat)
 		{
-			DB:table('skills')->insert([
+			DB::table('skills')->insert([
 				"name" => $skill,
 				"attribute" => $stat,
 			]);
@@ -97,10 +105,15 @@ class DatabaseSeeder extends Seeder
 		
 		foreach($monies AS $money => $abbr)
 		{
-			DB:table('skills')->insert([
+			DB::table('skills')->insert([
 				"name" => $money,
 				"abbr" => $abbr,
 			]);
+		}
+		
+		foreach($hit_die AS $dice)
+		{
+			DB::table('hit_die')->insert($dice);
 		}
     }
 }

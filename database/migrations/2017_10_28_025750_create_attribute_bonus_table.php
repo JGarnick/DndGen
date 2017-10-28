@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateHitDieTable extends Migration
+class CreateAttributeBonusTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,14 @@ class CreateHitDieTable extends Migration
      */
     public function up()
     {
-        Schema::create('hit_die', function (Blueprint $table) {
+        Schema::create('attribute_bonus', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('die');
+            $table->integer('bonus_id')->unsigned();
+            $table->integer('attribute_id')->unsigned();
             $table->timestamps();
+			
+			$table->foreign('bonus_id')->references('id')->on('bonuses');
+			$table->foreign('attribute_id')->references('id')->on('attributes');
         });
     }
 
@@ -27,6 +31,6 @@ class CreateHitDieTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hit_die');
+        Schema::dropIfExists('attribute_bonus');
     }
 }

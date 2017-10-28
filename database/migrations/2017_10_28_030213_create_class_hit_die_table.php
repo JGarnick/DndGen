@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStatBonusTable extends Migration
+class CreateClassHitDieTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,14 @@ class CreateStatBonusTable extends Migration
      */
     public function up()
     {
-        Schema::create('stat_bonus', function (Blueprint $table) {
+        Schema::create('class_hit_die', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('class_id')->unsigned();
+            $table->integer('hit_die_id')->unsigned();
             $table->timestamps();
+			
+			$table->foreign('class_id')->references('id')->on('classes');
+			$table->foreign('hit_die_id')->references('id')->on('hit_die');
         });
     }
 
@@ -26,6 +31,6 @@ class CreateStatBonusTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('stat_bonus');
+        Schema::dropIfExists('class_hit_die');
     }
 }
