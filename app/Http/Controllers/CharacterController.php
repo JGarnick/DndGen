@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Character;
+use Illuminate\Support\Facades\Auth;
 
 class CharacterController extends Controller
 {
     public function index()
 	{
 		$characters = Character::where('user_id', Auth::user()->id);
-		return view('character.index', ['character' => $character]);
+		return view('character.index', ['characters' => $characters]);
 	}
 	
 	public function create()

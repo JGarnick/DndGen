@@ -1,0 +1,10 @@
+.spacer-small {
+    border: none;
+    margin-top: 0;
+}
+
+.button-section {
+    padding: 10px;
+    font-size: 30px;
+    width: 300px;
+}

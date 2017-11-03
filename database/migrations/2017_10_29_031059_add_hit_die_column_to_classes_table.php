@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateHitDieTable extends Migration
+class AddHitDieColumnToClassesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateHitDieTable extends Migration
      */
     public function up()
     {
-        Schema::create('hit_die', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('die');
-            $table->timestamps();
-        });
+        Schema::table('classes', function(Blueprint $table){
+			$table->string('hit_die');
+		});
     }
 
     /**
@@ -27,6 +25,6 @@ class CreateHitDieTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hit_die');
+        //
     }
 }
