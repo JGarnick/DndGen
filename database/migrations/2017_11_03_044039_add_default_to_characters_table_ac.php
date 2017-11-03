@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAttributesTable extends Migration
+class AddDefaultToCharactersTableAc extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateAttributesTable extends Migration
      */
     public function up()
     {
-        Schema::create('attributes', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->string('abbr');
-            $table->timestamps();
-        });
+        Schema::table('characters', function($table){
+			$table->integer('AC')->default(10)->change();
+		});
+		
+		Schema::table('characters', function($table){
+			$table->renameColumn('AC', 'ac');
+		});
     }
 
     /**
@@ -28,6 +29,6 @@ class CreateAttributesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('attributes');
+        //
     }
 }
