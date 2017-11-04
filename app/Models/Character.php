@@ -30,9 +30,9 @@ class Character extends Model
 		return $this->belongsTo(\App\Models\Race::class);
 	}
 	
-	public function sub_race()
+	public function subrace()
 	{
-		return $this->belongsTo(\App\Models\Subrace::class);
+		return $this->belongsTo(\App\Models\Subrace::class, 'subrace_id');
 	}
 	
 	public function prof_bonus()

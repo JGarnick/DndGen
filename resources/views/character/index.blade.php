@@ -6,7 +6,7 @@
 		<div class="col-xs-12">
 			<h1>Characters</h1>
 			<hr class="spacer-small" />
-			<table id="character-table" class="display dt-responsive">
+			<table id="character-table" class="">
 				<thead>
 					<tr>
 						<th>Name</th>

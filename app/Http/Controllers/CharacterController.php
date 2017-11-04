@@ -31,8 +31,9 @@ class CharacterController extends Controller
 		return view('character.show', $this->characterService->characterShow($id));
 	}
 	
-	public function update($id)
+	public function update($id, Request $request)
 	{
+		dd($request->all());
 		$character = Character::find($id);
 		return view('character.show', ['character' => $character]);
 	}
