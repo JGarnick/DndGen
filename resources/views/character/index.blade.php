@@ -18,9 +18,9 @@
 				<tbody>
 				@foreach($characters AS $character)
 					<tr>
-						<td>{{$character->name}}</td>
-						<td>{{$character->race}}</td>
-						<td>{{$character->class}}</td>
+						<td><a href="{{route('character.show', $character->id)}}">{{$character->name}}</a></td>
+						<td>{{$character->race->name}}</td>
+						<td>{{$character->class->name}}</td>
 						<td>{{$character->level}}</td>
 					</tr>
 				@endforeach

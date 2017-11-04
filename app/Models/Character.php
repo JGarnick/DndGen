@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facade\DB;
 
 
 class Character extends Model
@@ -16,22 +17,22 @@ class Character extends Model
 	
 	public function class()
 	{
-		return $this->belongsTo(\App\Models\CharacterClass::class)
+		return $this->belongsTo(\App\Models\CharacterClass::class);
 	}
 	
 	public function background()
 	{
-		return $this->belongsTo(\App\Models\Background::class)
+		return $this->belongsTo(\App\Models\Background::class);
 	}
 	
 	public function race()
 	{
-		return $this->belongsTo(\App\Models\Race::class)
+		return $this->belongsTo(\App\Models\Race::class);
 	}
 	
 	public function sub_race()
 	{
-		return $this->belongsTo(\App\Models\Subrace::class)
+		return $this->belongsTo(\App\Models\Subrace::class);
 	}
 	
 	public function prof_bonus()
@@ -143,5 +144,41 @@ class Character extends Model
 		{
 			return 10;
 		}
+	}
+
+	public function getArmorClass()
+	{
+		$equippedArmor = Armor::find($character->inventory->armor_id()->where('equipped', 1)->where('armor_type', '<>', 'shield')->first())->first();
+		$equippedShield = Armor::find($character->inventory->armor_id()->where('equipped', 1)->where('armor_type', 'shield')->first())->first();
+		$armorAC = $equippedArmor->ac ?: 0;
+		$dexAC = 0;
+		$shieldAC = 0;
+		
+		if(!is_null($equippedArmor))
+		{
+			$dex_bonus = getAbilityModifier($this->dexterity); //4
+			if($dex_bonus >= $equippedArmor->max_dex_allowed) //2
+			{
+				$dexAC = $equippedArmor->max_dex_allowed;
+			}
+			else
+			{
+				$dexAC = $dex_bonus;
+			}
+			
+		}
+		
+		if(!is_null($equippedShield))
+		{
+			$shieldAC = $equippedShield->ac;
+		}
+		
+		$totalAC = 10 + $armorAC + $dexAC + $shieldAC;
+		return $totalAC;
+	}
+	
+	public function inventory()
+	{
+		return $this->hasMany(\App\Models\Inventory::class);
 	}
 }
