@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateHitDieTable extends Migration
+class AddDefaultToCharactersTableAc extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateHitDieTable extends Migration
      */
     public function up()
     {
-        Schema::create('hit_die', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('die');
-            $table->timestamps();
-        });
+        Schema::table('characters', function($table){
+			$table->integer('AC')->default(10)->change();
+		});
+		
+		Schema::table('characters', function($table){
+			$table->renameColumn('AC', 'ac');
+		});
     }
 
     /**
@@ -27,6 +29,6 @@ class CreateHitDieTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hit_die');
+        //
     }
 }
