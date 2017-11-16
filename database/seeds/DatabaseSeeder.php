@@ -25,18 +25,18 @@ class DatabaseSeeder extends Seeder
 	];
 	
 	private $classes = [
-		"Barbarian",
-		"Bard",
-		"Cleric",
-		"Druid",
-		"Fighter",
-		"Monk",
-		"Paladin",
-		"Ranger",
-		"Rogue",
-		"Sorcerer",
-		"Warlock",
-		"Wizard",
+		"Barbarian" => 'd12',
+		"Bard" => 'd8',
+		"Cleric" => 'd8',
+		"Druid" => 'd8',
+		"Fighter" => 'd10',
+		"Monk" => 'd8',
+		"Paladin" => 'd10',
+		"Ranger" => 'd10',
+		"Rogue" => 'd8',
+		"Sorcerer" => 'd6',
+		"Warlock" => 'd8',
+		"Wizard" => 'd6',
 	];
 	
 	private $monies = [
@@ -68,14 +68,6 @@ class DatabaseSeeder extends Seeder
 		"Persuasion" => "Charisma",
 	];
 	
-	private $hit_die = [
-		"d4",
-		"d6",
-		"d8",
-		"d10",
-		"d12",
-	];
-	
 	private $attributes = [
 		"Strength" => "Str",
 		"Dextrerity" => "Dex",
@@ -105,9 +97,12 @@ class DatabaseSeeder extends Seeder
 			]);
 		}
 		
-		foreach($this->classes AS $class)
+		foreach($this->classes AS $class => $hit_die)
 		{
-			DB::table('classes')->insert(['name' => $class]);
+			DB::table('classes')->insert([
+			'name' => $class,
+			'hit_die' => $hit_die
+			]);
 		}
 		
 		foreach($this->skills AS $skill => $stat)
@@ -126,10 +121,6 @@ class DatabaseSeeder extends Seeder
 			]);
 		}
 		
-		foreach($this->hit_die AS $dice)
-		{
-			DB::table('hit_die')->insert(['die' => $dice]);
-		}
 		
 		foreach($this->attributes AS $attribute => $abbr)
 		{

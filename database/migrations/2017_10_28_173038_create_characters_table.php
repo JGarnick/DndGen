@@ -21,27 +21,21 @@ class CreateCharactersTable extends Migration
             $table->integer('Initiative');
             $table->string('Name');
             $table->string('Player Name');
-            $table->integer('background_id')->unsigned();
-            $table->integer('race_id')->unsigned();
-            $table->integer('subrace_id')->unsigned();
-            $table->integer('attribute1_id')->unsigned();
-            $table->integer('attribute2_id')->unsigned();
-            $table->integer('attribute3_id')->unsigned();
-            $table->integer('attribute4_id')->unsigned();
-            $table->integer('attribute5_id')->unsigned();
-            $table->integer('attribute6_id')->unsigned();
+            $table->integer('background_id');
+            $table->integer('race_id');
+            $table->integer('subrace_id');
+            $table->integer('strength');
+            $table->integer('dexterity');
+            $table->integer('constitution');
+            $table->integer('wisdom');
+            $table->integer('intelligence');
+            $table->integer('charisma');
             $table->integer('class_id')->unsigned();
             $table->timestamps();
 			
 			$table->foreign('background_id')->references('id')->on('backgrounds');
 			$table->foreign('race_id')->references('id')->on('races');
 			$table->foreign('class_id')->references('id')->on('classes');
-			$table->foreign('attribute1_id')->references('id')->on('attributes');
-			$table->foreign('attribute2_id')->references('id')->on('attributes');
-			$table->foreign('attribute3_id')->references('id')->on('attributes');
-			$table->foreign('attribute4_id')->references('id')->on('attributes');
-			$table->foreign('attribute5_id')->references('id')->on('attributes');
-			$table->foreign('attribute6_id')->references('id')->on('attributes');
         });
     }
 
