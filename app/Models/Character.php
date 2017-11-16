@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facade\DB;
+use App\Models\Armor;
+use Illuminate\Database\Eloquent\Collection;
 
 
 class Character extends Model
@@ -13,6 +15,11 @@ class Character extends Model
 	public function user()
 	{
 		return $this->belongsTo(\App\User::class);
+	}
+	
+	public function skills()
+	{
+		return $this->belongsToMany(\App\Models\Skill::class, 'character_skills', 'character_id', 'skill_id');
 	}
 	
 	public function class()
@@ -148,37 +155,94 @@ class Character extends Model
 
 	public function getArmorClass()
 	{
-		$equippedArmor = Armor::find($character->inventory->armor_id()->where('equipped', 1)->where('armor_type', '<>', 'shield')->first())->first();
-		$equippedShield = Armor::find($character->inventory->armor_id()->where('equipped', 1)->where('armor_type', 'shield')->first())->first();
-		$armorAC = $equippedArmor->ac ?: 0;
-		$dexAC = 0;
-		$shieldAC = 0;
+		$equipment = $this->getWornEquipment();
 		
-		if(!is_null($equippedArmor))
+		$dexBonus = $this->getAbilityModifier($this->dexterity);
+		$shieldAC = $equipment->shield->ac ?: 0;
+		$baseAC = 10;
+		
+		if($this->class->name === "Barbarian")
 		{
-			$dex_bonus = getAbilityModifier($this->dexterity); //4
-			if($dex_bonus >= $equippedArmor->max_dex_allowed) //2
+			$baseAC = 10 + $this->getAbilityModifier($this->constitution) + $dexBonus;
+		}
+		
+		if($equipment->armor)
+		{	
+			$armorAC = $equipment->armor->ac;
+			if($equipment->armor->max_dex_allowed AND $dexBonus >= $equipment->armor->max_dex_allowed) //2
 			{
-				$dexAC = $equippedArmor->max_dex_allowed;
+				$dexAC = $equipment->armor->max_dex_allowed;
 			}
 			else
 			{
-				$dexAC = $dex_bonus;
+				$dexAC = $dexBonus;
 			}
-			
-		}
+			return $armorAC + $dexAC + $shieldAC;
+		}		
 		
-		if(!is_null($equippedShield))
-		{
-			$shieldAC = $equippedShield->ac;
-		}
-		
-		$totalAC = 10 + $armorAC + $dexAC + $shieldAC;
-		return $totalAC;
+		return $baseAC + $dexAC + $shieldAC;
 	}
 	
 	public function inventory()
 	{
 		return $this->hasMany(\App\Models\Inventory::class);
+	}
+	
+	public function getWornEquipment()
+	{
+		$equipment = new Collection;
+		$equipment->armor = '';
+		$equipment->shield = '';
+		$equipment->melee_primary = '';
+		$equipment->melee_offhand = '';
+		$equipment->ranged_weapon = '';
+		
+		
+		$armorIDs = $this->inventory()->where('armor_id', '<>', null)
+									  ->where('equipped', 1)
+									  ->pluck('armor_id');
+		foreach($armorIDs AS $id)
+		{
+			$armor = Armor::find($id);
+			if(!is_null($armor))
+			{
+				if($armor->armor_type !== 'shield')
+				{
+					$equipment->armor = $armor;
+				}
+				
+				if($armor->armor_type === 'shield')
+				{
+					$equipment->shield = $armor;
+				}
+			}
+		}
+		
+		$weaponIDs = $this->inventory()->where('weapon_id', '<>', null)
+									   ->where('equipped', 1)
+									   ->pluck('weapon_id');
+		foreach($weaponIDs AS $id)
+		{
+			$weapon = Weapon::find($id);
+			if(!is_null($weapon))
+			{
+				if($weapon->properties->contains('ranged'))
+				{
+					$equipment->ranged_weapon = $weapon;
+				}
+			}
+		}
+		
+		return $equipment;
+	}
+	
+	public function passive_perception()
+	{
+		return 10 + $this->getSkill('Perception');
+	}
+	
+	public function getSkill($skill)
+	{
+		return $this->skills()->where('name', $skill)->first()->bonus;
 	}
 }

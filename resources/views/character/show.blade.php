@@ -1,10 +1,10 @@
 @extends('layouts._layout')
 
 @section('content')
-<div class="container-fluid">
+<div id="app" class="container-fluid">
 	<div class="row">
-		<div class="col-xs-12">
-			<h1>{{$character->name}}</h1>
+		<div class="col-xs-12">			
+			<h1> @{{name}}</h1>			
 		</div>
 		<div class="col-xs-12">
 			<form class="form-horizontal clearfix" action="{{route('character.update', $character->id)}}" method="POST">
@@ -21,5 +21,15 @@
 			</form>
 		</div>
 	</div>
-</div>
+</div> 
+<script>
+	
+	var name = '{{$character->name}}';
+	var race = '{{$character->race->name}}';
+	var char_class = '{{$character->class->name}}';
+	var subrace = '{{$character->subrace}}';
+	var strength = '{{$character->strength}}';
+	var dexterity = '{{$character->dexterity}}';
+	var constitution = '{{$character->constitution}}';
+</script>        
 @endsection

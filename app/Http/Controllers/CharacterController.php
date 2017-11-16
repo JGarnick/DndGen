@@ -28,7 +28,7 @@ class CharacterController extends Controller
 	
 	public function show($id)
 	{
-		return view('character.show', $this->characterService->characterShow($id));
+		return view('character.show', $this->characterService->show($id));
 	}
 	
 	public function update($id, Request $request)

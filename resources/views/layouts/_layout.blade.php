@@ -33,6 +33,8 @@
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
 	<script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 	<script src="{{ asset('js/responsive.bootstrap.min.js')}}"></script>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="{{asset('js/vue.js')}}"></script>
 	{{--<script src="{{ asset('js/Slidebars-2.0.2/scripts.js')}}"></script>--}}
 	{{--<script src="{{ asset('js/Slidebars-2.0.2/slidebars.js')}}"></script>--}}
     <script src="{{ asset('js/scripts.js') }}"></script>
