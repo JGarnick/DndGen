@@ -40,5 +40,12 @@
 	var strength = '{{$character->strength}}';
 	var dexterity = '{{$character->dexterity}}';
 	var constitution = '{{$character->constitution}}';
+	var hp_max = '{{$character->hp_max}}';
+	var hp_current = '{{$character->hp_current}}';
+	var speed = '{{$character->speed()}}';
+	var darkvision = '{{$character->darkvision}}';
+	var passive_perception = '{{$character->passive_perception()}}';
+	var ac = '{{$character->getArmorClass()}}';
+	
 </script>     
 @endsection

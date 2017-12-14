@@ -12,7 +12,6 @@ $(document).ready(function() {
         selected: showHideSubraces,
 
     });
-	$($('#selectable-race [name="race"]')[0]).addClass('ui-selected');
     function showHideSubraces() {
         var race = $('.ui-selected')[0].innerText;
 
@@ -36,12 +35,18 @@ $(document).ready(function() {
     var app = new Vue({
         el: '#app',
         data: {
-            name: window.name,
-            char_class: window.char_class,
-            race: window.race,
-            strength: window.strength,
-            dexterity: window.dexterity,
-            constitution: window.constitution,
+            name: 				window.name,
+            char_class: 		window.char_class,
+            race: 				window.race,
+            strength: 			window.strength,
+            dexterity: 			window.dexterity,
+            constitution: 		window.constitution,
+			hp_max: 			window.hp_max,
+			hp_current: 		window.hp_current,
+			passive_perception: window.passive_perception,
+			speed: 				window.speed,
+			darkvision: 		window.darkvision,
+			ac:					window.ac,
         },
         methods: {
             getAbilityModifier: function($stat) {

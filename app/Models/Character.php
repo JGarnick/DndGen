@@ -28,6 +28,11 @@ class Character extends Model
 		return $this->belongsToMany(Skill::class, 'character_skills', 'character_id', 'skill_id');
 	}
 	
+	public function speed()
+	{
+		return $this->race->speed;
+	}
+	
 	public function class()
 	{
 		return $this->belongsTo(CharacterClass::class);

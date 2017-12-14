@@ -105,7 +105,42 @@
 		<div class="col-xs-6 text-center">
 			<h3>Passive Perception</h3>
 			<h4>
-				{{$character->passive_perception()}}
+				@{{passive_perception()}}
+			</h4>
+		</div>
+		<div class="col-xs-6 text-center">
+			<h3>Max Hit Points</h3>
+			<h4>
+				@{{hp_current}}/@{{hp_max}}
+			</h4>
+		</div>
+		<div class="col-xs-6 text-center">
+			<h3>Skills</h3>
+			<div class="row">
+				<div class="skills-wrapper">
+					@foreach($skills AS $skill)
+						<div><span class="col-xs-9">{{$skill->name}}({{$skill->getAbbr()}}) </span>
+						<span class="col-xs-3">0</span></div>
+					@endforeach
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-6 text-center">
+			<h3>Speed</h3>
+			<h4>
+				
+			</h4>
+		</div>
+		<div class="col-xs-6 text-center">
+			<h3>Saving Throws</h3>
+			<h4>
+				
+			</h4>
+		</div>
+		<div class="col-xs-6 text-center">
+			<h3>Darkvision</h3>
+			<h4>
+				
 			</h4>
 		</div>
 	</div>	

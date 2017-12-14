@@ -16,7 +16,9 @@
 // });
 
 Auth::routes();
-
+Route::get('/testSeeder', function(){
+	Artisan::call('db:seed');
+});
 Route::get('/', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['auth']], function($router){

@@ -15,12 +15,12 @@ class CharacterService
 {
     public function show($id)
 	{
-		$character = Character::find($id);
-		$races = Race::all();
-		$skills = Skill::all();
-		$classes = CharacterClass::all();
-		$backgrounds = Background::all();
-		$subraces = Subrace::all();
+		$character 		= Character::find($id);
+		$races 			= Race::all();
+		$skills 		= Skill::all();
+		$classes 		= CharacterClass::all();
+		$backgrounds 	= Background::all();
+		$subraces 		= Subrace::all();
 		
 		
 		return [
@@ -41,13 +41,18 @@ class CharacterService
 		$classes = CharacterClass::all();
 		$backgrounds = Background::all();
 		$subraces = Subrace::all();
-		$character->strength = 10;
-		$character->dexterity = 10;
-		$character->constitution = 10;
-		$character->wisdom = 10;
-		$character->intelligence = 10;
-		$character->charisma = 10;
-		$character->level = 1;
+		$character->strength 		= 10;
+		$character->dexterity 		= 10;
+		$character->constitution 	= 10;
+		$character->wisdom 			= 10;
+		$character->intelligence	= 10;
+		$character->charisma 		= 10;
+		$character->level 			= 1;
+		$character->race_id			= 1;
+		$character->class_id		= 1;
+		$character->hp_max			= 12;
+		$character->hp_current		= 12;
+		
 		return [
 			"character" 	=> $character,
 			"races"			=> $races,
@@ -60,15 +65,15 @@ class CharacterService
 	
 	public function update(Request $request, $id)
 	{
-		$character = Character::find($id);
-		$character->class = $request->input('class', 0);
-		$character->background = $request->input('background', 0);
-		$character->strength = $request->input('strength', 10);
-		$character->dexterity = $request->input('dexterity', 10);
-		$character->constitution = $request->input('constitution', 10);
-		$character->wisdom = $request->input('wisdom', 10);
-		$character->intelligence = $request->input('intelligence', 10);
-		$character->charisma = $request->input('charisma', 10);
+		$character 					= Character::find($id);
+		$character->class 			= $request->input('class', 0);
+		$character->background 		= $request->input('background', 0);
+		$character->strength 		= $request->input('strength', 10);
+		$character->dexterity 		= $request->input('dexterity', 10);
+		$character->constitution 	= $request->input('constitution', 10);
+		$character->wisdom 			= $request->input('wisdom', 10);
+		$character->intelligence 	= $request->input('intelligence', 10);
+		$character->charisma 		= $request->input('charisma', 10);
 		
 		//attach bonuses to skills
 		if($request->has('skills'))
@@ -76,8 +81,8 @@ class CharacterService
 			foreach($request->skills AS $skill)
 			{
 				$character->updateExistingPivot($skill->id, [
-				'bonus' => $skill->bonus,
-				'proficient' => $skill->proficient,
+					'bonus' => $skill->bonus,
+					'proficient' => $skill->proficient,
 				]);
 			}
 		}

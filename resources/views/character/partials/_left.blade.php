@@ -14,7 +14,7 @@
 		<hr class="spacer-small" />
 		<div id="selectable-race" class="clearfix selectable race-wrapper">
 			@foreach($races AS $race)
-				<span name="race" value="{{$race->id}}" 
+				<span name="race" value="{{$race->id}}"
 				@if($race->subraces->count() > 0)
 					data-has-subrace="true" 
 				@else
