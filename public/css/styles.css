@@ -1,7 +1,7 @@
-.spacer-small {
-    border: none;
-    margin-top: 0;
-}
+.spacer{ border: none; }
+.spacer.small { margin-top: 0; }
+.form-label{font-size:24px;font-weight:700;}
+.form-input{font-size:20px;}
 .button-section {
     padding: 10px;
     font-size: 30px;

@@ -5,6 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facade\DB;
 use App\Models\Armor;
+use App\Models\Skill;
+use App\Models\Background;
+use App\Models\CharacterClass;
+use App\Models\Race;
+use App\Models\Subrace;
+use App\User;
 use Illuminate\Database\Eloquent\Collection;
 
 
@@ -14,32 +20,32 @@ class Character extends Model
 	
 	public function user()
 	{
-		return $this->belongsTo(\App\User::class);
+		return $this->belongsTo(User::class);
 	}
 	
 	public function skills()
 	{
-		return $this->belongsToMany(\App\Models\Skill::class, 'character_skills', 'character_id', 'skill_id');
+		return $this->belongsToMany(Skill::class, 'character_skills', 'character_id', 'skill_id');
 	}
 	
 	public function class()
 	{
-		return $this->belongsTo(\App\Models\CharacterClass::class);
+		return $this->belongsTo(CharacterClass::class);
 	}
 	
 	public function background()
 	{
-		return $this->belongsTo(\App\Models\Background::class);
+		return $this->belongsTo(Background::class);
 	}
 	
 	public function race()
 	{
-		return $this->belongsTo(\App\Models\Race::class);
+		return $this->belongsTo(Race::class);
 	}
 	
 	public function subrace()
 	{
-		return $this->belongsTo(\App\Models\Subrace::class, 'subrace_id');
+		return $this->belongsTo(Subrace::class, 'subrace_id');
 	}
 	
 	public function prof_bonus()
@@ -155,32 +161,37 @@ class Character extends Model
 
 	public function getArmorClass()
 	{
-		$equipment = $this->getWornEquipment();
-		
-		$dexBonus = $this->getAbilityModifier($this->dexterity);
-		$shieldAC = $equipment->shield->ac ?: 0;
-		$baseAC = 10;
-		
-		if($this->class->name === "Barbarian")
+		if($this->getWornEquipment()->count() > 0)
 		{
-			$baseAC = 10 + $this->getAbilityModifier($this->constitution) + $dexBonus;
+			$equipment = $this->getWornEquipment();
+			
+			$dexBonus = $this->getAbilityModifier($this->dexterity);
+			$shieldAC = $equipment->shield->ac ?: 0;
+			$baseAC = 10;
+			
+			if($this->class->name === "Barbarian")
+			{
+				$baseAC = 10 + $this->getAbilityModifier($this->constitution) + $dexBonus;
+			}
+			
+			if($equipment->armor)
+			{	
+				$armorAC = $equipment->armor->ac;
+				if($equipment->armor->max_dex_allowed AND $dexBonus >= $equipment->armor->max_dex_allowed) //2
+				{
+					$dexAC = $equipment->armor->max_dex_allowed;
+				}
+				else
+				{
+					$dexAC = $dexBonus;
+				}
+				return $armorAC + $dexAC + $shieldAC;
+			}
+			return $baseAC + $dexAC + $shieldAC;
 		}
 		
-		if($equipment->armor)
-		{	
-			$armorAC = $equipment->armor->ac;
-			if($equipment->armor->max_dex_allowed AND $dexBonus >= $equipment->armor->max_dex_allowed) //2
-			{
-				$dexAC = $equipment->armor->max_dex_allowed;
-			}
-			else
-			{
-				$dexAC = $dexBonus;
-			}
-			return $armorAC + $dexAC + $shieldAC;
-		}		
+		return 10;
 		
-		return $baseAC + $dexAC + $shieldAC;
 	}
 	
 	public function inventory()
@@ -238,11 +249,18 @@ class Character extends Model
 	
 	public function passive_perception()
 	{
-		return 10 + $this->getSkill('Perception');
+		if(!is_null($this->getSkill('Perception')))
+		{
+			return 10 + $this->getSkill('Perception');
+		}
+		return 10;
 	}
 	
 	public function getSkill($skill)
 	{
-		return $this->skills()->where('name', $skill)->first()->bonus;
+		if($this->skills->count() > 0)
+		{
+			return $this->skills()->where('name', $skill)->first()->bonus;
+		}
 	}
 }

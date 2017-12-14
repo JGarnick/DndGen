@@ -23,7 +23,7 @@ class CharacterController extends Controller
 	
 	public function create()
 	{
-		return view('character.create');
+		return view('character.create', $this->characterService->create());
 	}
 	
 	public function show($id)
@@ -36,5 +36,10 @@ class CharacterController extends Controller
 		dd($request->all());
 		$character = Character::find($id);
 		return view('character.show', ['character' => $character]);
+	}
+	
+	public function store(Request $request)
+	{
+		dd($request->all());
 	}
 }

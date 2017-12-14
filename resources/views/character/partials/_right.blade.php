@@ -87,7 +87,7 @@
 				</small>
 			</div>
 		</div>
-		<hr class="spacer-small" />
+		<hr class="spacer small" />
 		<div class="col-xs-6 text-center">
 			<h3>Proficiency Bonus</h3>
 			<h4>

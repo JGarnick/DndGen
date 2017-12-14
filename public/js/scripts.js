@@ -12,7 +12,7 @@ $(document).ready(function() {
         selected: showHideSubraces,
 
     });
-
+	$($('#selectable-race [name="race"]')[0]).addClass('ui-selected');
     function showHideSubraces() {
         var race = $('.ui-selected')[0].innerText;
 
@@ -32,7 +32,7 @@ $(document).ready(function() {
     };
     showHideSubraces();
     $('#selectable-sub-race').selectable();
-
+	
     var app = new Vue({
         el: '#app',
         data: {

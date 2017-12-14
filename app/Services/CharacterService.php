@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use \App\Models\Character;
 use \App\Models\CharacterClass;
 use \App\Models\Race;
+use \App\Models\Skill;
 use \App\Models\Subrace;
 use \App\Models\Background;
 use Illuminate\Http\Request;
@@ -16,10 +17,11 @@ class CharacterService
 	{
 		$character = Character::find($id);
 		$races = Race::all();
+		$skills = Skill::all();
 		$classes = CharacterClass::all();
 		$backgrounds = Background::all();
 		$subraces = Subrace::all();
-		//dd($character->skills()->where('name', 'Perception')->first());
+		
 		
 		return [
 			"character" 	=> $character,
@@ -27,6 +29,7 @@ class CharacterService
 			"classes"		=> $classes,
 			"backgrounds"	=> $backgrounds,
 			"subraces"		=> $subraces,
+			"skills"		=> $skills,
 		];
 	}
 	
@@ -34,15 +37,25 @@ class CharacterService
 	{
 		$character = new Character();
 		$skills = Skill::all();
-		$character->skills()->sync($skills); //skills will be IDs, this will set the bonus to 0 by default
+		$races = Race::all();
+		$classes = CharacterClass::all();
+		$backgrounds = Background::all();
+		$subraces = Subrace::all();
 		$character->strength = 10;
 		$character->dexterity = 10;
 		$character->constitution = 10;
 		$character->wisdom = 10;
 		$character->intelligence = 10;
 		$character->charisma = 10;
-		$character->save();
-		
+		$character->level = 1;
+		return [
+			"character" 	=> $character,
+			"races"			=> $races,
+			"classes"		=> $classes,
+			"backgrounds"	=> $backgrounds,
+			"subraces"		=> $subraces,
+			"skills"		=> $skills,
+		];
 	}
 	
 	public function update(Request $request, $id)
