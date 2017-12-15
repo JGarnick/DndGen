@@ -105,7 +105,7 @@
 		<div class="col-xs-6 text-center">
 			<h3>Passive Perception</h3>
 			<h4>
-				@{{passive_perception()}}
+				@{{passive_perception}}
 			</h4>
 		</div>
 		<div class="col-xs-6 text-center">

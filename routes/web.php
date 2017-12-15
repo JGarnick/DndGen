@@ -20,6 +20,7 @@ Route::get('/testSeeder', function(){
 	Artisan::call('db:seed');
 });
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/logout', "Auth\LoginController@logout")->name('logout');
 
 Route::group(['middleware' => ['auth']], function($router){
 	Route::prefix('character')->group(function($router){

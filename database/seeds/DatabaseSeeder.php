@@ -89,15 +89,16 @@ class DatabaseSeeder extends Seeder
 			"name" 			=> "Aasimar",
 			"speed" 		=> 30, 
 			"description" 	=> "", 
-			"age" 			=> 100, 
+			"age" 			=> 160, 
 			"size" 			=> "Medium",
+			"darkvision"	=> 60
 		],
 		[
 			"id"			=> 11,
 			"name" 			=> "Firbolg",
 			"speed" 		=> 30, 
 			"description" 	=> "", 
-			"age" 			=> 100, 
+			"age" 			=> 500, 
 			"size" 			=> "Medium",
 		],
 		[
@@ -105,7 +106,7 @@ class DatabaseSeeder extends Seeder
 			"name" 			=> "Goliath",
 			"speed" 		=> 30, 
 			"description" 	=> "", 
-			"age" 			=> 100, 
+			"age" 			=> 80, 
 			"size" 			=> "Medium",
 		],
 		[
@@ -113,7 +114,7 @@ class DatabaseSeeder extends Seeder
 			"name" 			=> "Kenku",
 			"speed" 		=> 30, 
 			"description" 	=> "", 
-			"age" 			=> 100, 
+			"age" 			=> 60, 
 			"size" 			=> "Medium",
 		],
 		[
@@ -121,7 +122,7 @@ class DatabaseSeeder extends Seeder
 			"name" 			=> "Lizardfolk",
 			"speed" 		=> 30, 
 			"description" 	=> "", 
-			"age" 			=> 100, 
+			"age" 			=> 60,
 			"size" 			=> "Medium",
 		],
 		[
@@ -129,15 +130,16 @@ class DatabaseSeeder extends Seeder
 			"name" 			=> "Tabaxi",
 			"speed" 		=> 30, 
 			"description" 	=> "", 
-			"age" 			=> 100, 
+			"age" 			=> 80, 
 			"size" 			=> "Medium",
+			"darkvision"	=> 60
 		],
 		[
 			"id"			=> 16,
 			"name" 			=> "Triton",
 			"speed" 		=> 30, 
 			"description" 	=> "", 
-			"age" 			=> 100, 
+			"age" 			=> 200, 
 			"size" 			=> "Medium",
 		],
 	];
@@ -193,6 +195,79 @@ class DatabaseSeeder extends Seeder
 		"Wisdom" 		=> "Wis",
 		"Intelligence" 	=> "Int",
 		"Charisma" 		=> "Cha",
+	];
+	
+	private $racial_ASI = [
+		[
+			"race_id"	=> 1,
+			"stat"		=> 'Constitution',
+			"amount"	=> 2,
+		],
+		[
+			"race_id"	=> 2,
+			"stat"		=> 'Dexterity',
+			"amount"	=> 2,
+		],
+		[
+			"race_id"	=> 4,
+			"stat"		=> 'Strength',
+			"amount"	=> 1,
+		],
+		[
+			"race_id"	=> 4,
+			"stat"		=> 'Dexterity',
+			"amount"	=> 1,
+		],
+		[
+			"race_id"	=> 4,
+			"stat"		=> 'Constitution',
+			"amount"	=> 1,
+		],
+		[
+			"race_id"	=> 4,
+			"stat"		=> 'Wisdom',
+			"amount"	=> 1,
+		],
+		[
+			"race_id"	=> 4,
+			"stat"		=> 'Intelligence',
+			"amount"	=> 1,
+		],
+		[
+			"race_id"	=> 4,
+			"stat"		=> 'Charisma',
+			"amount"	=> 1,
+		],
+		[
+			"race_id"	=> 5,
+			"stat"		=> 'Strength',
+			"amount"	=> 2,
+		],
+		[
+			"race_id"	=> 5,
+			"stat"		=> 'Charisma',
+			"amount"	=> 1,
+		],
+		[
+			"race_id"	=> 6,
+			"stat"		=> 'Intelligence',
+			"amount"	=> 2,
+		],
+		[
+			"race_id"	=> 7,
+			"stat"		=> 'Charisma',
+			"amount"	=> 2,
+		],
+		[
+			"race_id"	=> 7,
+			"stat"		=> 'Choice',
+			"amount"	=> 1,
+		],
+		[
+			"race_id"	=> 7,
+			"stat"		=> 'Choice',
+			"amount"	=> 1,
+		],
 	];
 	
 	

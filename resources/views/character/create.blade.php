@@ -25,27 +25,27 @@
 </div> 
 <script>
 	
-	var name = '{{$character->name}}';
+	var name 				= '{{$character->name}}';
 	@if(!is_null($character->race))
-		var race = '{{$character->race->name}}';
+		var race 			= '{{$character->race->name}}';
 	@else
-		var race = '';
+		var race 			= '';
 	@endif
 	@if(!is_null($character->class))
-		var char_class = '{{$character->class->name}}';
+		var char_class 		= '{{$character->class->name}}';
 	@else
-		var char_class = '';
+		var char_class 		= '';
 	@endif
-	var subrace = '{{$character->subrace}}';
-	var strength = '{{$character->strength}}';
-	var dexterity = '{{$character->dexterity}}';
-	var constitution = '{{$character->constitution}}';
-	var hp_max = '{{$character->hp_max}}';
-	var hp_current = '{{$character->hp_current}}';
-	var speed = '{{$character->speed()}}';
-	var darkvision = '{{$character->darkvision}}';
-	var passive_perception = '{{$character->passive_perception()}}';
-	var ac = '{{$character->getArmorClass()}}';
+	var subrace 			= '{{$character->subrace}}';
+	var strength 			= '{{$character->strength}}';
+	var dexterity 			= '{{$character->dexterity}}';
+	var constitution 		= '{{$character->constitution}}';
+	var hp_max 				= '{{$character->hp_max}}';
+	var hp_current 			= '{{$character->hp_current}}';
+	var speed 				= '{{$character->speed()}}';
+	var darkvision 			= '{{$character->darkvision}}';
+	var passive_perception 	= '{{$character->passive_perception()}}';
+	var ac 					= '{{$character->getArmorClass()}}';
 	
-</script>     
+</script>  
 @endsection

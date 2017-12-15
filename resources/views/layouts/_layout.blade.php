@@ -22,6 +22,9 @@
 </head>
 <body>
     <div id="app-wrapper">
+		<div class="container">
+			<a class="pull-right" href="{{route('logout')}}">Logout</a>
+		</div>
 		
         @yield('content')
 		
@@ -30,11 +33,11 @@
     <!--<script src="{{ asset('js/app.js') }}"></script>-->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script src="https://unpkg.com/vue"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
 	<script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 	<script src="{{ asset('js/responsive.bootstrap.min.js')}}"></script>
-    <script src="https://unpkg.com/vue"></script>
-    <script src="{{asset('js/vue.js')}}"></script>
+    
 	{{--<script src="{{ asset('js/Slidebars-2.0.2/scripts.js')}}"></script>--}}
 	{{--<script src="{{ asset('js/Slidebars-2.0.2/slidebars.js')}}"></script>--}}
     <script src="{{ asset('js/scripts.js') }}"></script>
