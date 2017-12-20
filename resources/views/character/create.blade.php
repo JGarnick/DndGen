@@ -10,6 +10,7 @@
 				<label class="form-label" for="name">Character Name</label>
 				<input class="form-control form-input" type="text" name="name" />
 			</div>
+			<greeting></greeting>
 			<div class="col-xs-offset-11 col-xs-1">
 				<input type="submit" value="Save" />
 			</div>
