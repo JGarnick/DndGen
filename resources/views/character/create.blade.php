@@ -1,7 +1,7 @@
 @extends('layouts._layout')
 
 @section('content')
-<div id="app" class="container-fluid">
+<div class="container-fluid">
 	<div class="row">
 		<hr class="spacer small" />
 		<form class="clearfix" action="{{route('character.store')}}" method="POST">
@@ -10,14 +10,13 @@
 				<label class="form-label" for="name">Character Name</label>
 				<input class="form-control form-input" type="text" name="name" />
 			</div>
-			<greeting></greeting>
 			<div class="col-xs-offset-11 col-xs-1">
 				<input type="submit" value="Save" />
 			</div>
 			<div class="col-xs-6">
 				@include('character.partials._left')
 			</div>
-			<div class="col-xs-6 right section">
+			<div id="vue-1" class="col-xs-6 right section">
 				@include('character.partials._right')
 			</div>
 		</form>

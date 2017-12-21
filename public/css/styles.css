@@ -14,6 +14,7 @@
 .selectable .ui-selected { background: #F39814; color: white; }
 .selectable { width:80%; margin:0 auto; }
 .selectable button { font-size: 22px; !height: 18px; cursor:pointer;}
+.selectable button:focus { outline:unset;}
 .tab-interactable{border:1px solid black; border-radius:10px; color:black;}
 .no-top {margin-top:0px;}
 .skills-wrapper{width:60%;margin:0 auto;}

@@ -8,17 +8,23 @@ $(document).ready(function() {
         active: 0,
     });
 
-    //$('#selectable-race').selectable({
-    //    selected: showHideSubraces,
-    //});
+    $('#selectable-race button').on("click", function(){
+		$('#selectable-race button').each(function(){
+			$(this).removeClass('ui-selected');
+		});
+		
+		$(this).addClass("ui-selected");
+		showHideSubraces();
+	});
+        
 	
     function showHideSubraces() {
         var race = $('.ui-selected')[0].innerText;
-    
+		
         if ($($('.ui-selected')[0]).attr('data-has-subrace') === 'true') {
             $('.subrace-wrapper').show();
     
-            $('#selectable-sub-race span').each(function() {
+            $('#selectable-sub-race button').each(function() {
                 if ($(this).attr('data-parent-race') == race) {
                     $(this).show();
                 } else {
@@ -29,25 +35,33 @@ $(document).ready(function() {
             $('.subrace-wrapper').hide();
         }
     };
-    showHideSubraces();
-    //$('#selectable-sub-race').selectable();
 	
-	Vue.component('greeting', {
-		template: '<p>Hey there, I am a re-usable component with the name of {{name}}. <button v-on:click.prevent="changeName">Change Name</button></p>',
-		data: function(){
-			return {
-					name: "A component Name"
-			}
-		},
-		methods: {
-			changeName: function(){
-				this.name = 'Changed';
-			}
-		}
+    showHideSubraces();
+	
+	$('#selectable-sub-race button').on("click", function(){
+		$('#selectable-race button').each(function(){
+			$(this).removeClass('ui-selected');
+		});
+		
+		$(this).addClass("ui-selected");
 	});
 	
+	//Vue.component('greeting', {
+	//	template: '<p>Hey there, I am a re-usable component with the name of {{name}}. <button v-on:click.prevent="changeName">Change Name</button></p>',
+	//	data: function(){
+	//		return {
+	//				name: "A component Name"
+	//		}
+	//	},
+	//	methods: {
+	//		changeName: function(){
+	//			this.name = 'Changed';
+	//		}
+	//	}
+	//});
+	
     new Vue({
-        el: '#app',
+        el: '#vue-1',
         data: {
             name: 				window.name,
             char_class: 		window.char_class,
@@ -63,60 +77,60 @@ $(document).ready(function() {
 			ac:					window.ac,
         },
         methods: {
-			toggleActive: function(event){
-				var id = event.target.value;
-				var classesArray = [];
-				var classes = '';
-				
-				//foreach over all refs
-				for (var key in this.$refs)
-				{
-					var existingClasses = [];
-					//foreach over each refs classes
-					for(var c in this.$refs[key].classList)
-					{
-						//filter out only strings
-						if(typeof this.$refs[key].classList[c] === "string" && this.$refs[key].classList[c] !== "ui-selected")
-						{
-							//add the string to existingClasses array. The last addition is an amalgamation of all classes, which is all I want
-							existingClasses.push(this.$refs[key].classList[c]);
-						}
-					}
-					
-					//pop off the amalgamation
-					existingClasses.pop();
-					var classList = "";
-					
-					for(var c in existingClasses)
-					{
-						classList += existingClasses[c] + ' ';
-					}
-					
-					this.$refs[key].classList = classList.trim();
-				}
-				for(var i = 0; i < this.$refs[1].classList.length; i++)
-				{
-					if(this.$refs[id].classList[i] !== undefined)
-					{
-						classesArray.push(this.$refs[id].classList[i]);
-					}
-				}
-				
-				if(!classesArray.includes("ui-selected"))
-				{
-					classesArray.push("ui-selected");										
-				}
-				else
-				{
-					classesArray.pop("ui-selected");
-				}
-				for(var i = 0; i < classesArray.length; i++)
-				{
-					classes = classes + ' ' + classesArray[i];
-				}
-				
-				event.target.className = classes;
-			},
+			//toggleActive: function(event){
+			//	var id = event.target.value;
+			//	var classesArray = [];
+			//	var classes = '';
+			//	
+			//	//foreach over all refs
+			//	for (var key in this.$refs)
+			//	{
+			//		var existingClasses = [];
+			//		//foreach over each refs classes
+			//		for(var c in this.$refs[key].classList)
+			//		{
+			//			//filter out only strings
+			//			if(typeof this.$refs[key].classList[c] === "string" && this.$refs[key].classList[c] !== "ui-selected")
+			//			{
+			//				//add the string to existingClasses array. The last addition is an amalgamation of all classes, which is all I want
+			//				existingClasses.push(this.$refs[key].classList[c]);
+			//			}
+			//		}
+			//		
+			//		//pop off the amalgamation
+			//		existingClasses.pop();
+			//		var classList = "";
+			//		
+			//		for(var c in existingClasses)
+			//		{
+			//			classList += existingClasses[c] + ' ';
+			//		}
+			//		
+			//		this.$refs[key].classList = classList.trim();
+			//	}
+			//	for(var i = 0; i < this.$refs[1].classList.length; i++)
+			//	{
+			//		if(this.$refs[id].classList[i] !== undefined)
+			//		{
+			//			classesArray.push(this.$refs[id].classList[i]);
+			//		}
+			//	}
+			//	
+			//	if(!classesArray.includes("ui-selected"))
+			//	{
+			//		classesArray.push("ui-selected");										
+			//	}
+			//	else
+			//	{
+			//		classesArray.pop("ui-selected");
+			//	}
+			//	for(var i = 0; i < classesArray.length; i++)
+			//	{
+			//		classes = classes + ' ' + classesArray[i];
+			//	}
+			//	
+			//	event.target.className = classes;
+			//},
             getAbilityModifier: function($stat) {
                 if ($stat === '1') {
                     return -5;

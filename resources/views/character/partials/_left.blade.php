@@ -14,13 +14,13 @@
 		<hr class="spacer-small" />
 		<div id="selectable-race" class="clearfix selectable race-wrapper">
 			@foreach($races AS $race)
-				<button v-on:click="toggleActive" type="button" name="race" ref="{{$race->id}}" value="{{$race->id}}"
+				<button type="button" name="race" value="{{$race->id}}"
 				@if($race->subraces->count() > 0)
 					data-has-subrace="true" 
 				@else
 					data-has-subrace="false"
 				@endif
-				class="col-xs-6 tab-interactable @if(!is_null($character->race) AND $character->race->id === $race->id)ui-selected @endif">{{$race->name}}</button>
+				class="col-xs-6 tab-interactable ui-widget-content @if(!is_null($character->race) AND $character->race->id === $race->id)ui-selected @endif">{{$race->name}}</button>
 			@endforeach
 		</div>
 		
@@ -29,7 +29,7 @@
 			<h4 class="col-xs-offset-1"><i>select 1</i></h4>
 			<div id="selectable-sub-race" class="clearfix selectable">
 				@foreach($subraces AS $subrace)
-					<span data-parent-race="{{$subrace->parentRace->name}}" class="col-xs-6 tab-interactable @if(!is_null($character->subrace) AND $character->subrace->id === $subrace->id)ui-selected @endif">{{$subrace->name}}</span>
+					<button type="button" data-parent-race="{{$subrace->parentRace->name}}" class="col-xs-6 tab-interactable ui-widget-content @if(!is_null($character->subrace) AND $character->subrace->id === $subrace->id)ui-selected @endif">{{$subrace->name}}</span>
 				@endforeach
 			</div>
 		</div>
