@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Models\ClassProficiency;
+use App\Models\Skill;
 
 class ClassProficiencySeeder extends Seeder
 {
@@ -12,18 +13,20 @@ class ClassProficiencySeeder extends Seeder
 				"attribute" 	=> [1, 3],
 				"armor"			=> ["proficiencies" => [1, 2, 6], "armorIds" => []],
 				"weapon"		=> ["proficiencies" => [4, 5], "weaponIds" => []],
-				"skill"			=> [10, 1, 16, 8, 13, 14]
+				"skill"			=> [10, 1, 16, 8, 13, 14],
+				"tools"			=> []
 			],
 			"num_skills_granted" => 2
-		]
+		],
 		2 => [
 			'types' => [
-				"attribute" 	=> [1, 3],
+				"attribute" 	=> [2, 6],
 				"armor"			=> ["proficiencies" => [1], "armorIds" => []],
-				"weapon"		=> ["proficiencies" => [4], "weaponIds" => [19, ]],
-				"skill"			=> [10, 1, 16, 8, 13, 14]
+				"weapon"		=> ["proficiencies" => [4], "weaponIds" => [19, 35, 23, 25]],
+				"skill"			=> ["Any"],
+				"tools"			=> []
 			],
-			"num_skills_granted" => 2
+			"num_skills_granted" => 3
 		]
 	];
 	

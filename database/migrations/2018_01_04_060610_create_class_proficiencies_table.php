@@ -16,13 +16,13 @@ class CreateClassProficienciesTable extends Migration
         Schema::create('class_proficiencies', function (Blueprint $table) {
             $table->increments('id');
 			$table->string("type");
-			$table->integer("class_id")->nullable();
-			$table->integer("attribute_id")->nullable();
-			$table->integer("skill_id")->nullable();
-			$table->integer("num_skills_granted")->nullable();
-			$table->integer("weapon_id")->nullable();
-			$table->integer("armor_id")->nullable();
-			$table->integer("tool_id")->nullable();
+			$table->string("class_id")->nullable();
+			$table->string("attribute_id")->nullable();
+			$table->string("skill_id")->nullable();
+			$table->string("num_skills_granted")->nullable();
+			$table->string("weapon_id")->nullable();
+			$table->string("armor_id")->nullable();
+			$table->string("tool_id")->nullable();
             $table->timestamps();
         });
     }
