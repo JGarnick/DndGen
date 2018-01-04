@@ -268,4 +268,9 @@ class Character extends Model
 			return $this->skills()->where('name', $skill)->first()->bonus;
 		}
 	}
+	
+	public function getSavingThrows()
+	{
+		
+	}
 }

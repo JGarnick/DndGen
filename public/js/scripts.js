@@ -46,20 +46,6 @@ $(document).ready(function() {
 		$(this).addClass("ui-selected");
 	});
 	
-	//Vue.component('greeting', {
-	//	template: '<p>Hey there, I am a re-usable component with the name of {{name}}. <button v-on:click.prevent="changeName">Change Name</button></p>',
-	//	data: function(){
-	//		return {
-	//				name: "A component Name"
-	//		}
-	//	},
-	//	methods: {
-	//		changeName: function(){
-	//			this.name = 'Changed';
-	//		}
-	//	}
-	//});
-	
     new Vue({
         el: '#vue-1',
         data: {

@@ -16,7 +16,7 @@
 			<div class="col-xs-6">
 				@include('character.partials._left')
 			</div>
-			<div id="vue-1" class="col-xs-6 right section">
+			<div id="vue-1" class="col-xs-6 right section">			
 				@include('character.partials._right')
 			</div>
 		</form>
@@ -46,6 +46,13 @@
 	var darkvision 			= '{{$character->darkvision}}';
 	var passive_perception 	= '{{$character->passive_perception()}}';
 	var ac 					= '{{$character->getArmorClass()}}';
+	var speed 				= '{{$character->race->speed}}';
+	@if(is_null($character->race->darkvision))
+		var darkvision 		= 'No';
+	@else
+		var darkvision 		= '{{$character->race->darkvision}}ft';
+	@endif
+	
 	
 </script>  
 @endsection

@@ -37,11 +37,11 @@
 		<div class="col-xs-2 text-center">
 			<h3>CON</h3>
 			<h3 class="no-top">@{{constitution}}</h3>
-			<div><small>mod</small></div>			
+			<div><small>mod</small></div>
 			<div>
 				<small>
 					<span v-if="getAbilityModifier(constitution) > 0">+</span>
-					<span>@{{getAbilityModifier(constitution)}}</span>							
+					<span>@{{getAbilityModifier(constitution)}}</span>
 				</small>
 			</div>
 		</div>
@@ -128,7 +128,7 @@
 		<div class="col-xs-6 text-center">
 			<h3>Speed</h3>
 			<h4>
-				
+				@{{speed}}
 			</h4>
 		</div>
 		<div class="col-xs-6 text-center">
@@ -140,7 +140,7 @@
 		<div class="col-xs-6 text-center">
 			<h3>Darkvision</h3>
 			<h4>
-				
+				@{{darkvision}}
 			</h4>
 		</div>
 	</div>	
