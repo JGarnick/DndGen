@@ -16,6 +16,15 @@ class ClassProficiencySeeder extends Seeder
 			],
 			"num_skills_granted" => 2
 		]
+		2 => [
+			'types' => [
+				"attribute" 	=> [1, 3],
+				"armor"			=> ["proficiencies" => [1], "armorIds" => []],
+				"weapon"		=> ["proficiencies" => [4], "weaponIds" => []],
+				"skill"			=> [10, 1, 16, 8, 13, 14]
+			],
+			"num_skills_granted" => 2
+		]
 	];
 	
     /**
