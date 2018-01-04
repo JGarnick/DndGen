@@ -20,7 +20,7 @@ class ClassProficiencySeeder extends Seeder
 			'types' => [
 				"attribute" 	=> [1, 3],
 				"armor"			=> ["proficiencies" => [1], "armorIds" => []],
-				"weapon"		=> ["proficiencies" => [4], "weaponIds" => []],
+				"weapon"		=> ["proficiencies" => [4], "weaponIds" => [19, ]],
 				"skill"			=> [10, 1, 16, 8, 13, 14]
 			],
 			"num_skills_granted" => 2
