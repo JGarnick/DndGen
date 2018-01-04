@@ -1,23 +1,20 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Models\Classproficiency;
+use App\Models\ClassProficiency;
 
 class ClassProficiencySeeder extends Seeder
 {
 	//types = saving throw, weapon, armor, skill
 	private $proficiencies = [
-		'classes' => [
-			1 => [
-				'types' => [
-					"attributes"	=> [1, 3],
-					"saving throw" 	=> [1, 2],
-					"armors"		=> ["Light", "Medium", "Shields"],
-					"weapons"		=> ["Simple", "Martial"],
-					"skills"		=> [10, 1, 16, 8, 13, 14]
-				],
-				"num_skills_granted" => 2
-			]
+		1 => [
+			'types' => [
+				"attribute" 	=> [1, 3],
+				"armor"			=> ["proficiencies" => [1, 2, 6], "armorIds" => []],
+				"weapon"		=> ["proficiencies" => [4, 5], "weaponIds" => []],
+				"skill"			=> [10, 1, 16, 8, 13, 14]
+			],
+			"num_skills_granted" => 2
 		]
 	];
 	
@@ -27,23 +24,94 @@ class ClassProficiencySeeder extends Seeder
      * @return void
      */
     public function run()
-    {
-		foreach($this->proficiencies AS $cl)
+    {		
+		foreach($this->proficiencies AS $clID => $clContent)
 		{
-			//$cl = 1
-			foreach($cl AS $el)
-			{				
-				foreach($el AS $key => $val)
+			//$clID = 1
+			foreach($clContent AS $el => $subEl)
+			{
+				//$el = "types" or "num_skills_granted"				
+				if($el === "types")
+				{					
+					foreach($subEl AS $key => $valArray) //key = "saving throw" or "armor" etc.
+					{
+						if($key === "armor" OR $key === "weapon")
+						{							
+							foreach($valArray AS $k => $newValArray)
+							{
+								if(!empty($newValArray))
+								{
+									if($k === "proficiencies")
+									{
+										foreach($newValArray AS $v)
+										{
+											ClassProficiency::create([
+												"type"				=> $key,
+												"class_id"			=> $clID,
+												"proficiency_id"	=> $v
+											]);
+										}
+									}
+									
+									if($k === "armorIds")
+									{
+										foreach($newValArray AS $v)
+										{
+											ClassProficiency::create([
+												"type"				=> $key,
+												"class_id"			=> $clID,
+												"armor_id"			=> $v
+											]);
+										}
+									}
+									
+									if($k === "weaponIds")
+									{
+										foreach($newValArray AS $v)
+										{
+											ClassProficiency::create([
+												"type"				=> $key,
+												"class_id"			=> $clID,
+												"weapon_id"			=> $v
+											]);
+										}
+									}
+								}
+							}
+						}
+						else
+						{
+							foreach($valArray AS $val)
+							{
+								$identifier = $key . "_id"; //attribute_id, skill_id, etc.
+								if($key === "attribute")
+								{
+									$type = "saving throw";									
+									ClassProficiency::create([
+										"type"		=> "saving throw",
+										"class_id"	=> $clID,
+										$identifier	=> $val
+									]);									
+								}
+								else
+								{
+									ClassProficiency::create([
+										"type"		=> $key,
+										"class_id"	=> $clID,
+										$identifier	=> $val
+									]);
+								}
+							}
+						}
+					}
+				}
+				elseif($el === "num_skills_granted")
 				{
-					//$key = "types" or "num_skills_granted"
-					if($key === "types")
-					{
-						
-					}
-					elseif($key === "num_skills_granted")
-					{
-						dd("num skills granted");
-					}
+					ClassProficiency::create([
+						"type"					=> "num_skills_granted",
+						"class_id"				=> $clID,
+						"num_skills_granted"	=> $subEl
+					]);
 				}
 			}
 		}

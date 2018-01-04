@@ -268,14 +268,27 @@ class GenericSeeder extends Seeder
 			"amount"	=> 1,
 		],
 	];
+	
+	private $proficiencies = [
+		"Light Armor",
+		"Medium Armor",
+		"Heavy Armor",
+		"Simple Weapons",
+		"Martial Weapons",
+		"Shields",
+	];
     /**
      * Run the database seeds.
      *
      * @return void
      */
     public function run()
-    {       
-        
+    {
+        foreach($this->proficiencies AS $p)
+		{
+			DB::table('proficiencies')->insert(["name" => $p]);
+		}
+		
 		foreach($this->races AS $race)
 		{
 			DB::table('races')->insert($race);
