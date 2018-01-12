@@ -52,7 +52,9 @@
 	@else
 		var darkvision 		= '{{$character->race->darkvision}}ft';
 	@endif
+	var saving_throws		= @json($character->getSavingThrows());
 	
+	console.log(saving_throws);
 	
 </script>  
 @endsection

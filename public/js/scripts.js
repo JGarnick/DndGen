@@ -61,6 +61,7 @@ $(document).ready(function() {
 			speed: 				window.speed,
 			darkvision: 		window.darkvision,
 			ac:					window.ac,
+			saving_throws:		window.saving_throws,
         },
         methods: {
 			//toggleActive: function(event){

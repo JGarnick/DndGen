@@ -136,12 +136,18 @@
 		<div class="col-xs-6 text-center">
 			<h3>Saving Throws</h3>
 			<h4>
-				@foreach($character->getSavingThrows() AS $att => $amount)
+				<div style="width:50%;margin:0 auto;">
+					<div v-for="(item, index) in saving_throws">
+						<span class="col-xs-6">@{{index}}</span>
+						<span class="col-xs-6">@{{item}}</span>
+					</div>					
+				</div>				
+				{{--@foreach($character->getSavingThrows() AS $att => $amount)
 					<div class="clearfix" style="width:50%;margin:0 auto;">
 						<span class="col-xs-6">{{$att}}</span>
 						<span class="col-xs-6">{{$amount}}</span>
 					</div>
-				@endforeach
+				@endforeach--}}
 			</h4>
 		</div>
 		<div class="col-xs-6 text-center">
