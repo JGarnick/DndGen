@@ -8,6 +8,7 @@ use App\Models\Armor;
 use App\Models\Skill;
 use App\Models\Background;
 use App\Models\CharacterClass;
+use App\Models\ClassProficiency;
 use App\Models\Race;
 use App\Models\Subrace;
 use App\User;
@@ -33,9 +34,9 @@ class Character extends Model
 		return $this->race->speed;
 	}
 	
-	public function class()
+	public function char_class()
 	{
-		return $this->belongsTo(CharacterClass::class);
+		return $this->belongsTo(CharacterClass::class, "class_id");
 	}
 	
 	public function background()
@@ -269,8 +270,42 @@ class Character extends Model
 		}
 	}
 	
+	public function proficiencies()
+	{
+		return $this->hasMany(ClassProficiency::class);
+	}
+	
+	public function char_attributes()
+	{
+		$attributes = [
+			Attribute::find(1)->name 	=> $this->strength,
+			Attribute::find(2)->name	=> $this->dexterity,
+			Attribute::find(3)->name	=> $this->constitution,
+			Attribute::find(4)->name	=> $this->wisdom,
+			Attribute::find(5)->name	=> $this->intelligence,
+			Attribute::find(6)->name	=> $this->charisma
+		];
+		
+		return $attributes;
+	}
+	
 	public function getSavingThrows()
 	{
+		//return an array of all the stats, and they are either 0 + mod, or 0 + mod + prof bonus
+		$saves = [];		
 		
+		foreach ($this->char_attributes() AS $key => $val)
+		{			
+			if($this->char_class->saving_throws()->contains($key))
+			{
+				$saves[$key] = $this->prof_bonus() + $this->getAbilityModifier($val);
+			}
+			else
+			{
+				$saves[$key] = $this->getAbilityModifier($val);
+			}
+		}
+
+		return $saves;
 	}
 }

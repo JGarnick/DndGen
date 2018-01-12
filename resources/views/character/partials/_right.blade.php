@@ -119,8 +119,10 @@
 			<div class="row">
 				<div class="skills-wrapper">
 					@foreach($skills AS $skill)
-						<div><span class="col-xs-9">{{$skill->name}}({{$skill->getAbbr()}}) </span>
-						<span class="col-xs-3">0</span></div>
+						<div>
+							<span class="col-xs-9">{{$skill->name}}({{$skill->getAbbr()}}) </span>
+							<span class="col-xs-3">0</span>
+						</div>
 					@endforeach
 				</div>
 			</div>
@@ -134,7 +136,12 @@
 		<div class="col-xs-6 text-center">
 			<h3>Saving Throws</h3>
 			<h4>
-				
+				@foreach($character->getSavingThrows() AS $att => $amount)
+					<div class="clearfix" style="width:50%;margin:0 auto;">
+						<span class="col-xs-6">{{$att}}</span>
+						<span class="col-xs-6">{{$amount}}</span>
+					</div>
+				@endforeach
 			</h4>
 		</div>
 		<div class="col-xs-6 text-center">

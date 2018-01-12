@@ -52,6 +52,7 @@ class CharacterService
 		$character->class_id		= 1;
 		$character->hp_max			= 12;
 		$character->hp_current		= 12;
+		$character->getSavingThrows();
 		
 		return [
 			"character" 	=> $character,
