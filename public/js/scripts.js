@@ -62,6 +62,7 @@ $(document).ready(function() {
 			darkvision: 		window.darkvision,
 			ac:					window.ac,
 			saving_throws:		window.saving_throws,
+			skills:				window.skills,
         },
         methods: {
 			//toggleActive: function(event){

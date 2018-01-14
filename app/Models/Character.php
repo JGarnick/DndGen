@@ -26,7 +26,7 @@ class Character extends Model
 	
 	public function skills()
 	{
-		return $this->belongsToMany(Skill::class, 'character_skills', 'character_id', 'skill_id');
+		return $this->belongsToMany(Skill::class, 'character_skills');
 	}
 	
 	public function speed()
@@ -270,6 +270,33 @@ class Character extends Model
 		}
 	}
 	
+	public function getSkills()
+	{		
+		$returnMe = [];
+		$skills = [];
+		
+		if(!$this->skills->isEmpty())
+		{
+			$skills = $this->skills;
+		}
+		else
+		{
+			$skills = Skill::all();
+		}
+		
+		foreach($skills AS $skill)
+		{
+			$stat = strtolower($skill->attribute); //get associated attribute
+			$att_abbr = Attribute::where("name", $skill->attribute)->first()->abbr;
+			$bonus = $this->getAbilityModifier($this[$stat]); //get the character's modifier for that attribute
+			$returnMe[$skill->name . "(" . $att_abbr . ")"] = $bonus; //reassign the skill to the skills array
+		}
+		//TODO account for proficiencies
+		
+		
+		return $returnMe;
+	}
+	
 	public function proficiencies()
 	{
 		return $this->hasMany(ClassProficiency::class);
@@ -278,12 +305,12 @@ class Character extends Model
 	public function char_attributes()
 	{
 		$attributes = [
-			Attribute::find(1)->name 	=> $this->strength,
-			Attribute::find(2)->name	=> $this->dexterity,
-			Attribute::find(3)->name	=> $this->constitution,
-			Attribute::find(4)->name	=> $this->wisdom,
-			Attribute::find(5)->name	=> $this->intelligence,
-			Attribute::find(6)->name	=> $this->charisma
+			Attribute::find(1)->name => $this->strength,
+			Attribute::find(2)->name => $this->dexterity,
+			Attribute::find(3)->name => $this->constitution,
+			Attribute::find(4)->name => $this->wisdom,
+			Attribute::find(5)->name => $this->intelligence,
+			Attribute::find(6)->name => $this->charisma
 		];
 		
 		return $attributes;

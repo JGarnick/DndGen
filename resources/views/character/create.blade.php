@@ -53,8 +53,8 @@
 		var darkvision 		= '{{$character->race->darkvision}}ft';
 	@endif
 	var saving_throws		= @json($character->getSavingThrows());
-	
-	console.log(saving_throws);
+	var skills				= @json($character->getSkills());
+	console.log(skills);
 	
 </script>  
 @endsection

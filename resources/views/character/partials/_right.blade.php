@@ -118,12 +118,16 @@
 			<h3>Skills</h3>
 			<div class="row">
 				<div class="skills-wrapper">
-					@foreach($skills AS $skill)
+					<div v-for="(val, key) in skills">
+						<span class="col-xs-9">@{{key}} </span>
+						<span class="col-xs-3">@{{val}}</span>
+					</div>
+					{{--@foreach($skills AS $skill)
 						<div>
 							<span class="col-xs-9">{{$skill->name}}({{$skill->getAbbr()}}) </span>
 							<span class="col-xs-3">0</span>
 						</div>
-					@endforeach
+					@endforeach--}}
 				</div>
 			</div>
 		</div>
