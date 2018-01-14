@@ -39,7 +39,7 @@ $(document).ready(function() {
     showHideSubraces();
 	
 	$('#selectable-sub-race button').on("click", function(){
-		$('#selectable-race button').each(function(){
+		$('#selectable-sub-race button').each(function(){
 			$(this).removeClass('ui-selected');
 		});
 		
