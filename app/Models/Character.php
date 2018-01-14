@@ -298,6 +298,7 @@ class Character extends Model
 			$att_abbr 				= Attribute::where("name", $skill->attribute)->first()->abbr;
 			$base 					= $this->getAbilityModifier($this[strtolower($stat)]); //get the character's modifier for that attribute
 			$total 					= $base;
+			$operator				= "";
 			$skill_proficiencies 	= $this->skills()->wherePivot("proficient", 1)->get();
 			
 			if($skill_proficiencies->contains($skill))
@@ -305,12 +306,23 @@ class Character extends Model
 				$total = $base + $this->getSkillBonus($skill);
 			}
 			
+			if($total > 0)
+			{
+				$operator = "+";
+			}
+			
+			if($total < 0)
+			{
+				$operator = "-";
+			}
+			
 			$content = [
-				"name"	=> $skill->name,
-				"att"	=> $stat,
-				"abbr"	=> $att_abbr,
-				"base"	=> $base,
-				"total"	=> $total
+				"name"		=> $skill->name,
+				"att"		=> $stat,
+				"abbr"		=> $att_abbr,
+				"base"		=> $base,
+				"total"		=> $total,
+				"operator" 	=> $operator
 			];
 			
 			array_push($returnMe, $content);
@@ -358,14 +370,26 @@ class Character extends Model
 			$base 				= $this->getAbilityModifier($this->char_attributes()[$att->name]);
 			$total 				= $base;
 			$save_proficiencies = $this->saving_throws()->wherePivot("proficient", 1)->get();
+			$operator			= "";
 			if($save_proficiencies->contains($att))
 			{
 				$total = $base + $this->prof_bonus();
 			}
 			
+			if($total > 0)
+			{
+				$operator = "+";
+			}
+			
+			if($total < 0)
+			{
+				$operator = "-";
+			}
+			
 			$content = [
-				"name"	=> $att->name,
-				"total"	=> $total
+				"name"		=> $att->name,
+				"total"		=> $total,
+				"operator"	=> $operator
 			];
 			
 			array_push($returnMe, $content);
@@ -376,6 +400,35 @@ class Character extends Model
 	
 	public function getAbilityScores()
 	{
+		$returnMe 	= [];
+		$atts	 	= Attribute::all();
 		
+		foreach($atts AS $att)
+		{			
+			$amount					= $this[strtolower($att->name)];
+			$mod 					= $this->getAbilityModifier($this[strtolower($att->name)]);			
+			$operator				= "";
+			
+			if($mod > 0)
+			{
+				$operator = "+";
+			}
+			
+			if($mod < 0)
+			{
+				$operator = "-";
+			}
+			
+			$content = [								
+				"abbr"		=> strtoupper($att->abbr),
+				"amount"	=> $amount,
+				"mod"		=> $mod,
+				"operator" 	=> $operator
+			];
+			
+			array_push($returnMe, $content);
+		}
+				
+		return $returnMe;
 	}
 }

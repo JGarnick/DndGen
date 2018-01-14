@@ -55,7 +55,8 @@
 	@endif
 	var saving_throws		= @json($character->getSavingThrows());
 	var skills				= @json($character->getSkills());
-	console.log(skills);
+	var ability_scores		= @json($character->getAbilityScores());
+	console.log(char_attributes);
 	
 </script>  
 @endsection

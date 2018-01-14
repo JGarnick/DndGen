@@ -9,84 +9,18 @@
 	</ul>
 	<div id="tab-right-1" class="row">
 		<h4 class="text-center">Ability Scores</h4>
-		<div class="col-xs-2 text-center">
-			<h3>STR</h3>
-			<h3 class="no-top">@{{strength}}</h3>
+		<div v-for="score in ability_scores" class="col-xs-2 text-center">
+			<h3>@{{score.abbr}}</h3>
+			<h3 class="no-top">@{{score.amount}}</h3>
 			<div><small>mod</small></div>
 			<div>
 				<small>
-					@if($character->getAbilityModifier($character->strength) > 0)
-						+{{$character->getAbilityModifier($character->strength)}}
-					@else
-						{{$character->getAbilityModifier($character->strength)}}
-					@endif
+					@{{score.operator}}@{{score.mod}}
 				</small>
 			</div>
 		</div>
-		<div class="col-xs-2 text-center">
-			<h3>DEX</h3>
-			<h3 class="no-top">@{{dexterity}}</h3>
-			<div><small>mod</small></div>
-			<div>
-				<small>
-				<span v-if="getAbilityModifier(dexterity) > 0">+</span>
-				<span>@{{getAbilityModifier(dexterity)}}</span>
-				</small>
-			</div>
-		</div>
-		<div class="col-xs-2 text-center">
-			<h3>CON</h3>
-			<h3 class="no-top">@{{constitution}}</h3>
-			<div><small>mod</small></div>
-			<div>
-				<small>
-					<span v-if="getAbilityModifier(constitution) > 0">+</span>
-					<span>@{{getAbilityModifier(constitution)}}</span>
-				</small>
-			</div>
-		</div>
-		<div class="col-xs-2 text-center">
-			<h3>WIS</h3>
-			<h3 class="no-top">{{$character->wisdom}}</h3>
-			<div><small>mod</small></div>
-			<div>
-				<small>
-					@if($character->getAbilityModifier($character->wisdom) > 0)
-						+{{$character->getAbilityModifier($character->wisdom)}}
-					@else
-						{{$character->getAbilityModifier($character->wisdom)}}
-					@endif
-				</small>
-			</div>
-		</div>
-		<div class="col-xs-2 text-center">
-			<h3>INT</h3>
-			<h3 class="no-top">{{$character->intelligence}}</h3>
-			<div><small>mod</small></div>
-			<div>
-				<small>
-					@if($character->getAbilityModifier($character->intelligence) > 0)
-						+{{$character->getAbilityModifier($character->intelligence)}}
-					@else
-						{{$character->getAbilityModifier($character->intelligence)}}
-					@endif
-				</small>
-			</div>
-		</div>
-		<div class="col-xs-2 text-center">
-			<h3>CHA</h3>
-			<h3 class="no-top">{{$character->charisma}}</h3>
-			<div><small>mod</small></div>
-			<div>
-				<small>
-					@if($character->getAbilityModifier($character->charisma) > 0)
-						+{{$character->getAbilityModifier($character->charisma)}}
-					@else
-						{{$character->getAbilityModifier($character->charisma)}}
-					@endif
-				</small>
-			</div>
-		</div>
+		
+		
 		<hr class="spacer small" />
 		<div class="col-xs-6 text-center">
 			<h3>Proficiency Bonus</h3>
@@ -118,7 +52,7 @@
 				<div class="skills-wrapper">
 					<div v-for="skill in skills">
 						<span class="col-xs-9">@{{skill.name}}(@{{skill.abbr}})</span>
-						<span class="col-xs-3">@{{skill.total}}</span>
+						<span class="col-xs-3">@{{skill.operator}}@{{skill.total}}</span>
 					</div>
 				</div>
 			</div>
@@ -135,7 +69,7 @@
 				<div style="width:50%;margin:0 auto;">
 					<div v-for="save in saving_throws">
 						<span class="col-xs-6">@{{save.name}}</span>
-						<span class="col-xs-6">@{{save.total}}</span>
+						<span class="col-xs-6">@{{save.operator}}@{{save.total}}</span>
 					</div>					
 				</div>								
 			</h4>
