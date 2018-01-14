@@ -13,29 +13,22 @@
 			<div class="col-xs-offset-11 col-xs-1">
 				<input type="submit" value="Save" />
 			</div>
-			<div class="col-xs-6">
-				@include('character.partials._left')
-			</div>
-			<div id="vue-1" class="col-xs-6 right section">			
-				@include('character.partials._right')
+			<div id="vue-1">
+				<div class="col-xs-6">
+					@include('character.partials._left')
+				</div>
+				<div class="col-xs-6 right section">			
+					@include('character.partials._right')
+				</div>
 			</div>
 		</form>
 	</div>
 	<hr class="spacer small" />
 </div> 
-<script>
-	
+<script>	
 	var name 				= '{{$character->name}}';
-	@if(!is_null($character->race))
-		var race 			= '{{$character->race->name}}';
-	@else
-		var race 			= '';
-	@endif
-	@if(!is_null($character->class))
-		var char_class 		= '{{$character->class->name}}';
-	@else
-		var char_class 		= '';
-	@endif
+	var race 				= '{{$character->race->name}}';
+	var char_class 			= '{{$character->char_class->name}}';
 	var subrace 			= '{{$character->subrace}}';
 	var strength 			= '{{$character->strength}}';
 	var dexterity 			= '{{$character->dexterity}}';
@@ -56,7 +49,6 @@
 	var saving_throws		= @json($character->getSavingThrows());
 	var skills				= @json($character->getSkills());
 	var ability_scores		= @json($character->getAbilityScores());
-	
 	
 </script>  
 @endsection

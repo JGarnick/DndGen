@@ -1,53 +1,56 @@
 $(document).ready(function() {
-    $('#character-table').DataTable({});
-
-    $('#left-tabs').tabs({
-        active: 0,
-    });
-    $('#right-tabs').tabs({
-        active: 0,
-    });
-
-    $('#selectable-race button').on("click", function(){
-		$('#selectable-race button').each(function(){
-			$(this).removeClass('ui-selected');
-		});
-		
-		$(this).addClass("ui-selected");
-		showHideSubraces();
-	});
-        
-	
-    function showHideSubraces() {
-        var race = $('.ui-selected')[0].innerText;
-		
-        if ($($('.ui-selected')[0]).attr('data-has-subrace') === 'true') {
-            $('.subrace-wrapper').show();
     
-            $('#selectable-sub-race button').each(function() {
-                if ($(this).attr('data-parent-race') == race) {
-                    $(this).show();
-                } else {
-                    $(this).hide();
-                }
-            });
-        } else {
-            $('.subrace-wrapper').hide();
-        }
-    };
-	
-    showHideSubraces();
-	
-	$('#selectable-sub-race button').on("click", function(){
-		$('#selectable-sub-race button').each(function(){
-			$(this).removeClass('ui-selected');
-		});
-		
-		$(this).addClass("ui-selected");
+	Vue.component("greeting", {
+		template: "<h1>Welcome Message!</h1>"
 	});
-	
     new Vue({
         el: '#vue-1',
+		mounted: function(){
+			$('#character-table').DataTable({});
+
+			$('#left-tabs').tabs({
+				active: 0,
+			});
+			$('#right-tabs').tabs({
+				active: 0,
+			});
+
+			$('#selectable-race button').on("click", function(){
+				$('#selectable-race button').each(function(){
+					$(this).removeClass('ui-selected');
+				});		
+				$(this).addClass("ui-selected");
+				showHideSubraces();
+			});
+				
+			
+			function showHideSubraces() {
+				var race = $('.ui-selected')[0].innerText;
+				if ($($('.ui-selected')[0]).attr('data-has-subrace') === 'true') {
+					$('.subrace-wrapper').show();
+			
+					$('#selectable-sub-race button').each(function() {
+						if ($(this).attr('data-parent-race') == race) {
+							$(this).show();
+						} else {
+							$(this).hide();
+						}
+					});
+				} else {
+					$('.subrace-wrapper').hide();
+				}
+			};
+			
+			showHideSubraces();
+			
+			$('#selectable-sub-race button').on("click", function(){
+				$('#selectable-sub-race button').each(function(){
+					$(this).removeClass('ui-selected');
+				});
+				
+				$(this).addClass("ui-selected");
+			});
+		},
         data: {
             name: 				window.name,
             char_class: 		window.char_class,
@@ -67,6 +70,9 @@ $(document).ready(function() {
 			ability_scores:		window.ability_scores,
         },
         methods: {
+			changeRace: function(event){
+				this.race = event.target.innerText;
+			},
 			//toggleActive: function(event){
 			//	var id = event.target.value;
 			//	var classesArray = [];

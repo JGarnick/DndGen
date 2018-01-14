@@ -14,13 +14,14 @@
 		<hr class="spacer-small" />
 		<div id="selectable-race" class="clearfix selectable race-wrapper">
 			@foreach($races AS $race)
-				<button type="button" name="race" value="{{$race->id}}"
-				@if($race->subraces->count() > 0)
-					data-has-subrace="true" 
-				@else
-					data-has-subrace="false"
-				@endif
-				class="col-xs-6 tab-interactable ui-widget-content @if(!is_null($character->race) AND $character->race->id === $race->id)ui-selected @endif">{{$race->name}}</button>
+				<button type="button" name="race" value="{{$race->id}}" v-on:click="changeRace"
+					@if($race->subraces->count() > 0)
+						data-has-subrace="true"
+					@else
+						data-has-subrace="false"
+					@endif
+					class="col-xs-6 tab-interactable ui-widget-content @if(!is_null($character->race) AND $character->race->id === $race->id)ui-selected @endif">{{$race->name}}
+				</button>
 			@endforeach
 		</div>
 		
