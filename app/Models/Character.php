@@ -26,7 +26,7 @@ class Character extends Model
 	
 	public function skills()
 	{
-		return $this->belongsToMany(Skill::class, 'character_skills');
+		return $this->belongsToMany(Skill::class, 'character_skills')->withPivot("proficient", "bonus");
 	}
 	
 	public function speed()
@@ -255,19 +255,30 @@ class Character extends Model
 	
 	public function passive_perception()
 	{
-		if(!is_null($this->getSkill('Perception')))
+		if(!is_null($this->getSkillBonus('Perception')))
 		{
-			return 10 + $this->getSkill('Perception');
+			return 10 + $this->getSkillBonus('Perception');
 		}
 		return 10;
 	}
 	
-	public function getSkill($skill)
-	{
+	public function getSkillBonus($skill)
+	{						
 		if($this->skills->count() > 0)
 		{
-			return $this->skills()->where('name', $skill)->first()->bonus;
+			if(gettype($skill) === "string")
+			{
+				$skill = Skill::where("name", $skill)->get();				
+			}
+			
+			if(!$skill instanceof Skill)
+			{
+				return false;
+			}
+			
+			return $this->skills()->wherePivot('skill_id', $skill->id)->first()->pivot->bonus;
 		}
+		return false;
 	}
 	
 	public function getSkills()
@@ -286,14 +297,27 @@ class Character extends Model
 		
 		foreach($skills AS $skill)
 		{
-			$stat = strtolower($skill->attribute); //get associated attribute
+			$stat = $skill->attribute; //get associated attribute
 			$att_abbr = Attribute::where("name", $skill->attribute)->first()->abbr;
-			$bonus = $this->getAbilityModifier($this[$stat]); //get the character's modifier for that attribute
-			$returnMe[$skill->name . "(" . $att_abbr . ")"] = $bonus; //reassign the skill to the skills array
+			$base = $this->getAbilityModifier($this[strtolower($stat)]); //get the character's modifier for that attribute
+
+			$skill_proficiencies = Character::find(1)->skills()->wherePivot("proficient", 1)->get();
+			if($skill_proficiencies->contains($skill))
+			{				
+				$total = $base + Character::find(1)->getSkillBonus($skill);				
+			}
+			
+			$content = [
+				"name"	=> $skill->name,
+				"att"	=> $stat,
+				"abbr"	=> $att_abbr,
+				"base"	=> $base,
+				"total"	=> $bonus
+			];
+			
+			array_push($returnMe, $content);
 		}
-		//TODO account for proficiencies
-		
-		
+				
 		return $returnMe;
 	}
 	
@@ -319,6 +343,21 @@ class Character extends Model
 	public function getSavingThrows()
 	{
 		//return an array of all the stats, and they are either 0 + mod, or 0 + mod + prof bonus
+		
+		$returnMe = [];
+		$saves = [];
+		
+		$content = [
+				"name"	=> $skill->name,
+				"att"	=> $stat,
+				"abbr"	=> $att_abbr,
+				"base"	=> $base,
+				"total"	=> $bonus
+			];
+			
+			array_push($returnMe, $content);
+		
+		
 		$saves = [];		
 		
 		foreach ($this->char_attributes() AS $key => $val)

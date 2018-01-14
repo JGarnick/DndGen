@@ -91,15 +91,13 @@
 		<div class="col-xs-6 text-center">
 			<h3>Proficiency Bonus</h3>
 			<h4>
-				@if($character->prof_bonus() > 0)
-					+{{$character->prof_bonus()}}
-				@endif
+				<span v-if="proficiency_bonus > 0">+</span>@{{proficiency_bonus}}
 			</h4>
 		</div>
 		<div class="col-xs-6 text-center">
 			<h3>Armor Class</h3>
 			<h4>
-				{{$character->getArmorClass()}}
+				@{{ac}}
 			</h4>
 		</div>
 		<div class="col-xs-6 text-center">
@@ -118,16 +116,10 @@
 			<h3>Skills</h3>
 			<div class="row">
 				<div class="skills-wrapper">
-					<div v-for="(val, key) in skills">
-						<span class="col-xs-9">@{{key}} </span>
-						<span class="col-xs-3">@{{val}}</span>
+					<div v-for="skill in skills">
+						<span class="col-xs-9">@{{skill.name}}(@{{skill.abbr}})</span>
+						<span class="col-xs-3">@{{skill.total}}</span>
 					</div>
-					{{--@foreach($skills AS $skill)
-						<div>
-							<span class="col-xs-9">{{$skill->name}}({{$skill->getAbbr()}}) </span>
-							<span class="col-xs-3">0</span>
-						</div>
-					@endforeach--}}
 				</div>
 			</div>
 		</div>
@@ -145,13 +137,7 @@
 						<span class="col-xs-6">@{{index}}</span>
 						<span class="col-xs-6">@{{item}}</span>
 					</div>					
-				</div>				
-				{{--@foreach($character->getSavingThrows() AS $att => $amount)
-					<div class="clearfix" style="width:50%;margin:0 auto;">
-						<span class="col-xs-6">{{$att}}</span>
-						<span class="col-xs-6">{{$amount}}</span>
-					</div>
-				@endforeach--}}
+				</div>								
 			</h4>
 		</div>
 		<div class="col-xs-6 text-center">

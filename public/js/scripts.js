@@ -63,6 +63,7 @@ $(document).ready(function() {
 			ac:					window.ac,
 			saving_throws:		window.saving_throws,
 			skills:				window.skills,
+			proficiency_bonus:	window.proficiency_bonus,
         },
         methods: {
 			//toggleActive: function(event){

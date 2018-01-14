@@ -47,6 +47,7 @@
 	var passive_perception 	= '{{$character->passive_perception()}}';
 	var ac 					= '{{$character->getArmorClass()}}';
 	var speed 				= '{{$character->race->speed}}';
+	var proficiency_bonus	= '{{$character->prof_bonus()}}';
 	@if(is_null($character->race->darkvision))
 		var darkvision 		= 'No';
 	@else
