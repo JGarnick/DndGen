@@ -133,9 +133,9 @@
 			<h3>Saving Throws</h3>
 			<h4>
 				<div style="width:50%;margin:0 auto;">
-					<div v-for="(item, index) in saving_throws">
-						<span class="col-xs-6">@{{index}}</span>
-						<span class="col-xs-6">@{{item}}</span>
+					<div v-for="save in saving_throws">
+						<span class="col-xs-6">@{{save.name}}</span>
+						<span class="col-xs-6">@{{save.total}}</span>
 					</div>					
 				</div>								
 			</h4>

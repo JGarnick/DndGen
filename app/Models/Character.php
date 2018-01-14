@@ -283,28 +283,26 @@ class Character extends Model
 	
 	public function getSkills()
 	{		
-		$returnMe = [];
-		$skills = [];
+		$returnMe 	= [];
+		$skills 	= Skill::all();
 		
 		if(!$this->skills->isEmpty())
 		{
 			$skills = $this->skills;
-		}
-		else
-		{
-			$skills = Skill::all();
-		}
+			return $skill;
+		}		
 		
 		foreach($skills AS $skill)
 		{
-			$stat = $skill->attribute; //get associated attribute
-			$att_abbr = Attribute::where("name", $skill->attribute)->first()->abbr;
-			$base = $this->getAbilityModifier($this[strtolower($stat)]); //get the character's modifier for that attribute
-
-			$skill_proficiencies = Character::find(1)->skills()->wherePivot("proficient", 1)->get();
+			$stat 					= $skill->attribute; //get associated attribute
+			$att_abbr 				= Attribute::where("name", $skill->attribute)->first()->abbr;
+			$base 					= $this->getAbilityModifier($this[strtolower($stat)]); //get the character's modifier for that attribute
+			$total 					= $base;
+			$skill_proficiencies 	= $this->skills()->wherePivot("proficient", 1)->get();
+			
 			if($skill_proficiencies->contains($skill))
 			{				
-				$total = $base + Character::find(1)->getSkillBonus($skill);				
+				$total = $base + $this->getSkillBonus($skill);
 			}
 			
 			$content = [
@@ -312,7 +310,7 @@ class Character extends Model
 				"att"	=> $stat,
 				"abbr"	=> $att_abbr,
 				"base"	=> $base,
-				"total"	=> $bonus
+				"total"	=> $total
 			];
 			
 			array_push($returnMe, $content);
@@ -328,50 +326,56 @@ class Character extends Model
 	
 	public function char_attributes()
 	{
-		$attributes = [
+		$attributes = Collect([
 			Attribute::find(1)->name => $this->strength,
 			Attribute::find(2)->name => $this->dexterity,
 			Attribute::find(3)->name => $this->constitution,
 			Attribute::find(4)->name => $this->wisdom,
 			Attribute::find(5)->name => $this->intelligence,
 			Attribute::find(6)->name => $this->charisma
-		];
+		]);
 		
 		return $attributes;
 	}
 	
+	public function saving_throws()
+	{
+		return $this->belongsToMany(Attribute::class, "char_saves")->withPivot("proficient", "bonus");
+	}
+	
 	public function getSavingThrows()
 	{
-		//return an array of all the stats, and they are either 0 + mod, or 0 + mod + prof bonus
+		$returnMe 		= [];
+		$attributes 	= Attribute::all();
 		
-		$returnMe = [];
-		$saves = [];
+		if(!$this->saving_throws->isEmpty())
+		{
+			return $this->saving_throws;
+		}
 		
-		$content = [
-				"name"	=> $skill->name,
-				"att"	=> $stat,
-				"abbr"	=> $att_abbr,
-				"base"	=> $base,
-				"total"	=> $bonus
+		foreach($attributes AS $att)
+		{
+			$base 				= $this->getAbilityModifier($this->char_attributes()[$att->name]);
+			$total 				= $base;
+			$save_proficiencies = $this->saving_throws()->wherePivot("proficient", 1)->get();
+			if($save_proficiencies->contains($att))
+			{
+				$total = $base + $this->prof_bonus();
+			}
+			
+			$content = [
+				"name"	=> $att->name,
+				"total"	=> $total
 			];
 			
 			array_push($returnMe, $content);
-		
-		
-		$saves = [];		
-		
-		foreach ($this->char_attributes() AS $key => $val)
-		{			
-			if($this->char_class->saving_throws()->contains($key))
-			{
-				$saves[$key] = $this->prof_bonus() + $this->getAbilityModifier($val);
-			}
-			else
-			{
-				$saves[$key] = $this->getAbilityModifier($val);
-			}
 		}
 
-		return $saves;
+		return $returnMe;
+	}
+	
+	public function getAbilityScores()
+	{
+		
 	}
 }
