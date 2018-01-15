@@ -30,7 +30,7 @@
 			<h4 class="col-xs-offset-1"><i>select 1</i></h4>
 			<div id="selectable-sub-race" class="clearfix selectable">
 				@foreach($subraces AS $subrace)
-					<button type="button" data-parent-race="{{$subrace->parentRace->name}}" class="col-xs-6 tab-interactable ui-widget-content @if(!is_null($character->subrace) AND $character->subrace->id === $subrace->id)ui-selected @endif">{{$subrace->name}}</span>
+					<button v-on:click="changeSubRace" type="button" data-parent-race="{{$subrace->parentRace->name}}" class="col-xs-6 tab-interactable ui-widget-content @if(!is_null($character->subrace) AND $character->subrace->id === $subrace->id)ui-selected @endif">{{$subrace->name}}</span>
 				@endforeach
 			</div>
 		</div>

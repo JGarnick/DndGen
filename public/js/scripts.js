@@ -3,7 +3,7 @@ $(document).ready(function() {
 	Vue.component("greeting", {
 		template: "<h1>Welcome Message!</h1>"
 	});
-    new Vue({
+    var app = new Vue({
         el: '#vue-1',
 		mounted: function(){
 			$('#character-table').DataTable({});
@@ -50,9 +50,14 @@ $(document).ready(function() {
 				
 				$(this).addClass("ui-selected");
 			});
+			
+			$.each(this.ability_scores, function(index){
+				$("#character-inputs").append("<input type='text' name='" + this.abbr + "' :value='ability_scores[" + index + "].amount' />");
+			});
+			console.log(this.ability_scores[0]);
 		},
         data: {
-            name: 				window.name,
+            name: 				"",
             char_class: 		window.char_class,
             race: 				window.race,
             strength: 			window.strength,
@@ -68,10 +73,14 @@ $(document).ready(function() {
 			skills:				window.skills,
 			proficiency_bonus:	window.proficiency_bonus,
 			ability_scores:		window.ability_scores,
+			subrace:			"",
         },
         methods: {
 			changeRace: function(event){
 				this.race = event.target.innerText;
+			},
+			changeSubRace: function(event){
+				this.subrace = event.target.innerText;
 			},
 			//toggleActive: function(event){
 			//	var id = event.target.value;
@@ -194,5 +203,5 @@ $(document).ready(function() {
             }
         }
     });
-
+	
 });
