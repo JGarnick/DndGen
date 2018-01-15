@@ -421,6 +421,7 @@ class Character extends Model
 			
 			$content = [								
 				"abbr"		=> strtoupper($att->abbr),
+				"full_name"	=> strtolower($att->name),
 				"amount"	=> $amount,
 				"mod"		=> $mod,
 				"operator" 	=> $operator

@@ -23,10 +23,11 @@
 				<input name="passive_perception" :value="passive_perception" />
 				<input name="ac" :value="ac" />
 				<input name="proficiency_bonus" :value="proficiency_bonus" />
+				<input v-for="(value, index) in ability_scores" data-type="ability-score" :name="value.full_name | lowercase" :value="ability_scores[index].amount" />
 			</div>
 			<div class="col-xs-offset-11 col-xs-1">
 				<input type="submit" value="Save" />
-			</div>
+			</div>			
 		</form>
 		<div class="col-xs-6">
 			@include('character.partials._left')

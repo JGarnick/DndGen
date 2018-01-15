@@ -51,18 +51,16 @@ $(document).ready(function() {
 				$(this).addClass("ui-selected");
 			});
 			
-			$.each(this.ability_scores, function(index){
-				$("#character-inputs").append("<input type='text' name='" + this.abbr + "' :value='ability_scores[" + index + "].amount' />");
+			$("[data-type='ability-score']").each(function(){
+				var name = $(this).attr("name");
+				$(this).attr("name", "ability_score[" + name + "]");
 			});
-			console.log(this.ability_scores[0]);
+			
 		},
         data: {
             name: 				"",
             char_class: 		window.char_class,
             race: 				window.race,
-            strength: 			window.strength,
-            dexterity: 			window.dexterity,
-            constitution: 		window.constitution,
 			hp_max: 			window.hp_max,
 			hp_current: 		window.hp_current,
 			passive_perception: window.passive_perception,
@@ -75,13 +73,20 @@ $(document).ready(function() {
 			ability_scores:		window.ability_scores,
 			subrace:			"",
         },
+		filters: {
+			lowercase: function(value){
+				if (!value) return ''
+				value = value.toString()
+				return value.toLowerCase()
+			}
+		},
         methods: {
 			changeRace: function(event){
 				this.race = event.target.innerText;
 			},
 			changeSubRace: function(event){
 				this.subrace = event.target.innerText;
-			},
+			},			
 			//toggleActive: function(event){
 			//	var id = event.target.value;
 			//	var classesArray = [];
