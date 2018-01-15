@@ -322,7 +322,8 @@ class Character extends Model
 				"abbr"		=> $att_abbr,
 				"base"		=> $base,
 				"total"		=> $total,
-				"operator" 	=> $operator
+				"operator" 	=> $operator,
+				"id"		=> $skill->id,
 			];
 			
 			array_push($returnMe, $content);
@@ -389,7 +390,8 @@ class Character extends Model
 			$content = [
 				"name"		=> $att->name,
 				"total"		=> $total,
-				"operator"	=> $operator
+				"operator"	=> $operator,
+				"id"		=> $att->id,
 			];
 			
 			array_push($returnMe, $content);
@@ -424,7 +426,8 @@ class Character extends Model
 				"full_name"	=> strtolower($att->name),
 				"amount"	=> $amount,
 				"mod"		=> $mod,
-				"operator" 	=> $operator
+				"operator" 	=> $operator,
+				"id"		=> $att->id,
 			];
 			
 			array_push($returnMe, $content);

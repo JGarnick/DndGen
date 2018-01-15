@@ -53,11 +53,17 @@ $(document).ready(function() {
 			
 			$("[data-type='ability-score']").each(function(){
 				var name = $(this).attr("name");
-				$(this).attr("name", "ability_score[" + name + "]");
+				$(this).attr("name", "ability_scores[" + name + "]");
+			});
+			
+			$("[data-type='skill']").each(function(){
+				var name = $(this).attr("name");
+				$(this).attr("name", "skills[" + name + "]");
 			});
 			
 		},
         data: {
+			level:				window.level,
             name: 				"",
             char_class: 		window.char_class,
             race: 				window.race,

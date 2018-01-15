@@ -11,11 +11,11 @@
 				<input v-model="name" class="form-control form-input" type="text" name="name" />
 			</div>
 			<div id="character-inputs">
+				<input name="level" :value="level" />
 				<input name="name" :value="name" />
 				<input name="race" :value="race" />
 				<input name="subrace" :value="subrace" />
 				<input name="class" :value="char_class" />
-				<input name="strength" :value="ability_scores.strength" />
 				<input name="hp_max" :value="hp_max" />
 				<input name="hp_current" :value="hp_current" />
 				<input name="speed" :value="speed" />
@@ -24,6 +24,8 @@
 				<input name="ac" :value="ac" />
 				<input name="proficiency_bonus" :value="proficiency_bonus" />
 				<input v-for="(value, index) in ability_scores" data-type="ability-score" :name="value.full_name | lowercase" :value="ability_scores[index].amount" />
+				<input v-for="(value, index) in skills" data-type="skill" :name="value.name" :value="skills[index].total"/>
+				<input v-for="(value, index) in saving_throws" data-type="save" :name="value.name" :value="skills[index].total"/>
 			</div>
 			<div class="col-xs-offset-11 col-xs-1">
 				<input type="submit" value="Save" />
@@ -38,7 +40,8 @@
 	</div>
 	<hr class="spacer small" />
 </div> 
-<script>	
+<script>
+	var level				= '{{$character->level}}';
 	var name 				= '{{$character->name}}';
 	var race 				= '{{$character->race->name}}';
 	var char_class 			= '{{$character->char_class->name}}';
@@ -56,7 +59,7 @@
 	var saving_throws		= @json($character->getSavingThrows());
 	var skills				= @json($character->getSkills());
 	var ability_scores		= @json($character->getAbilityScores());
-	
+	console.log(skills);
 	
 </script>  
 @endsection

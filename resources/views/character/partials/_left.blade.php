@@ -22,6 +22,7 @@
 					@endif
 					class="col-xs-6 tab-interactable ui-widget-content @if(!is_null($character->race) AND $character->race->id === $race->id)ui-selected @endif">{{$race->name}}
 				</button>
+				{{dd()}}
 			@endforeach
 		</div>
 		
