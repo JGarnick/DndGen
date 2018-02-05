@@ -20,7 +20,7 @@
 					<tr>
 						<td><a href="{{route('character.show', $character->id)}}">{{$character->name}}</a></td>
 						<td>{{$character->race->name}}</td>
-						<td>{{$character->class->name}}</td>
+						<td>{{$character->char_class->name}}</td>
 						<td>{{$character->level}}</td>
 					</tr>
 				@endforeach
