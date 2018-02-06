@@ -9,15 +9,13 @@
 	</ul>
 	<div id="tab-right-1" class="row">
 		<h4 class="text-center">Ability Scores</h4>
-		<div v-for="score in ability_scores" class="col-xs-2 text-center">
-			<h3>@{{score.abbr}}</h3>
-			<h3 class="no-top">@{{score.amount}}</h3>
+		<div v-for="(value, index) in ability_scores" class="col-xs-2 text-center">
+			<h3>@{{value.abbr}}</h3>
+			<h3 class="no-top">@{{value.amount}}</h3>
 			<div><small>mod</small></div>
-			<div>
-				<small>
-					@{{score.operator}}@{{score.mod}}
-				</small>
-			</div>
+			<small>
+				<span v-if="value.mod > 0">+</span><span>@{{ability_scores[index].mod}}</span>
+			</small>
 		</div>
 		<hr class="spacer small" />
 		<div class="col-xs-6 text-center">

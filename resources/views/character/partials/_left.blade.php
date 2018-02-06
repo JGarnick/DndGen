@@ -21,8 +21,7 @@
 						data-has-subrace="false"
 					@endif
 					class="col-xs-6 tab-interactable ui-widget-content @if(!is_null($character->race) AND $character->race->id === $race->id)ui-selected @endif">{{$race->name}}
-				</button>
-				{{dd()}}
+				</button>				
 			@endforeach
 		</div>
 		
@@ -38,7 +37,28 @@
 	</div>	
 	
 	<div id="tab-2">
-		<p>Ability Scores/Feats</p>
+		<h2 class="text-center">Ability Scores/Feats</h2>
+		<h3 class="">Abilities Variant</h2>
+		<h4 class=""><i>select 1</i></h4>
+		<div class="row ability-scores-wrapper">
+			<div class="col-xs-12">
+				<p>Manual Entry</p>
+			</div>
+			<div class="col-xs-2" v-for="(value, index) in ability_scores">				
+				<div class="row text-center">
+					<div class="col-xs-12">
+						<h4>@{{ability_scores[index].abbr}}</h4>
+					</div>
+					<div style="margin-bottom:7px;" class="col-xs-12">
+						<small>base</small>
+					</div>
+					<div class="col-xs-12">
+						<input min="0" max="30" class="form-control text-center input-medium" v-model="ability_scores[index].amount" @change="changeAbility(index)" type="number" />
+					</div>
+				</div>
+			</div>
+		</div>
+		
 	</div>
 	<div id="tab-3">
 		<p>Background</p>

@@ -10,7 +10,8 @@
 				<label class="form-label" for="name">Character Name</label>
 				<input v-model="name" class="form-control form-input" type="text" name="name" />
 			</div>
-			<div id="character-inputs">
+			
+			<div class="" id="character-inputs">
 				<input name="level" :value="level" />
 				<input name="name" :value="name" />
 				<input name="race" :value="race" />
@@ -58,8 +59,7 @@
 	@endif
 	var saving_throws		= @json($character->getSavingThrows());
 	var skills				= @json($character->getSkills());
-	var ability_scores		= @json($character->getAbilityScores());
-	console.log(skills);
+	var ability_scores		= @json($character->getAbilityScores());	
 	
 </script>  
 @endsection

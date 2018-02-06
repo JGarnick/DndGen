@@ -92,61 +92,11 @@ $(document).ready(function() {
 			},
 			changeSubRace: function(event){
 				this.subrace = event.target.innerText;
-			},			
-			//toggleActive: function(event){
-			//	var id = event.target.value;
-			//	var classesArray = [];
-			//	var classes = '';
-			//	
-			//	//foreach over all refs
-			//	for (var key in this.$refs)
-			//	{
-			//		var existingClasses = [];
-			//		//foreach over each refs classes
-			//		for(var c in this.$refs[key].classList)
-			//		{
-			//			//filter out only strings
-			//			if(typeof this.$refs[key].classList[c] === "string" && this.$refs[key].classList[c] !== "ui-selected")
-			//			{
-			//				//add the string to existingClasses array. The last addition is an amalgamation of all classes, which is all I want
-			//				existingClasses.push(this.$refs[key].classList[c]);
-			//			}
-			//		}
-			//		
-			//		//pop off the amalgamation
-			//		existingClasses.pop();
-			//		var classList = "";
-			//		
-			//		for(var c in existingClasses)
-			//		{
-			//			classList += existingClasses[c] + ' ';
-			//		}
-			//		
-			//		this.$refs[key].classList = classList.trim();
-			//	}
-			//	for(var i = 0; i < this.$refs[1].classList.length; i++)
-			//	{
-			//		if(this.$refs[id].classList[i] !== undefined)
-			//		{
-			//			classesArray.push(this.$refs[id].classList[i]);
-			//		}
-			//	}
-			//	
-			//	if(!classesArray.includes("ui-selected"))
-			//	{
-			//		classesArray.push("ui-selected");										
-			//	}
-			//	else
-			//	{
-			//		classesArray.pop("ui-selected");
-			//	}
-			//	for(var i = 0; i < classesArray.length; i++)
-			//	{
-			//		classes = classes + ' ' + classesArray[i];
-			//	}
-			//	
-			//	event.target.className = classes;
-			//},
+			},
+			changeAbility: function(index){
+				var newMod = this.getAbilityModifier(this.ability_scores[index].amount);
+				this.ability_scores[index].mod = newMod;
+			},
             getAbilityModifier: function($stat) {
                 if ($stat === '1') {
                     return -5;
