@@ -52,7 +52,7 @@
 							<small>base</small>
 						</div>
 						<div class="col-xs-12">
-							<input min="0" max="30" class="form-control text-center input-medium" v-model="ability_scores[index].amount" @change="changeAbility(index)" type="number" />
+							<input min="0" max="30" class="form-control text-center input-medium" v-model="ability_scores[index].amount" @change="setAbilityModifier(index)" type="number" />
 						</div>
 					</div>
 				</div>
@@ -68,7 +68,7 @@
 							<small>base</small>
 						</div>
 						<div class="col-xs-12">
-							<input min="0" max="30" class="form-control text-center input-medium" v-model="ability_scores[index].amount" @change="changeAbility(index)" type="number" />
+							<input min="0" max="30" class="form-control text-center input-medium" v-model="ability_scores[index].amount" @change="setAbilityModifier(index)" type="number" />
 						</div>
 					</div>
 				</div>
@@ -87,8 +87,33 @@
 					<div><span><button v-on:click="buyPoint(index)" type="button" role="button">+</button></span><span><button v-on:click="refundPoint(index)" type="button" role="button">-</button></span></div>
 				</div>
 				
-				<div class="col-xs-2 text-center" v-for="(value, index) in ability_scores">				
+				<div class="col-xs-2 text-center" v-for="(value, index) in ability_scores">
 					<h4>+</h4>
+				</div>
+				
+				<div class="col-xs-2 text-center" v-for="(value, index) in ability_scores">
+					<div><small>race</small></div>
+					<div>0</div>
+				</div>
+				
+				<div class="col-xs-2 text-center" v-for="(value, index) in ability_scores">
+					<h4>+</h4>
+				</div>
+				
+				<div class="col-xs-2 text-center" v-for="(value, index) in ability_scores">
+					<div><small>other</small></div>
+					<div>0</div>
+				</div>
+				
+				<div class="col-xs-2 text-center" v-for="(value, index) in ability_scores">
+					<h4>=</h4>
+				</div>
+				
+				<div class="col-xs-2 text-center" v-for="(value, index) in ability_scores">
+					<div><small>total</small></div>
+					<div>@{{ability_scores[index].amount}}</div>
+					<div><small>mod</small></div>
+					<div><small v-if="ability_scores[index].mod > 0">+</small><small>@{{ability_scores[index].mod}}</small></div>
 				</div>
 				
 			</div>			

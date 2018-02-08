@@ -433,7 +433,7 @@ class Character extends Model
 			
 			array_push($returnMe, $content);
 		}
-				
+		
 		return $returnMe;
 	}
 }

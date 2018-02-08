@@ -83,7 +83,7 @@ $(document).ready(function() {
 			proficiency_bonus:	window.proficiency_bonus,
 			ability_scores:		window.ability_scores,
 			subrace:			"",
-			ability_points:		27,			
+			ability_points:		27,
         },
 		filters: {
 			lowercase: function(value){
@@ -94,26 +94,33 @@ $(document).ready(function() {
 		},
         methods: {
 			buyPoint: function(index){
-				var current = this.ability_scores[index].amount;
-				var attempt = current++;
+				var attempt = this.ability_scores[index].amount + 1;
+				var paid	= this.getPointCost(this.ability_scores[index].amount);
 				var cost 	= this.getPointCost(attempt);
 				
-				if(this.ability_points - cost >= 0)
-				{
-					this.ability_points -= cost;
-					this.ability_scores[index].amount = attempt;
-					this.ability_scores[index].points_purchased++;
-				}
+				console.log("current: " + this.ability_scores[index].amount);
+				console.log("attempt: " + attempt);
+				console.log("cost: " + cost);
+				console.log("paid: " + paid);
+				
+				//if(this.ability_points - cost >= 0)
+				//{
+				//	this.ability_points -= cost;
+				//	this.ability_scores[index].amount += 1;
+				//	this.setAbilityModifier(index);
+				//	this.ability_scores[index].points_purchased++;
+				//}
+				
 			},
 			refundPoint: function(index){
-				var current = this.ability_scores[index].amount;
-				var attempt = current--;
+				var attempt = this.ability_scores[index].amount - 1;
 				var cost 	= this.getPointCost(attempt);
 				
 				if(this.ability_points - cost <= 27)
 				{
 					this.ability_points += cost;
 					this.ability_scores[index].amount = attempt;
+					this.setAbilityModifier(index);
 					this.ability_scores[index].points_purchased--;
 				}
 			},
@@ -151,72 +158,72 @@ $(document).ready(function() {
 			changeSubRace: function(event){
 				this.subrace = event.target.innerText;
 			},
-			changeAbility: function(index){
+			setAbilityModifier: function(index){
 				var newMod = this.getAbilityModifier(this.ability_scores[index].amount);
 				this.ability_scores[index].mod = newMod;
 			},
             getAbilityModifier: function($stat) {
-                if ($stat === '1') {
+                if ($stat === '1' || $stat === 1) {
                     return -5;
                 }
             
-                if ($stat === '2' || $stat === '3') {
+                if ( $stat === '2' || $stat === '3' || $stat === 2 || $stat === 3 ) {
                     return -4;
                 }
             
-                if ($stat === '4' || $stat === '5') {
+                if ( $stat === '4' || $stat === '5' || $stat === 4 || $stat === 5 ) {
                     return -3;
                 }
             
-                if ($stat === '6' || $stat === '7') {
+                if ( $stat === '6' || $stat === '7' || $stat === 6 || $stat === 7 ) {
                     return -2;
                 }
             
-                if ($stat === '8' || $stat === '9') {
+                if ( $stat === '8' || $stat === '9' || $stat === 8 || $stat === 9 ) {
                     return -1;
                 }
             
-                if ($stat === '10' || $stat === '11') {
+                if ( $stat === '10' || $stat === '11' || $stat === 10 || $stat === 11 ) {
                     return 0;
                 }
             
-                if ($stat === '12' || $stat === '13') {
+                if ( $stat === '12' || $stat === '13' || $stat === 12 || $stat === 13 ) {
                     return 1;
                 }
             
-                if ($stat === '14' || $stat === '15') {
+                if ( $stat === '14' || $stat === '15' || $stat === 14 || $stat === 15 ) {
                     return 2;
                 }
             
-                if ($stat === '16' || $stat === '17') {
+                if ( $stat === '16' || $stat === '17' || $stat === 16 || $stat === 17 ) {
                     return 3;
                 }
             
-                if ($stat === '18' || $stat === '19') {
+                if ( $stat === '18' || $stat === '19' || $stat === 18 || $stat === 19 ) {
                     return 4;
                 }
             
-                if ($stat === '20' || $stat === '21') {
+                if ( $stat === '20' || $stat === '21' || $stat === 20 || $stat === 21 ) {
                     return 5;
                 }
             
-                if ($stat === '22' || $stat === '23') {
+                if ( $stat === '22' || $stat === '23' || $stat === 22 || $stat === 23 ) {
                     return 6;
                 }
             
-                if ($stat === '24' || $stat === '25') {
+                if ( $stat === '24' || $stat === '25' || $stat === 24 || $stat === 25 ) {
                     return 7;
                 }
             
-                if ($stat === '26' || $stat === '27') {
+                if ( $stat === '26' || $stat === '27' || $stat === 26 || $stat === 27 ) {
                     return 8;
                 }
             
-                if ($stat === '28' || $stat === '29') {
+                if ( $stat === '28' || $stat === '29' || $stat === 28 || $stat === 29 ) {
                     return 9;
                 }
             
-                if ($stat === '30') {
+                if ( $stat === '30' || $stat === 30 ) {
                     return 10;
                 }
             }
