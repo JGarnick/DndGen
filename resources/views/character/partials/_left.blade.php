@@ -40,24 +40,60 @@
 		<h2 class="text-center">Ability Scores/Feats</h2>
 		<h3 class="">Abilities Variant</h2>
 		<h4 class=""><i>select 1</i></h4>
-		<div class="row ability-scores-wrapper">
-			<div class="col-xs-12">
-				<p>Manual Entry</p>
-			</div>
-			<div class="col-xs-2" v-for="(value, index) in ability_scores">				
-				<div class="row text-center">
-					<div class="col-xs-12">
-						<h4>@{{ability_scores[index].abbr}}</h4>
-					</div>
-					<div style="margin-bottom:7px;" class="col-xs-12">
-						<small>base</small>
-					</div>
-					<div class="col-xs-12">
-						<input min="0" max="30" class="form-control text-center input-medium" v-model="ability_scores[index].amount" @change="changeAbility(index)" type="number" />
+		<div id="ability-scores-wrapper">
+			<h4>Manual Entry</h4>
+			<div class="row">				
+				<div class="col-xs-2" v-for="(value, index) in ability_scores">				
+					<div class="row text-center">
+						<div class="col-xs-12">
+							<h4>@{{ability_scores[index].abbr}}</h4>
+						</div>
+						<div style="margin-bottom:7px;" class="col-xs-12">
+							<small>base</small>
+						</div>
+						<div class="col-xs-12">
+							<input min="0" max="30" class="form-control text-center input-medium" v-model="ability_scores[index].amount" @change="changeAbility(index)" type="number" />
+						</div>
 					</div>
 				</div>
 			</div>
+			<h4>Point Buy</h4>
+			<div class="row">
+				<div class="col-xs-2" v-for="(value, index) in ability_scores">				
+					<div class="row text-center">
+						<div class="col-xs-12">
+							<h4>@{{ability_scores[index].abbr}}</h4>
+						</div>
+						<div style="margin-bottom:7px;" class="col-xs-12">
+							<small>base</small>
+						</div>
+						<div class="col-xs-12">
+							<input min="0" max="30" class="form-control text-center input-medium" v-model="ability_scores[index].amount" @change="changeAbility(index)" type="number" />
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-xs-2 text-center" v-for="(value, index) in ability_scores">				
+					<h4>+</h4>
+				</div>
+				
+				<div class="col-xs-12">
+					<div style="margin-top:10px;"><p class="pull-left">Point Buys</p><p class="pull-right"><b>@{{ability_points}}</b> <em>remaining</em></p></div>
+				</div>
+				
+				<div class="col-xs-2 text-center" v-for="(value, index) in ability_scores">				
+					<div><small>bought</small></div>
+					<div>@{{ability_scores[index].points_purchased}}</div>
+					<div><span><button v-on:click="buyPoint(index)" type="button" role="button">+</button></span><span><button v-on:click="refundPoint(index)" type="button" role="button">-</button></span></div>
+				</div>
+				
+				<div class="col-xs-2 text-center" v-for="(value, index) in ability_scores">				
+					<h4>+</h4>
+				</div>
+				
+			</div>			
 		</div>
+		
 		
 	</div>
 	<div id="tab-3">

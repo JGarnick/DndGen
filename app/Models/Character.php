@@ -422,12 +422,13 @@ class Character extends Model
 			}
 			
 			$content = [								
-				"abbr"		=> strtoupper($att->abbr),
-				"full_name"	=> strtolower($att->name),
-				"amount"	=> $amount,
-				"mod"		=> $mod,
-				"operator" 	=> $operator,
-				"id"		=> $att->id,
+				"abbr"				=> strtoupper($att->abbr),
+				"full_name"			=> strtolower($att->name),
+				"amount"			=> $amount,
+				"mod"				=> $mod,
+				"operator" 			=> $operator,
+				"id"				=> $att->id,
+				"points_purchased"  => 0,
 			];
 			
 			array_push($returnMe, $content);

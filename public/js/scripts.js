@@ -61,6 +61,11 @@ $(document).ready(function() {
 				$(this).attr("name", "skills[" + name + "]");
 			});
 			
+			$("#ability-scores-wrapper").accordion({
+				heightStyle: "content",
+				
+			});
+			
 		},
         data: {
 			level:				window.level,
@@ -78,6 +83,7 @@ $(document).ready(function() {
 			proficiency_bonus:	window.proficiency_bonus,
 			ability_scores:		window.ability_scores,
 			subrace:			"",
+			ability_points:		27,			
         },
 		filters: {
 			lowercase: function(value){
@@ -87,6 +93,58 @@ $(document).ready(function() {
 			}
 		},
         methods: {
+			buyPoint: function(index){
+				var current = this.ability_scores[index].amount;
+				var attempt = current++;
+				var cost 	= this.getPointCost(attempt);
+				
+				if(this.ability_points - cost >= 0)
+				{
+					this.ability_points -= cost;
+					this.ability_scores[index].amount = attempt;
+					this.ability_scores[index].points_purchased++;
+				}
+			},
+			refundPoint: function(index){
+				var current = this.ability_scores[index].amount;
+				var attempt = current--;
+				var cost 	= this.getPointCost(attempt);
+				
+				if(this.ability_points - cost <= 27)
+				{
+					this.ability_points += cost;
+					this.ability_scores[index].amount = attempt;
+					this.ability_scores[index].points_purchased--;
+				}
+			},
+			getPointCost: function(num){
+				switch(num){
+					case 8:
+						return 0
+						break;
+					case 9:
+						return 1
+						break;
+					case 10:
+						return 2
+						break;
+					case 11:
+						return 3
+						break;
+					case 12:
+						return 4
+						break;
+					case 13:
+						return 5
+						break;
+					case 14:
+						return 7
+						break;
+					case 15:
+						return 9
+						break;
+				}
+			},
 			changeRace: function(event){
 				this.race = event.target.innerText;
 			},
