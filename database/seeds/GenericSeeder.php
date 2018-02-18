@@ -194,6 +194,7 @@ class GenericSeeder extends Seeder
 		"Wisdom" 		=> "Wis",
 		"Intelligence" 	=> "Int",
 		"Charisma" 		=> "Cha",
+		"Choice"		=> "Choice"
 	];
 	
 	private $proficiencies = [
@@ -213,6 +214,7 @@ class GenericSeeder extends Seeder
 		[ "name" => "Dark Elf (Drow)", "parent_race_id" => 2 ],
 		[ "name" => "Hill Dwarf", "parent_race_id" => 1 ],
 		[ "name" => "Mountain Dwarf", "parent_race_id" => 1 ],
+		[ "name" => "Variant Human", "parent_race_id" => 4 ],
 	];
     /**
      * Run the database seeds.
@@ -221,48 +223,48 @@ class GenericSeeder extends Seeder
      */
     public function run()
     {
-        // foreach($this->proficiencies AS $p)
-		// {
-			// DB::table('proficiencies')->insert(["name" => $p]);
-		// }
+        foreach($this->proficiencies AS $p)
+		{
+			DB::table('proficiencies')->insert(["name" => $p]);
+		}
 		
-		// foreach($this->races AS $race)
-		// {
-			// DB::table('races')->insert($race);
-		// }
+		foreach($this->races AS $race)
+		{
+			DB::table('races')->insert($race);
+		}
 		
-		// foreach($this->classes AS $class => $hit_die)
-		// {
-			// DB::table('classes')->insert([
-				// 'name' 		=> $class,
-				// 'hit_die' 	=> $hit_die
-			// ]);
-		// }
+		foreach($this->classes AS $class => $hit_die)
+		{
+			DB::table('classes')->insert([
+				'name' 		=> $class,
+				'hit_die' 	=> $hit_die
+			]);
+		}
 		
-		// foreach($this->skills AS $skill => $stat)
-		// {
-			// DB::table('skills')->insert([
-				// "name" 		=> $skill,
-				// "attribute" => $stat,
-			// ]);
-		// }
+		foreach($this->skills AS $skill => $stat)
+		{
+			DB::table('skills')->insert([
+				"name" 		=> $skill,
+				"attribute" => $stat,
+			]);
+		}
 		
-		// foreach($this->monies AS $money => $abbr)
-		// {
-			// DB::table('monies')->insert([
-				// "name" => $money,
-				// "abbr" => $abbr,
-			// ]);
-		// }
+		foreach($this->monies AS $money => $abbr)
+		{
+			DB::table('monies')->insert([
+				"name" => $money,
+				"abbr" => $abbr,
+			]);
+		}
 		
 		
-		// foreach($this->attributes AS $attribute => $abbr)
-		// {
-			// DB::table('attributes')->insert([
-			// 'name' => $attribute,
-			// 'abbr' => $abbr,
-			// ]);
-		// }
+		foreach($this->attributes AS $attribute => $abbr)
+		{
+			DB::table('attributes')->insert([
+			'name' => $attribute,
+			'abbr' => $abbr,
+			]);
+		}
 		
 		foreach($this->subraces AS $data){
 			DB::table("subraces")->insert($data);

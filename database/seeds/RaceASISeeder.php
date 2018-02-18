@@ -17,68 +17,149 @@ class RaceASISeeder extends Seeder
         $races = [
 			"Dwarf" => [
 				"stats" => [
-					"Con" => 2
+					[
+						"race_id" 		=> Race::where("name", "Dwarf")->first()->id,
+						"attribute_id" 	=> Attribute::where("abbr", "Con")->first()->id,
+						"amount" 		=> 2
+					],
 				],
 				"subraces" => [
 					"Hill Dwarf" => [
-						"Wis" => 1
+						[ 
+							"subrace_id" 	=> Subrace::where("name", "Hill Dwarf")->first()->id,
+							"attribute_id" 	=> Attribute::where("abbr", "Wis")->first()->id,
+							"amount" 		=> 1
+						],
 					],
 					"Mountain Dwarf" => [
-						"Str" => 2
+						[ 
+							"subrace_id" 	=> Subrace::where("name", "Mountain Dwarf")->first()->id,
+							"attribute_id" 	=> Attribute::where("abbr", "Str")->first()->id,
+							"amount" 		=> 2
+						],
 					]
 				]
 			],
 			"Elf" => [
 				"stats" => [
-					"Dex" => 2
+					[ 
+						"race_id" 		=> Race::where("name", "Halfling")->first()->id,
+						"attribute_id" 	=> Attribute::where("abbr", "Dex")->first()->id,
+						"amount" 		=> 2
+					],
 				],
 				"subraces" => [
 					"High Elf" => [
-						"Int" => 1
+						[ 
+							"subrace_id" 	=> Subrace::where("name", "High Elf")->first()->id,
+							"attribute_id" 	=> Attribute::where("abbr", "Int")->first()->id,
+							"amount" 		=> 1
+						],
 					],
 					"Wood Elf" => [
-						"Wis" => 1
+						[ 
+							"subrace_id" 	=> Subrace::where("name", "Wood Elf")->first()->id,
+							"attribute_id" 	=> Attribute::where("abbr", "Wis")->first()->id,
+							"amount" 		=> 1
+						],
 					],
 					"Dark Elf (Drow)" => [
-						"Wis" => 1
+						[ 
+							"subrace_id" 	=> Subrace::where("name", "Dark Elf (Drow)")->first()->id,
+							"attribute_id" 	=> Attribute::where("abbr", "Cha")->first()->id,
+							"amount" 		=> 1
+						],
 					]
 				]
 			],
-			"Elf" => [
+			
+			"Halfling" => [
 				"stats" => [
-					"Dex" => 2
+					[ 
+						"race_id" 		=> Race::where("name", "Halfling")->first()->id,
+						"attribute_id" 	=> Attribute::where("abbr", "Dex")->first()->id,
+						"amount" 		=> 2
+					],
 				],
 				"subraces" => [
-					"High Elf" => [
-						"Int" => 1
+					"Lightfoot" => [
+						[ 
+							"subrace_id" 	=> Subrace::where("name", "Lightfoot")->first()->id,
+							"attribute_id" 	=> Attribute::where("abbr", "Cha")->first()->id,
+							"amount" 		=> 1
+						],
 					],
-					"Wood Elf" => [
-						"Wis" => 1
+					"Stout" => [
+						[ 
+							"subrace_id" 	=> Subrace::where("name", "Stout")->first()->id,
+							"attribute_id" 	=> Attribute::where("abbr", "Con")->first()->id,
+							"amount" 		=> 1
+						],
 					]
+				]
+			],
+			"Human" => [
+				"stats" => [
+					[ 
+						"race_id" 		=> Race::where("name", "Human")->first()->id,
+						"attribute_id" 	=> Attribute::where("abbr", "Str")->first()->id,
+						"amount" 		=> 1
+					],
+					[ 
+						"race_id" 		=> Race::where("name", "Human")->first()->id,
+						"attribute_id" 	=> Attribute::where("abbr", "Dex")->first()->id,
+						"amount" 		=> 1
+					],
+					[ 
+						"race_id" 		=> Race::where("name", "Human")->first()->id,
+						"attribute_id" 	=> Attribute::where("abbr", "Con")->first()->id,
+						"amount" 		=> 1
+					],
+					[ 
+						"race_id" 		=> Race::where("name", "Human")->first()->id,
+						"attribute_id" 	=> Attribute::where("abbr", "Wis")->first()->id,
+						"amount" 		=> 1
+					],
+					[ 
+						"race_id" 		=> Race::where("name", "Human")->first()->id,
+						"attribute_id" 	=> Attribute::where("abbr", "Int")->first()->id,
+						"amount" 		=> 1
+					],
+					[ 
+						"race_id" 		=> Race::where("name", "Human")->first()->id,
+						"attribute_id" 	=> Attribute::where("abbr", "Cha")->first()->id,
+						"amount" 		=> 1
+					]
+				],
+				"subraces" => [
+					"Variant Human" => [
+						[ 
+							"subrace_id" 	=> Subrace::where("name", "Variant Human")->first()->id,
+							"attribute_id" 	=> Attribute::where("abbr", "Choice")->first()->id,
+							"amount" 		=> 1
+						],
+						[ 
+							"subrace_id" 	=> Subrace::where("name", "Variant Human")->first()->id,
+							"attribute_id" 	=> Attribute::where("abbr", "Choice")->first()->id,
+							"amount" 		=> 1
+						]
+					]				
 				]
 			],
 		];
 		
-		foreach($races AS $race_name => $data)
+		
+		
+		foreach($races AS $level1)
 		{						
-			$race = Race::where("name", $race_name)->first();
-			foreach($data AS $level2_key => $level2_val){				
-				if($level2_key === "stats"){
-					foreach($level2_val AS $stat => $amount)
-					{
-						$attribute = Attribute::where("abbr", $stat)->first();
-						$race->race_asi()->attach($attribute, ["amount" => $amount]);
-					}
+			foreach($level1 AS $key => $data){
+				if($key === "stats"){
+					DB::table("racial_asi")->insert($data);
 				}
 				
-				if($level2_key === "subraces")
-				{
-					foreach($level2_val AS $subrace_name => $subrace_data){
-						$subrace = Subrace::where("name", $subrace_name)->first();
-						foreach($subrace_data AS $stat => $amount){
-							$attribute = Attribute::where("abbr", $stat)->first();
-							$subrace->race_asi()->attach($attribute, ["amount" => $amount]);
-						}
+				if($key === "subraces"){
+					foreach($data AS $subrace_data){
+						DB::table("racial_asi")->insert($subrace_data);
 					}
 				}
 			}
