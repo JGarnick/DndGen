@@ -94,31 +94,32 @@ $(document).ready(function() {
 		},
         methods: {
 			buyPoint: function(index){
-				var attempt = this.ability_scores[index].amount + 1;
-				var paid	= this.getPointCost(this.ability_scores[index].amount);
-				var cost 	= this.getPointCost(attempt);
 				
-				console.log("current: " + this.ability_scores[index].amount);
-				console.log("attempt: " + attempt);
-				console.log("cost: " + cost);
-				console.log("paid: " + paid);
+				//When purchasing the next point, you must first refund the amount of the current attribute, then spend the point.
+				var attempt 			= this.ability_scores[index].amount + 1; //Current stat + 1
+				var paid				= this.getPointCost(this.ability_scores[index].amount); //Amount you've invested in your skill points so far
+				var cost 				= this.getPointCost(attempt); //How much moving to the next point will cost
+				var current_score_cost 	= this.getPointCost(this.ability_scores[index].amount); //How much the current amount cost
 				
-				//if(this.ability_points - cost >= 0)
-				//{
-				//	this.ability_points -= cost;
-				//	this.ability_scores[index].amount += 1;
-				//	this.setAbilityModifier(index);
-				//	this.ability_scores[index].points_purchased++;
-				//}
+				if(attempt <= 15  && this.ability_points !== 0)
+				{
+					this.ability_points += current_score_cost;
+					this.ability_points -= cost;
+					this.ability_scores[index].amount += 1;
+					this.setAbilityModifier(index);
+					this.ability_scores[index].points_purchased++;
+				}
 				
 			},
 			refundPoint: function(index){
 				var attempt = this.ability_scores[index].amount - 1;
-				var cost 	= this.getPointCost(attempt);
+				var paid 	= this.getPointCost(this.ability_scores[index].amount);
+				var cost	= this.getPointCost(attempt);
 				
-				if(this.ability_points - cost <= 27)
+				if(attempt >= 8)
 				{
-					this.ability_points += cost;
+					this.ability_points += paid;
+					this.ability_points -= cost;
 					this.ability_scores[index].amount = attempt;
 					this.setAbilityModifier(index);
 					this.ability_scores[index].points_purchased--;

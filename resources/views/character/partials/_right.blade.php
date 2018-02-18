@@ -48,7 +48,7 @@
 				<div class="skills-wrapper">
 					<div v-for="skill in skills">
 						<span class="col-xs-9">@{{skill.name}}(@{{skill.abbr}})</span>
-						<span class="col-xs-3">@{{skill.operator}}@{{skill.total}}</span>
+						<span class="col-xs-3"><span v-if="skill.total > 0">@{{skill.operator}}</span>@{{skill.total}}</span>
 					</div>
 				</div>
 			</div>
@@ -65,7 +65,7 @@
 				<div style="width:50%;margin:0 auto;">
 					<div v-for="save in saving_throws">
 						<span class="col-xs-6">@{{save.name}}</span>
-						<span class="col-xs-6">@{{save.operator}}@{{save.total}}</span>
+						<span class="col-xs-6"><span v-if="save.total > 0">@{{save.operator}}</span>@{{save.total}}</span>
 					</div>					
 				</div>								
 			</h4>
