@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Models\Race;
+use App\Models\Subrace;
 use App\Models\Attribute;
 
 class RaceASISeeder extends Seeder
@@ -19,10 +20,10 @@ class RaceASISeeder extends Seeder
 					"Con" => 2
 				],
 				"subraces" => [
-					"Hill" => [
+					"Hill Dwarf" => [
 						"Wis" => 1
 					],
-					"Mountain" => [
+					"Mountain Dwarf" => [
 						"Str" => 2
 					]
 				]
@@ -30,25 +31,29 @@ class RaceASISeeder extends Seeder
 		];
 		
 		foreach($races AS $race_name => $data)
-		{
-			//dd($data, $data["stats"]);			
+		{						
 			$race = Race::where("name", $race_name)->first();
-			foreach($data AS $level2_key => $level2_val){
-				//$key = "stats", $value = "Con" => 2
+			foreach($data AS $level2_key => $level2_val){				
 				if($level2_key === "stats"){
 					foreach($level2_val AS $stat => $amount)
 					{
 						$attribute = Attribute::where("abbr", $stat)->first();
+						$race->race_asi()->attach($attribute, ["amount" => $amount]);
 					}
 				}
 				
 				if($level2_key === "subraces")
 				{
 					foreach($level2_val AS $subrace_name => $subrace_data){
-						
+						$subrace = Subrace::where("name", $subrace_name)->first();
+						foreach($subrace_data AS $stat => $amount){
+							$attribute = Attribute::where("abbr", $stat)->first();
+							$subrace->race_asi()->attach($attribute, ["amount" => $amount]);
+						}
 					}
 				}
 			}
 		}
     }
 }
+

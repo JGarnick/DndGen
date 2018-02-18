@@ -15,7 +15,8 @@ class CreateRacialASITable extends Migration
     {
         Schema::create('racial_asi', function (Blueprint $table) {
             $table->increments('id');
-			$table->integer('race_id');
+			$table->integer('race_id')->nullable();
+			$table->integer('subrace_id')->nullable();
 			$table->integer('attribute_id');
 			$table->integer('amount');
             $table->timestamps();
