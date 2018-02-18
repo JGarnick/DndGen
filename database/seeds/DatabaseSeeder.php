@@ -5,9 +5,6 @@ use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
-	
-	
-	
     /**
      * Run the database seeds.
      *
@@ -17,8 +14,9 @@ class DatabaseSeeder extends Seeder
     {
 		$this->call([
 		//'GenericSeeder',
-		'ClassProficiencySeeder',
+		//'ClassProficiencySeeder',
 		//'WeaponSeeder',
+		'RaceASISeeder',
 		]);
     }
 }

@@ -34,12 +34,12 @@ class CharacterService
 	
 	public function create()
 	{
-		$character = new Character();
-		$skills = Skill::all();
-		$races = Race::all();
-		$classes = CharacterClass::all();
-		$backgrounds = Background::all();
-		$subraces = Subrace::all();
+		$character 		= new Character();
+		$skills 		= Skill::all();
+		$races 			= Race::all();
+		$classes 		= CharacterClass::all();
+		$backgrounds 	= Background::all();
+		$subraces 		= Subrace::all();
 		$character->strength 		= 8;
 		$character->dexterity 		= 8;
 		$character->constitution 	= 8;

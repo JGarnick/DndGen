@@ -68,7 +68,7 @@
 							<small>base</small>
 						</div>
 						<div class="col-xs-12">
-							<input min="0" max="30" class="form-control text-center input-medium" v-model="ability_scores[index].amount" @change="setAbilityModifier(index)" type="number" />
+							<input min="0" max="30" class="form-control text-center input-medium" v-model="ability_scores[index].amount" @change="setAbilityModifier(index)" type="text" readOnly />
 						</div>
 					</div>
 				</div>
