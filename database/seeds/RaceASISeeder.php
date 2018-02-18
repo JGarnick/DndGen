@@ -27,7 +27,36 @@ class RaceASISeeder extends Seeder
 						"Str" => 2
 					]
 				]
-			]
+			],
+			"Elf" => [
+				"stats" => [
+					"Dex" => 2
+				],
+				"subraces" => [
+					"High Elf" => [
+						"Int" => 1
+					],
+					"Wood Elf" => [
+						"Wis" => 1
+					],
+					"Dark Elf (Drow)" => [
+						"Wis" => 1
+					]
+				]
+			],
+			"Elf" => [
+				"stats" => [
+					"Dex" => 2
+				],
+				"subraces" => [
+					"High Elf" => [
+						"Int" => 1
+					],
+					"Wood Elf" => [
+						"Wis" => 1
+					]
+				]
+			],
 		];
 		
 		foreach($races AS $race_name => $data)

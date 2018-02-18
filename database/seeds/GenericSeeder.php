@@ -196,79 +196,6 @@ class GenericSeeder extends Seeder
 		"Charisma" 		=> "Cha",
 	];
 	
-	private $racial_ASI = [
-		[
-			"race_id"	=> 1,
-			"stat"		=> 'Constitution',
-			"amount"	=> 2,
-		],
-		[
-			"race_id"	=> 2,
-			"stat"		=> 'Dexterity',
-			"amount"	=> 2,
-		],
-		[
-			"race_id"	=> 4,
-			"stat"		=> 'Strength',
-			"amount"	=> 1,
-		],
-		[
-			"race_id"	=> 4,
-			"stat"		=> 'Dexterity',
-			"amount"	=> 1,
-		],
-		[
-			"race_id"	=> 4,
-			"stat"		=> 'Constitution',
-			"amount"	=> 1,
-		],
-		[
-			"race_id"	=> 4,
-			"stat"		=> 'Wisdom',
-			"amount"	=> 1,
-		],
-		[
-			"race_id"	=> 4,
-			"stat"		=> 'Intelligence',
-			"amount"	=> 1,
-		],
-		[
-			"race_id"	=> 4,
-			"stat"		=> 'Charisma',
-			"amount"	=> 1,
-		],
-		[
-			"race_id"	=> 5,
-			"stat"		=> 'Strength',
-			"amount"	=> 2,
-		],
-		[
-			"race_id"	=> 5,
-			"stat"		=> 'Charisma',
-			"amount"	=> 1,
-		],
-		[
-			"race_id"	=> 6,
-			"stat"		=> 'Intelligence',
-			"amount"	=> 2,
-		],
-		[
-			"race_id"	=> 7,
-			"stat"		=> 'Charisma',
-			"amount"	=> 2,
-		],
-		[
-			"race_id"	=> 7,
-			"stat"		=> 'Choice',
-			"amount"	=> 1,
-		],
-		[
-			"race_id"	=> 7,
-			"stat"		=> 'Choice',
-			"amount"	=> 1,
-		],
-	];
-	
 	private $proficiencies = [
 		"Light Armor",
 		"Medium Armor",
@@ -277,6 +204,16 @@ class GenericSeeder extends Seeder
 		"Martial Weapons",
 		"Shields",
 	];
+	
+	private $subraces = [
+		[ "name" => "Lightfoot", "parent_race_id" => 3 ],
+		[ "name" => "Stout", "parent_race_id" => 3 ],
+		[ "name" => "High Elf", "parent_race_id" => 2 ],
+		[ "name" => "Wood Elf", "parent_race_id" => 2 ],
+		[ "name" => "Dark Elf (Drow)", "parent_race_id" => 2 ],
+		[ "name" => "Hill Dwarf", "parent_race_id" => 1 ],
+		[ "name" => "Mountain Dwarf", "parent_race_id" => 1 ],
+	];
     /**
      * Run the database seeds.
      *
@@ -284,47 +221,51 @@ class GenericSeeder extends Seeder
      */
     public function run()
     {
-        foreach($this->proficiencies AS $p)
-		{
-			DB::table('proficiencies')->insert(["name" => $p]);
-		}
+        // foreach($this->proficiencies AS $p)
+		// {
+			// DB::table('proficiencies')->insert(["name" => $p]);
+		// }
 		
-		foreach($this->races AS $race)
-		{
-			DB::table('races')->insert($race);
-		}
+		// foreach($this->races AS $race)
+		// {
+			// DB::table('races')->insert($race);
+		// }
 		
-		foreach($this->classes AS $class => $hit_die)
-		{
-			DB::table('classes')->insert([
-				'name' 		=> $class,
-				'hit_die' 	=> $hit_die
-			]);
-		}
+		// foreach($this->classes AS $class => $hit_die)
+		// {
+			// DB::table('classes')->insert([
+				// 'name' 		=> $class,
+				// 'hit_die' 	=> $hit_die
+			// ]);
+		// }
 		
-		foreach($this->skills AS $skill => $stat)
-		{
-			DB::table('skills')->insert([
-				"name" 		=> $skill,
-				"attribute" => $stat,
-			]);
-		}
+		// foreach($this->skills AS $skill => $stat)
+		// {
+			// DB::table('skills')->insert([
+				// "name" 		=> $skill,
+				// "attribute" => $stat,
+			// ]);
+		// }
 		
-		foreach($this->monies AS $money => $abbr)
-		{
-			DB::table('monies')->insert([
-				"name" => $money,
-				"abbr" => $abbr,
-			]);
-		}
+		// foreach($this->monies AS $money => $abbr)
+		// {
+			// DB::table('monies')->insert([
+				// "name" => $money,
+				// "abbr" => $abbr,
+			// ]);
+		// }
 		
 		
-		foreach($this->attributes AS $attribute => $abbr)
-		{
-			DB::table('attributes')->insert([
-			'name' => $attribute,
-			'abbr' => $abbr,
-			]);
+		// foreach($this->attributes AS $attribute => $abbr)
+		// {
+			// DB::table('attributes')->insert([
+			// 'name' => $attribute,
+			// 'abbr' => $abbr,
+			// ]);
+		// }
+		
+		foreach($this->subraces AS $data){
+			DB::table("subraces")->insert($data);
 		}
     }
 }
