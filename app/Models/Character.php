@@ -368,8 +368,9 @@ class Character extends Model
 		
 		foreach($attributes AS $att)
 		{
+
 			if($att->name === "Choice"){
-				return;
+				continue;
 			}
 			
 			$base 				= $this->getAbilityModifier($this->char_attributes()[$att->name]);
