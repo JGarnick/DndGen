@@ -34,8 +34,6 @@ class CharacterService
 	
 	public function create()
 	{
-		$race_data = $this->constructRacesInfo();
-		dd($race_data);
 		$character 		= new Character();
 		$skills 		= Skill::all();
 		$races 			= Race::all();
@@ -61,6 +59,7 @@ class CharacterService
 			"backgrounds"	=> $backgrounds,
 			"subraces"		=> $subraces,
 			"skills"		=> $skills,
+			"race_data"		=> $this->constructRacesInfo(),
 		];
 	}
 	
@@ -82,7 +81,7 @@ class CharacterService
 			foreach($request->skills AS $skill)
 			{
 				$character->updateExistingPivot($skill->id, [
-					'bonus' => $skill->bonus,
+					'bonus'		 => $skill->bonus,
 					'proficient' => $skill->proficient,
 				]);
 			}
@@ -97,20 +96,27 @@ class CharacterService
 		
 		//Process the races
 		foreach($races AS $race){
-			$race_data[$race->name]["id"] = $race->id;
+			$race_data[$race->name]["id"] 			= $race->id;
 			$race_data[$race->name]["has_subraces"] = $race->subraces->count() > 0;
 			
 			//Process the subraces
 			if($race->subraces->isNotEmpty()){
 				foreach($race->subraces AS $subrace){
 					$race_data[$race->name]["subraces"][$subrace->name] = [
-						"id"	=> $subrace->id,
+						"id" => $subrace->id,
 						"parent_race_id" => $subrace->parent_race_id,
 					];
-					
+					$asi_index = 1;
 					 //Process the subrace ASI
 					foreach($subrace->asi AS $att){
-						$race_data[$race->name]["subraces"][$subrace->name]["subrace_asi"][$att->name] = [
+						$key = $att->name;
+						if($att->name === "Choice")
+						{
+							$key = $att->name . "_" . $asi_index;
+							$asi_index++;
+						}
+						
+						$race_data[$race->name]["subraces"][$subrace->name]["subrace_asi"][$key] = [
 							"att_id" => $att->id,
 							"amount" => $att->pivot->amount,
 						];
@@ -129,12 +135,3 @@ class CharacterService
 		return $race_data;
 	}
 }
-
-// $race_data = [
-	// "Dwarf" => [
-		// "id" => $id,
-		// "has_subraces" => "true",
-		// "subraces" => [ [ "name" => $subrace_name, "id" => $subrace_id, "parent_race" => $subrace_parent_id, "subrace_asi" => $subrace_asi], "subrace 2", "subrace 3" ],
-		// "race_asi" => [ "stat1" => $id, "amount" => $amount ]
-	// ]
-//]

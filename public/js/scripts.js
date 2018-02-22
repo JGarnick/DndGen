@@ -68,6 +68,7 @@ $(document).ready(function() {
 			
 		},
         data: {
+			race_data:			window.race_data,
 			level:				window.level,
             name: 				"",
             char_class: 		window.char_class,

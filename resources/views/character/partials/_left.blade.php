@@ -43,7 +43,7 @@
 		<div id="ability-scores-wrapper">
 			<h4>Manual Entry</h4>
 			<div class="row">				
-				<div class="col-xs-2" v-for="(value, index) in ability_scores">				
+				<div class="col-xs-2" v-for="(value, index) in ability_scores" v-if="value.id !== 7">				
 					<div class="row text-center">
 						<div class="col-xs-12">
 							<h4>@{{ability_scores[index].abbr}}</h4>
@@ -59,7 +59,7 @@
 			</div>
 			<h4>Point Buy</h4>
 			<div class="row">
-				<div class="col-xs-2" v-for="(value, index) in ability_scores">				
+				<div class="col-xs-2" v-for="(value, index) in ability_scores" v-if="value.id !== 7">
 					<div class="row text-center">
 						<div class="col-xs-12">
 							<h4>@{{ability_scores[index].abbr}}</h4>
@@ -71,49 +71,48 @@
 							<input min="0" max="30" class="form-control text-center input-medium" v-model="ability_scores[index].amount" @change="setAbilityModifier(index)" type="text" readOnly />
 						</div>
 					</div>
+					<div class=" text-center" >				
+						<h4>+</h4>
+					</div>
 				</div>
-				
-				<div class="col-xs-2 text-center" v-for="(value, index) in ability_scores">				
-					<h4>+</h4>
-				</div>
-				
 				<div class="col-xs-12">
 					<div style="margin-top:10px;"><p class="pull-left">Point Buys</p><p class="pull-right"><b>@{{ability_points}}</b> <em>remaining</em></p></div>
 				</div>
+				<div class="col-xs-2" v-for="(value, index) in ability_scores" v-if="value.id !== 7">
+					<div class="text-center" >				
+						<div><small>bought</small></div>
+						<div>@{{ability_scores[index].points_purchased}}</div>
+						<div><span><button v-on:click="buyPoint(index)" type="button" role="button">+</button></span><span><button v-on:click="refundPoint(index)" type="button" role="button">-</button></span></div>
+					</div>
 				
-				<div class="col-xs-2 text-center" v-for="(value, index) in ability_scores">				
-					<div><small>bought</small></div>
-					<div>@{{ability_scores[index].points_purchased}}</div>
-					<div><span><button v-on:click="buyPoint(index)" type="button" role="button">+</button></span><span><button v-on:click="refundPoint(index)" type="button" role="button">-</button></span></div>
-				</div>
+					<div class="text-center" >
+						<h4>+</h4>
+					</div>
+					
+					<div class="text-center" >
+						<div><small>race</small></div>
+						<div>0</div>
+					</div>
+					
+					<div class="text-center" >
+						<h4>+</h4>
+					</div>
+					
+					<div class="text-center" >
+						<div><small>other</small></div>
+						<div>0</div>
+					</div>
+					
+					<div class="text-center" >
+						<h4>=</h4>
+					</div>
 				
-				<div class="col-xs-2 text-center" v-for="(value, index) in ability_scores">
-					<h4>+</h4>
-				</div>
-				
-				<div class="col-xs-2 text-center" v-for="(value, index) in ability_scores">
-					<div><small>race</small></div>
-					<div>0</div>
-				</div>
-				
-				<div class="col-xs-2 text-center" v-for="(value, index) in ability_scores">
-					<h4>+</h4>
-				</div>
-				
-				<div class="col-xs-2 text-center" v-for="(value, index) in ability_scores">
-					<div><small>other</small></div>
-					<div>0</div>
-				</div>
-				
-				<div class="col-xs-2 text-center" v-for="(value, index) in ability_scores">
-					<h4>=</h4>
-				</div>
-				
-				<div class="col-xs-2 text-center" v-for="(value, index) in ability_scores">
-					<div><small>total</small></div>
-					<div>@{{ability_scores[index].amount}}</div>
-					<div><small>mod</small></div>
-					<div><small v-if="ability_scores[index].mod > 0">+</small><small>@{{ability_scores[index].mod}}</small></div>
+					<div class="text-center" >
+						<div><small>total</small></div>
+						<div>@{{ability_scores[index].amount}}</div>
+						<div><small>mod</small></div>
+						<div><small v-if="ability_scores[index].mod > 0">+</small><small>@{{ability_scores[index].mod}}</small></div>
+					</div>	
 				</div>
 				
 			</div>			

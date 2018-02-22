@@ -9,7 +9,7 @@
 	</ul>
 	<div id="tab-right-1" class="row">
 		<h4 class="text-center">Ability Scores</h4>
-		<div v-for="(value, index) in ability_scores" class="col-xs-2 text-center">
+		<div v-for="(value, index) in ability_scores" v-if="value.id !== 7" class="col-xs-2 text-center">
 			<h3>@{{value.abbr}}</h3>
 			<h3 class="no-top">@{{value.amount}}</h3>
 			<div><small>mod</small></div>

@@ -59,7 +59,8 @@
 	@endif
 	var saving_throws		= @json($character->getSavingThrows());
 	var skills				= @json($character->getSkills());
-	var ability_scores		= @json($character->getAbilityScores());	
+	var ability_scores		= @json($character->getAbilityScores());
+	var	race_data			= @json($race_data);
 	
 </script>  
 @endsection

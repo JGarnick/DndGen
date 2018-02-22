@@ -361,13 +361,17 @@ class Character extends Model
 		$returnMe 		= [];
 		$attributes 	= Attribute::all();
 		
-		if(!$this->saving_throws->isEmpty())
+		if($this->saving_throws->isNotEmpty())
 		{
 			return $this->saving_throws;
 		}
 		
 		foreach($attributes AS $att)
 		{
+			if($att->name === "Choice"){
+				return;
+			}
+			
 			$base 				= $this->getAbilityModifier($this->char_attributes()[$att->name]);
 			$total 				= $base;
 			$save_proficiencies = $this->saving_throws()->wherePivot("proficient", 1)->get();
