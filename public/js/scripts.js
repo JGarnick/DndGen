@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    
+
 	Vue.component("greeting", {
 		template: "<h1>Welcome Message!</h1>"
 	});
@@ -18,17 +18,17 @@ $(document).ready(function() {
 			$('#selectable-race button').on("click", function(){
 				$('#selectable-race button').each(function(){
 					$(this).removeClass('ui-selected');
-				});		
+				});
 				$(this).addClass("ui-selected");
 				showHideSubraces();
 			});
-				
-			
+
+
 			function showHideSubraces() {
 				var race = $('.ui-selected')[0].innerText;
 				if ($($('.ui-selected')[0]).attr('data-has-subrace') === 'true') {
 					$('.subrace-wrapper').show();
-			
+
 					$('#selectable-sub-race button').each(function() {
 						if ($(this).attr('data-parent-race') == race) {
 							$(this).show();
@@ -40,34 +40,35 @@ $(document).ready(function() {
 					$('.subrace-wrapper').hide();
 				}
 			};
-			
+
 			showHideSubraces();
-			
+
 			$('#selectable-sub-race button').on("click", function(){
 				$('#selectable-sub-race button').each(function(){
 					$(this).removeClass('ui-selected');
 				});
-				
+
 				$(this).addClass("ui-selected");
 			});
-			
+
 			$("[data-type='ability-score']").each(function(){
 				var name = $(this).attr("name");
 				$(this).attr("name", "ability_scores[" + name + "]");
 			});
-			
+
 			$("[data-type='skill']").each(function(){
 				var name = $(this).attr("name");
 				$(this).attr("name", "skills[" + name + "]");
 			});
-			
+
 			$("#ability-scores-wrapper").accordion({
 				heightStyle: "content",
-				
+
 			});
-			
+
 		},
         data: {
+            character:          window.character,
 			race_data:			window.race_data,
 			level:				window.level,
             name: 				"",
@@ -94,14 +95,17 @@ $(document).ready(function() {
 			}
 		},
         methods: {
+			getActiveRace: function(){
+				return false;
+			},
 			buyPoint: function(index){
-				
+
 				//When purchasing the next point, you must first refund the amount of the current attribute, then spend the point.
 				var attempt 			= this.ability_scores[index].amount + 1; //Current stat + 1
 				var paid				= this.getPointCost(this.ability_scores[index].amount); //Amount you've invested in your skill points so far
 				var cost 				= this.getPointCost(attempt); //How much moving to the next point will cost
 				var current_score_cost 	= this.getPointCost(this.ability_scores[index].amount); //How much the current amount cost
-				
+
 				if(attempt <= 15  && this.ability_points !== 0)
 				{
 					this.ability_points += current_score_cost;
@@ -110,13 +114,13 @@ $(document).ready(function() {
 					this.setAbilityModifier(index);
 					this.ability_scores[index].points_purchased++;
 				}
-				
+
 			},
 			refundPoint: function(index){
 				var attempt = this.ability_scores[index].amount - 1;
 				var paid 	= this.getPointCost(this.ability_scores[index].amount);
 				var cost	= this.getPointCost(attempt);
-				
+
 				if(attempt >= 8)
 				{
 					this.ability_points += paid;
@@ -168,68 +172,68 @@ $(document).ready(function() {
                 if ($stat === '1' || $stat === 1) {
                     return -5;
                 }
-            
+
                 if ( $stat === '2' || $stat === '3' || $stat === 2 || $stat === 3 ) {
                     return -4;
                 }
-            
+
                 if ( $stat === '4' || $stat === '5' || $stat === 4 || $stat === 5 ) {
                     return -3;
                 }
-            
+
                 if ( $stat === '6' || $stat === '7' || $stat === 6 || $stat === 7 ) {
                     return -2;
                 }
-            
+
                 if ( $stat === '8' || $stat === '9' || $stat === 8 || $stat === 9 ) {
                     return -1;
                 }
-            
+
                 if ( $stat === '10' || $stat === '11' || $stat === 10 || $stat === 11 ) {
                     return 0;
                 }
-            
+
                 if ( $stat === '12' || $stat === '13' || $stat === 12 || $stat === 13 ) {
                     return 1;
                 }
-            
+
                 if ( $stat === '14' || $stat === '15' || $stat === 14 || $stat === 15 ) {
                     return 2;
                 }
-            
+
                 if ( $stat === '16' || $stat === '17' || $stat === 16 || $stat === 17 ) {
                     return 3;
                 }
-            
+
                 if ( $stat === '18' || $stat === '19' || $stat === 18 || $stat === 19 ) {
                     return 4;
                 }
-            
+
                 if ( $stat === '20' || $stat === '21' || $stat === 20 || $stat === 21 ) {
                     return 5;
                 }
-            
+
                 if ( $stat === '22' || $stat === '23' || $stat === 22 || $stat === 23 ) {
                     return 6;
                 }
-            
+
                 if ( $stat === '24' || $stat === '25' || $stat === 24 || $stat === 25 ) {
                     return 7;
                 }
-            
+
                 if ( $stat === '26' || $stat === '27' || $stat === 26 || $stat === 27 ) {
                     return 8;
                 }
-            
+
                 if ( $stat === '28' || $stat === '29' || $stat === 28 || $stat === 29 ) {
                     return 9;
                 }
-            
+
                 if ( $stat === '30' || $stat === 30 ) {
                     return 10;
                 }
             }
         }
     });
-	
+
 });
