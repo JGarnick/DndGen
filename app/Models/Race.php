@@ -13,8 +13,8 @@ class Race extends Model
 		return $this->hasMany(Subrace::class, 'parent_race_id', 'id');
 	}
 	
-	public function race_asi()
+	public function asi()
 	{
-		return $this->belongsToMany(Attribute::class, "racial_asi");
+		return $this->belongsToMany(Attribute::class, "racial_asi")->withPivot("amount");
 	}
 }

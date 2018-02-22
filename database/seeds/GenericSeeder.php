@@ -206,6 +206,7 @@ class GenericSeeder extends Seeder
 		"Shields",
 	];
 	
+	//TODO: Add the rest of the subraces
 	private $subraces = [
 		[ "name" => "Lightfoot", "parent_race_id" => 3 ],
 		[ "name" => "Stout", "parent_race_id" => 3 ],

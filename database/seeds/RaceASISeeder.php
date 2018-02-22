@@ -148,6 +148,7 @@ class RaceASISeeder extends Seeder
 			],
 		];
 		
+		//TODO: Add the rest of the races and subraces
 		
 		
 		foreach($races AS $level1)

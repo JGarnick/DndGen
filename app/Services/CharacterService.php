@@ -34,6 +34,8 @@ class CharacterService
 	
 	public function create()
 	{
+		$race_data = $this->constructRacesInfo();
+		dd($race_data);
 		$character 		= new Character();
 		$skills 		= Skill::all();
 		$races 			= Race::all();
@@ -87,4 +89,52 @@ class CharacterService
 		}
 		
 	}
+	
+	public function constructRacesInfo()
+	{
+		$races = Race::all();
+		$race_data = [];
+		
+		//Process the races
+		foreach($races AS $race){
+			$race_data[$race->name]["id"] = $race->id;
+			$race_data[$race->name]["has_subraces"] = $race->subraces->count() > 0;
+			
+			//Process the subraces
+			if($race->subraces->isNotEmpty()){
+				foreach($race->subraces AS $subrace){
+					$race_data[$race->name]["subraces"][$subrace->name] = [
+						"id"	=> $subrace->id,
+						"parent_race_id" => $subrace->parent_race_id,
+					];
+					
+					 //Process the subrace ASI
+					foreach($subrace->asi AS $att){
+						$race_data[$race->name]["subraces"][$subrace->name]["subrace_asi"][$att->name] = [
+							"att_id" => $att->id,
+							"amount" => $att->pivot->amount,
+						];
+					}
+				}
+			}
+			
+			foreach($race->asi AS $att){
+				$race_data[$race->name]["race_asi"][$att->name] = [
+					"att_id" => $att->id,
+					"amount" => $att->pivot->amount,
+				];
+			}
+		}
+		
+		return $race_data;
+	}
 }
+
+// $race_data = [
+	// "Dwarf" => [
+		// "id" => $id,
+		// "has_subraces" => "true",
+		// "subraces" => [ [ "name" => $subrace_name, "id" => $subrace_id, "parent_race" => $subrace_parent_id, "subrace_asi" => $subrace_asi], "subrace 2", "subrace 3" ],
+		// "race_asi" => [ "stat1" => $id, "amount" => $amount ]
+	// ]
+//]

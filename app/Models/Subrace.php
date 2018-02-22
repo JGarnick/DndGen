@@ -12,8 +12,8 @@ class Subrace extends Model
 		return $this->belongsTo(Race::class, "parent_race_id");
 	}
 	
-	public function race_asi()
+	public function asi()
 	{
-		return $this->belongsToMany(Attribute::class, "racial_asi");
+		return $this->belongsToMany(Attribute::class, "racial_asi")->withPivot("amount");
 	}
 }
