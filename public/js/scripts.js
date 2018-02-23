@@ -95,9 +95,6 @@ $(document).ready(function() {
 			}
 		},
         methods: {
-			getActiveRace: function(){
-				return false;
-			},
 			buyPoint: function(index){
 
 				//When purchasing the next point, you must first refund the amount of the current attribute, then spend the point.

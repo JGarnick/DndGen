@@ -21,7 +21,7 @@ class CharacterService
 		$classes 		= CharacterClass::all();
 		$backgrounds 	= Background::all();
 		$subraces 		= Subrace::all();
-		
+
 		return [
 			"character" 	=> $character,
 			"races"			=> $races,
@@ -31,7 +31,7 @@ class CharacterService
 			"skills"		=> $skills,
 		];
 	}
-	
+
 	public function create()
 	{
 		$character 		= new Character();
@@ -48,10 +48,11 @@ class CharacterService
 		$character->charisma 		= 8;
 		$character->level 			= 1;
 		$character->race_id			= 1;
+        $character->subrace_id      = 0;
 		$character->class_id		= 1;
 		$character->hp_max			= 12;
 		$character->hp_current		= 12;
-		
+
 		return [
 			"character" 	=> $character,
 			"races"			=> $races,
@@ -62,7 +63,7 @@ class CharacterService
 			"race_data"		=> $this->constructRacesInfo(),
 		];
 	}
-	
+
 	public function update(Request $request, $id)
 	{
 		$character 					= Character::find($id);
@@ -74,7 +75,7 @@ class CharacterService
 		$character->wisdom 			= $request->input('wisdom', 10);
 		$character->intelligence 	= $request->input('intelligence', 10);
 		$character->charisma 		= $request->input('charisma', 10);
-		
+
 		//attach bonuses to skills
 		if($request->has('skills'))
 		{
@@ -86,25 +87,25 @@ class CharacterService
 				]);
 			}
 		}
-		
+
 	}
-	
+
 	public function constructRacesInfo()
 	{
 		$races = Race::all();
 		$race_data = [];
-		
+
 		//Process the races
 		foreach($races AS $race){
 			$race_data[$race->name]["id"] 			= $race->id;
 			$race_data[$race->name]["has_subraces"] = $race->subraces->count() > 0;
-			
+
 			//Process the subraces
 			if($race->subraces->isNotEmpty()){
 				foreach($race->subraces AS $subrace){
 					$race_data[$race->name]["subraces"][$subrace->name] = [
 						"id" => $subrace->id,
-						"parent_race_id" => $subrace->parent_race_id,
+						"parent_race_id" => $subrace->parent_race_id
 					];
 					$asi_index = 1;
 					 //Process the subrace ASI
@@ -115,7 +116,7 @@ class CharacterService
 							$key = $att->name . "_" . $asi_index;
 							$asi_index++;
 						}
-						
+
 						$race_data[$race->name]["subraces"][$subrace->name]["subrace_asi"][$key] = [
 							"att_id" => $att->id,
 							"amount" => $att->pivot->amount,
@@ -123,7 +124,7 @@ class CharacterService
 					}
 				}
 			}
-			
+
 			foreach($race->asi AS $att){
 				$race_data[$race->name]["race_asi"][$att->name] = [
 					"att_id" => $att->id,
@@ -131,7 +132,7 @@ class CharacterService
 				];
 			}
 		}
-		
+
 		return $race_data;
 	}
 }
