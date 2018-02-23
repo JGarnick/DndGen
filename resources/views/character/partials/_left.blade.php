@@ -30,14 +30,16 @@
 			<h4 class="col-xs-offset-1"><i>select 1</i></h4>
 			<div id="selectable-sub-race" class="clearfix selectable">
 				<template v-for="(data, index) in race_data">
-					<button v-for="(subrace_data, key) in data.subraces"
-						v-on:click="changeSubRace"
-						type="button"
-						:data-parent-race="index"
-						:class="(character.subrace_id === subrace_data.id) ? 'col-xs-6 tab-interactable ui-widget-content ui-selected' : 'col-xs-6 tab-interactable ui-widget-content'"
-						>
-						@{{key}}
-					</button>
+					<template v-for="(subrace_data, key) in data.subraces">
+						<button
+							v-on:click="changeSubRace"
+							type="button"
+							:data-parent-race="index"
+							:class="(character.subrace_id === subrace_data.id) ? 'col-xs-6 tab-interactable ui-widget-content ui-selected' : 'col-xs-6 tab-interactable ui-widget-content'"
+							>
+							@{{key}}
+						</button>
+					</template>
 				</template>
 			</div>
 		</div>
