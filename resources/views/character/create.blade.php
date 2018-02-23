@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container-fluid">
+	<div class="row" id="vue-2"></div>
 	<div class="row" id="vue-1">
 		<hr class="spacer small" />
 		<form class="clearfix" action="{{route('character.store')}}" method="POST">

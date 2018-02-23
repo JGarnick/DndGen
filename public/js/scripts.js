@@ -23,7 +23,6 @@ $(document).ready(function() {
 				showHideSubraces();
 			});
 
-
 			function showHideSubraces() {
 				var race = $('.ui-selected')[0].innerText;
 				if ($($('.ui-selected')[0]).attr('data-has-subrace') === 'true') {
@@ -44,11 +43,17 @@ $(document).ready(function() {
 			showHideSubraces();
 
 			$('#selectable-sub-race button').on("click", function(){
+				var selected = $(this).hasClass("ui-selected");
+
 				$('#selectable-sub-race button').each(function(){
 					$(this).removeClass('ui-selected');
 				});
-
-				$(this).addClass("ui-selected");
+				if(!selected){
+					$(this).addClass("ui-selected");
+				}
+				if(selected){
+					app.subrace = $(this).innerText;
+				}
 			});
 
 			$("[data-type='ability-score']").each(function(){
@@ -96,7 +101,6 @@ $(document).ready(function() {
 		},
         methods: {
 			buyPoint: function(index){
-
 				//When purchasing the next point, you must first refund the amount of the current attribute, then spend the point.
 				var attempt 			= this.ability_scores[index].amount + 1; //Current stat + 1
 				var paid				= this.getPointCost(this.ability_scores[index].amount); //Amount you've invested in your skill points so far
@@ -157,6 +161,7 @@ $(document).ready(function() {
 			},
 			changeRace: function(event){
 				this.race = event.target.innerText;
+
 			},
 			changeSubRace: function(event){
 				this.subrace = event.target.innerText;
