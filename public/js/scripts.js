@@ -168,6 +168,14 @@ $(document).ready(function() {
 			}
 		},
         methods: {
+			switchBaseStats: function(stats_entry_type){
+				if(stats_entry_type === "point buy"){
+					$.each(this.ability_scores, function(index, value){
+						console.log(index);
+					});
+				}
+
+			},
 			buyPoint: function(index){
 				//When purchasing the next point, you must first refund the amount of the current attribute, then spend the point.
 				var attempt 			= this.ability_scores[index].amount + 1; //Current stat + 1

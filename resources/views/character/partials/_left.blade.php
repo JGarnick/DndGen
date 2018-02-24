@@ -64,7 +64,7 @@
 					</div>
 				</div>
 			</div>
-			<h4>Point Buy</h4>
+			<h4 v-on:click="switchBaseStats('point buy')">Point Buy</h4>
 			<div class="row">
 				<div class="col-xs-2" v-for="(value, index) in ability_scores" v-if="value.id !== 7">
 					<div class="row text-center">
