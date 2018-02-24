@@ -16,10 +16,10 @@ $(document).ready(function() {
 			});
 
 			$('#selectable-race button').on("click", function(){
-				var previous_race = app.race;
-				var race = $(this)[0].innerText;
-				app.race = race;
-				setAttributes(race, previous_race);
+				var previous = app.race;
+				var name = $(this)[0].innerText;
+				app.race = name;
+				setRaceAttributes(name, previous);
 				$('#selectable-race button').each(function(){
 					$(this).removeClass('ui-selected');
 				});
@@ -27,24 +27,40 @@ $(document).ready(function() {
 				showHideSubraces();
 			});
 
-			function setAttributes(race, previous_race)
+			function setRaceAttributes(name, previous)
 			{
 				//first reset attributes the previous race gave bonuses to
-				if(previous_race !== ""){
-					$.each(app.race_data[previous_race]["race_asi"], function(key, value){
+				if(previous !== ""){
+					$.each(app.race_data[previous]["race_asi"], function(key, value){
 						//key = "Constitution, value = [amount => 2, att_id => 3]
 						app.ability_scores[key]["amount"] -= value["amount"];
 						app.setAbilityModifier(key);
 					});
 				}
 				//then add the new bonuses
-				$.each(app.race_data[race]["race_asi"], function(key, value){
+				$.each(app.race_data[name]["race_asi"], function(key, value){
 					//key = "Constitution, value = [amount => 2, att_id => 3]
 					app.ability_scores[key]["amount"] += value["amount"];
 					app.setAbilityModifier(key);
 				});
 			}
-			$(function(){setAttributes(app.race, "");})
+
+			function setSubraceAttributes(name, previous)
+			{
+				if(previous !== ""){
+					$.each(app.race_data[app.race]["subraces"][previous]["subrace_asi"], function(key, value){
+						//key = "Constitution, value = [amount => 2, att_id => 3]
+						app.ability_scores[key]["amount"] -= value["amount"];
+						app.setAbilityModifier(key);
+					});
+				}
+				$.each(app.race_data[app.race]["subraces"][name]["subrace_asi"], function(key, value){
+					//key = Wisdom, value = [ amount => 1, att_id => 4 ]
+					app.ability_scores[key]["amount"] += value["amount"];
+					app.setAbilityModifier(key);
+				});
+			}
+			$(function(){setRaceAttributes(app.race, "");})
 			function showHideSubraces() {
 				var race = $('.ui-selected')[0].innerText;
 				if ($($('.ui-selected')[0]).attr('data-has-subrace') === 'true') {
@@ -65,8 +81,11 @@ $(document).ready(function() {
 			showHideSubraces();
 
 			$('#selectable-sub-race button').on("click", function(){
+				var previous = app.subrace;
+				var name = $(this)[0].innerText;
+				app.subrace = name;
+				setSubraceAttributes(name, previous);
 				var selected = $(this).hasClass("ui-selected");
-
 				$('#selectable-sub-race button').each(function(){
 					$(this).removeClass('ui-selected');
 				});
