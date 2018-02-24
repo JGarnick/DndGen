@@ -16,10 +16,18 @@ $(document).ready(function() {
 			});
 
 			$('#selectable-race button').on("click", function(){
-				var previous = app.race;
-				var name = $(this)[0].innerText;
-				app.race = name;
-				setRaceAttributes(name, previous);
+				var previous_race = app.race;
+				var race_name = $(this)[0].innerText;
+				app.race = race_name;
+				setRaceAttributes(race_name, previous_race);
+
+				var subrace_name = app.subrace;
+				if(subrace_name !== ""){
+					//Changing race while subrace is selected, must reset the subrace bonuses by passing the current subrace as a previous subrace
+					setSubraceAttributes("", subrace_name, true, previous_race);
+				}
+
+				app.subrace = "";
 				$('#selectable-race button').each(function(){
 					$(this).removeClass('ui-selected');
 				});
@@ -45,20 +53,39 @@ $(document).ready(function() {
 				});
 			}
 
-			function setSubraceAttributes(name, previous)
+			function setSubraceAttributes(subrace_name, previous_subrace, race_change = false, previous_race = "")
 			{
-				if(previous !== ""){
-					$.each(app.race_data[app.race]["subraces"][previous]["subrace_asi"], function(key, value){
+				//If changing race, we need to provide the previous race so we can reset the bonuses it's selected subrace provided
+				if(race_change && previous_race !== ""){
+					$.each(app.race_data[previous_race]["subraces"][previous_subrace]["subrace_asi"], function(key, value){
+						//key = "Constitution, value = [amount => 2, att_id => 3]
+						app.ability_scores[key]["amount"] -= value["amount"];
+						app.setAbilityModifier(key);
+					});
+
+					$('#selectable-sub-race button').each(function(){
+						$(this).removeClass('ui-selected');
+					});
+
+					return;
+				}
+
+				if(previous_subrace !== ""){
+					$.each(app.race_data[app.race]["subraces"][previous_subrace]["subrace_asi"], function(key, value){
 						//key = "Constitution, value = [amount => 2, att_id => 3]
 						app.ability_scores[key]["amount"] -= value["amount"];
 						app.setAbilityModifier(key);
 					});
 				}
-				$.each(app.race_data[app.race]["subraces"][name]["subrace_asi"], function(key, value){
-					//key = Wisdom, value = [ amount => 1, att_id => 4 ]
-					app.ability_scores[key]["amount"] += value["amount"];
-					app.setAbilityModifier(key);
-				});
+				if(subrace_name !== ""){
+					$.each(app.race_data[app.race]["subraces"][subrace_name]["subrace_asi"], function(key, value){
+						//key = Wisdom, value = [ amount => 1, att_id => 4 ]
+						app.ability_scores[key]["amount"] += value["amount"];
+						app.setAbilityModifier(key);
+					});
+				}
+				return;
+
 			}
 			$(function(){setRaceAttributes(app.race, "");})
 			function showHideSubraces() {
