@@ -16,6 +16,10 @@ $(document).ready(function() {
 			});
 
 			$('#selectable-race button').on("click", function(){
+				var previous_race = app.race;
+				var race = $(this)[0].innerText;
+				app.race = race;
+				setAttributes(race, previous_race);
 				$('#selectable-race button').each(function(){
 					$(this).removeClass('ui-selected');
 				});
@@ -23,6 +27,24 @@ $(document).ready(function() {
 				showHideSubraces();
 			});
 
+			function setAttributes(race, previous_race)
+			{
+				//first reset attributes the previous race gave bonuses to
+				if(previous_race !== ""){
+					$.each(app.race_data[previous_race]["race_asi"], function(key, value){
+						//key = "Constitution, value = [amount => 2, att_id => 3]
+						app.ability_scores[key]["amount"] -= value["amount"];
+						app.setAbilityModifier(key);
+					});
+				}
+				//then add the new bonuses
+				$.each(app.race_data[race]["race_asi"], function(key, value){
+					//key = "Constitution, value = [amount => 2, att_id => 3]
+					app.ability_scores[key]["amount"] += value["amount"];
+					app.setAbilityModifier(key);
+				});
+			}
+			$(function(){setAttributes(app.race, "");})
 			function showHideSubraces() {
 				var race = $('.ui-selected')[0].innerText;
 				if ($($('.ui-selected')[0]).attr('data-has-subrace') === 'true') {
@@ -159,13 +181,12 @@ $(document).ready(function() {
 						break;
 				}
 			},
-			changeRace: function(event){
-				this.race = event.target.innerText;
-
-			},
-			changeSubRace: function(event){
-				this.subrace = event.target.innerText;
-			},
+			// changeRace: function(event){
+			// 	this.race = event.target.innerText;
+			// },
+			// changeSubRace: function(event){
+			// 	this.subrace = event.target.innerText;
+			// },
 			setAbilityModifier: function(index){
 				var newMod = this.getAbilityModifier(this.ability_scores[index].amount);
 				this.ability_scores[index].mod = newMod;

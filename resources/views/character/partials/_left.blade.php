@@ -17,7 +17,6 @@
 				type="button"
 				name="race"
 				:value="data.id"
-				v-on:click="changeRace"
 				v-bind:data-has-subrace="data.has_subraces ? 'true' : 'false'"
 				v-bind:class="character.race_id != null && character.race_id === data.id ?
 					'col-xs-6 tab-interactable ui-widget-content ui-selected' : 'col-xs-6 tab-interactable ui-widget-content'">
@@ -32,7 +31,6 @@
 				<template v-for="(data, index) in race_data">
 					<template v-for="(subrace_data, key) in data.subraces">
 						<button
-							v-on:click="changeSubRace"
 							type="button"
 							:data-parent-race="index"
 							:class="(character.subrace_id === subrace_data.id) ? 'col-xs-6 tab-interactable ui-widget-content ui-selected' : 'col-xs-6 tab-interactable ui-widget-content'"
