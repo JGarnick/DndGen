@@ -98,7 +98,7 @@
 
 					<div class="text-center" >
 						<div><small>race</small></div>
-						<div>0</div>
+						<div v-on:click="getAsiData">TEST</div>
 					</div>
 
 					<div class="text-center" >

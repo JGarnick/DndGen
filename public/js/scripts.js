@@ -176,6 +176,19 @@ $(document).ready(function() {
 				}
 
 			},
+			getAsiData: function(){
+				var asi_data = [];
+				$.each(app.race_data[app.race]["race_asi"], function(key, value){
+					asi_data[key] = value["amount"];
+				});
+				$.each(app.race_data[app.race]["subraces"] ,function(key, value){
+					$.each( app.race_data[app.race]["subraces"][key]["subrace_asi"], function(key2, val2){
+						asi_data[key2] = val2["amount"];
+					});
+				});
+				console.log(asi_data);
+				return asi_data;
+			},
 			buyPoint: function(index){
 				//When purchasing the next point, you must first refund the amount of the current attribute, then spend the point.
 				var attempt 			= this.ability_scores[index].amount + 1; //Current stat + 1
