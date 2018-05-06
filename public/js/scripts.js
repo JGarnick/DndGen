@@ -70,14 +70,14 @@ $(document).ready(function() {
 					return;
 				}
 
-				if(previous_subrace !== ""){
+				if(previous_subrace !== "" ){
 					$.each(app.race_data[app.race]["subraces"][previous_subrace]["subrace_asi"], function(key, value){
 						//key = "Constitution, value = [amount => 2, att_id => 3]
 						app.ability_scores[key]["amount"] -= value["amount"];
 						app.setAbilityModifier(key);
 					});
 				}
-				if(subrace_name !== ""){
+				if(subrace_name !== "" && previous_subrace !== subrace_name){
 					$.each(app.race_data[app.race]["subraces"][subrace_name]["subrace_asi"], function(key, value){
 						//key = Wisdom, value = [ amount => 1, att_id => 4 ]
 						app.ability_scores[key]["amount"] += value["amount"];
@@ -110,18 +110,18 @@ $(document).ready(function() {
 			$('#selectable-sub-race button').on("click", function(){
 				var previous = app.subrace;
 				var name = $(this)[0].innerText;
-				app.subrace = name;
-				setSubraceAttributes(name, previous);
-				var selected = $(this).hasClass("ui-selected");
+
 				$('#selectable-sub-race button').each(function(){
-					$(this).removeClass('ui-selected');
+					$(this).removeClass('ui-selected'); //removes the selected class from all the buttons
 				});
-				if(!selected){
+				if(app.subrace === name){
+					app.subrace = "";
+					$(this).removeClass("ui-selected");
+				}else{
+					app.subrace = name;
 					$(this).addClass("ui-selected");
 				}
-				if(selected){
-					app.subrace = $(this).innerText;
-				}
+				setSubraceAttributes(name, previous); //adjusts the player's stats based on subrace
 			});
 
 			$("[data-type='ability-score']").each(function(){
@@ -171,7 +171,7 @@ $(document).ready(function() {
 			switchBaseStats: function(stats_entry_type){
 				if(stats_entry_type === "point buy"){
 					$.each(this.ability_scores, function(index, value){
-						console.log(index);
+						value.amount = 8;
 					});
 				}
 
@@ -248,12 +248,6 @@ $(document).ready(function() {
 						break;
 				}
 			},
-			// changeRace: function(event){
-			// 	this.race = event.target.innerText;
-			// },
-			// changeSubRace: function(event){
-			// 	this.subrace = event.target.innerText;
-			// },
 			setAbilityModifier: function(index){
 				var newMod = this.getAbilityModifier(this.ability_scores[index].amount);
 				this.ability_scores[index].mod = newMod;

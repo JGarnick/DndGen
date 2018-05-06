@@ -1,11 +1,11 @@
 <div id="right-tabs" class="right-section">
 	<ul>
 		<li><a href="#tab-right-1">Summary</a></li>
-		<li><a href="#tab-right-2">Combat</a></li>
+		{{-- <li><a href="#tab-right-2">Combat</a></li>
 		<li><a href="#tab-right-3">Proficiencies</a></li>
 		<li><a href="#tab-right-4">Spells</a></li>
 		<li><a href="#tab-right-5">Features</a></li>
-		<li><a href="#tab-right-6">Equipment</a></li>
+		<li><a href="#tab-right-6">Equipment</a></li> --}}
 	</ul>
 	<div id="tab-right-1" class="row">
 		<h4 class="text-center">Ability Scores</h4>
@@ -66,8 +66,8 @@
 					<div v-for="save in saving_throws">
 						<span class="col-xs-6">@{{save.name}}</span>
 						<span class="col-xs-6"><span v-if="save.total > 0">@{{save.operator}}</span>@{{save.total}}</span>
-					</div>					
-				</div>								
+					</div>
+				</div>
 			</h4>
 		</div>
 		<div class="col-xs-6 text-center">
@@ -76,9 +76,9 @@
 				@{{darkvision}}
 			</h4>
 		</div>
-	</div>	
-	
-	<div id="tab-right-2">
+	</div>
+
+	{{-- <div id="tab-right-2">
 		<p>Ability Scores/Feats</p>
 	</div>
 	<div id="tab-right-3">
@@ -92,5 +92,5 @@
 	</div>
 	<div id="tab-right-6">
 		<p>Proficiencies</p>
-	</div>
+	</div> --}}
 </div>

@@ -2,11 +2,11 @@
 	<ul>
 		<li><a href="#tab-1">Race</a></li>
 		<li><a href="#tab-2">Ability Scores/Feats</a></li>
-		<li><a href="#tab-3">Background</a></li>
+		{{-- <li><a href="#tab-3">Background</a></li>
 		<li><a href="#tab-4">Class/Level</a></li>
 		<li><a href="#tab-5">Spells</a></li>
 		<li><a href="#tab-6">Proficiencies</a></li>
-		<li><a href="#tab-7">Equipment</a></li>
+		<li><a href="#tab-7">Equipment</a></li> --}}
 	</ul>
 	<div id="tab-1" class="row">
 		<h2 class="col-xs-offset-1">Race</h2>
@@ -48,7 +48,7 @@
 		<h3 class="">Abilities Variant</h2>
 		<h4 class=""><i>select 1</i></h4>
 		<div id="ability-scores-wrapper">
-			<h4>Manual Entry</h4>
+			<h4 v-on:click="switchBaseStats('manual entry')">Manual Entry</h4>
 			<div class="row">
 				<div class="col-xs-2" v-for="(value, index) in ability_scores" v-if="value.id !== 7">
 					<div class="row text-center">
@@ -127,7 +127,7 @@
 
 
 	</div>
-	<div id="tab-3">
+	{{-- <div id="tab-3">
 		<p>Background</p>
 	</div>
 	<div id="tab-4">
@@ -141,5 +141,5 @@
 	</div>
 	<div id="tab-7">
 		<p>Equipment</p>
-	</div>
+	</div> --}}
 </div>
