@@ -173,6 +173,15 @@ $(document).ready(function() {
 					$.each(this.ability_scores, function(index, value){
 						value.amount = 8;
 					});
+				}else{
+					//Get race and subrace and recalculate from 8
+					$.each(this.race_data[this.race]["race_asi"], function(key, value){
+						app.ability_scores[key]["amount"] = 8 + value["amount"];
+					});
+
+					$.each(this.race_data[this.race]["subraces"][this.subrace]["subrace_asi"], function(key, value){
+						this.ability_scores[key] += value["amount"];
+					});
 				}
 
 			},
@@ -186,7 +195,6 @@ $(document).ready(function() {
 						asi_data[key2] = val2["amount"];
 					});
 				});
-				console.log(asi_data);
 				return asi_data;
 			},
 			buyPoint: function(index){
