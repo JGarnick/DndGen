@@ -71,17 +71,22 @@ $(document).ready(function() {
 				}
 
 				if(previous_subrace !== "" ){
-					$.each(app.race_data[app.race]["subraces"][previous_subrace]["subrace_asi"], function(key, value){
+					$.each(app.race_data[app.race].subraces[previous_subrace].subrace_asi, function(key, value){
 						//key = "Constitution, value = [amount => 2, att_id => 3]
-						app.ability_scores[key]["amount"] -= value["amount"];
-						app.setAbilityModifier(key);
+						if(key in app.ability_scores){
+							app.ability_scores[key].amount -= value["amount"];
+							app.setAbilityModifier(key);
+						}
+						
 					});
 				}
 				if(subrace_name !== "" && previous_subrace !== subrace_name){
-					$.each(app.race_data[app.race]["subraces"][subrace_name]["subrace_asi"], function(key, value){
+					$.each(app.race_data[app.race].subraces[subrace_name].subrace_asi, function(key, value){
 						//key = Wisdom, value = [ amount => 1, att_id => 4 ]
-						app.ability_scores[key]["amount"] += value["amount"];
-						app.setAbilityModifier(key);
+						if(key in app.ability_scores){
+							app.ability_scores[key].amount += value["amount"];
+							app.setAbilityModifier(key);
+						}
 					});
 				}
 				return;
@@ -138,7 +143,7 @@ $(document).ready(function() {
 				heightStyle: "content",
 
 			});
-
+			console.log(this.classes);
 		},
         data: {
             character:          window.character,
@@ -159,6 +164,7 @@ $(document).ready(function() {
 			ability_scores:		window.ability_scores,
 			subrace:			"",
 			ability_points:		27,
+			classes:			window.classes,
         },
 		filters: {
 			lowercase: function(value){
@@ -168,22 +174,25 @@ $(document).ready(function() {
 			}
 		},
         methods: {
-			switchBaseStats: function(stats_entry_type){
-				if(stats_entry_type === "point buy"){
-					$.each(this.ability_scores, function(index, value){
+			resetBaseStats: function(){
+				$.each(this.ability_scores, function(index, value){
 						value.amount = 8;
-					});
-				}else{
-					//Get race and subrace and recalculate from 8
-					$.each(this.race_data[this.race]["race_asi"], function(key, value){
-						app.ability_scores[key]["amount"] = 8 + value["amount"];
-					});
+						value.points_purchased = 0;
+				});
+				$.each(this.race_data[this.race].race_asi, function(key, value){
+					if(key in app.ability_scores){
+						app.ability_scores[key].amount = 8 + value.amount;
+					}
+				});
 
-					$.each(this.race_data[this.race]["subraces"][this.subrace]["subrace_asi"], function(key, value){
-						this.ability_scores[key] += value["amount"];
+				if(this.subrace !== ""){
+					$.each(this.race_data[this.race].subraces[this.subrace].subrace_asi, function(key, value){
+						if(key in app.ability_scores){
+							app.ability_scores[key].amount += value["amount"];
+						}
 					});
 				}
-
+				this.ability_points = 27;
 			},
 			getAsiData: function(){
 				var asi_data = [];
@@ -196,6 +205,20 @@ $(document).ready(function() {
 					});
 				});
 				return asi_data;
+			},
+			getAsiByAttribute: function(attribute){				
+				var bonus = 0;
+				var race_asi = this.race_data[this.race].race_asi;
+				if(attribute in race_asi){
+					var bonus = race_asi[attribute].amount;
+				}
+				
+				if(this.subrace){
+					var subrace_asi = this.race_data[this.race].subraces[this.subrace].subrace_asi;
+					if(attribute in subrace_asi){ bonus += subrace_asi[attribute].amount }
+				}
+			
+				return bonus;
 			},
 			buyPoint: function(index){
 				//When purchasing the next point, you must first refund the amount of the current attribute, then spend the point.

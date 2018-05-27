@@ -135,4 +135,12 @@ class CharacterService
 
 		return $race_data;
 	}
+	
+	public function constructClassesInfo(){
+		$classes = CharacterClass::all();
+		$class_data = [];
+		
+		//[Barbarian => [ hit_die => "d12", weapon_prof => [ "martial", "ranged" ], armor_prof => [ "light", "medium" ], save_prof => [ "Constitution", "Strength" ] ]]
+		
+	}
 }

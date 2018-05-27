@@ -2,9 +2,9 @@
 	<ul>
 		<li><a href="#tab-1">Race</a></li>
 		<li><a href="#tab-2">Ability Scores/Feats</a></li>
-		{{-- <li><a href="#tab-3">Background</a></li>
+		{{--<li><a href="#tab-3">Background</a></li>--}}
 		<li><a href="#tab-4">Class/Level</a></li>
-		<li><a href="#tab-5">Spells</a></li>
+		{{--<li><a href="#tab-5">Spells</a></li>
 		<li><a href="#tab-6">Proficiencies</a></li>
 		<li><a href="#tab-7">Equipment</a></li> --}}
 	</ul>
@@ -48,7 +48,7 @@
 		<h3 class="">Abilities Variant</h2>
 		<h4 class=""><i>select 1</i></h4>
 		<div id="ability-scores-wrapper">
-			<h4 v-on:click="switchBaseStats('manual entry')">Manual Entry</h4>
+			<h4 v-on:click="resetBaseStats()">Manual Entry</h4>
 			<div class="row">
 				<div class="col-xs-2" v-for="(value, index) in ability_scores" v-if="value.id !== 7">
 					<div class="row text-center">
@@ -64,7 +64,7 @@
 					</div>
 				</div>
 			</div>
-			<h4 v-on:click="switchBaseStats('point buy')">Point Buy</h4>
+			<h4 v-on:click="resetBaseStats()">Point Buy</h4>
 			<div class="row">
 				<div class="col-xs-2" v-for="(value, index) in ability_scores" v-if="value.id !== 7">
 					<div class="row text-center">
@@ -85,7 +85,7 @@
 				<div class="col-xs-12">
 					<div style="margin-top:10px;"><p class="pull-left">Point Buys</p><p class="pull-right"><b>@{{ability_points}}</b> <em>remaining</em></p></div>
 				</div>
-				<div class="col-xs-2" v-for="(value, index) in ability_scores" v-if="value.id !== 7">
+				<div class="col-xs-2" v-for="(value, index) in ability_scores" v-if="value.id !== 7">				
 					<div class="text-center" >
 						<div><small>bought</small></div>
 						<div>@{{ability_scores[index].points_purchased}}</div>
@@ -98,7 +98,7 @@
 
 					<div class="text-center" >
 						<div><small>race</small></div>
-						<div v-on:click="getAsiData">TEST</div>
+						<div>@{{getAsiByAttribute(index)}}</div>
 					</div>
 
 					<div class="text-center" >
@@ -127,13 +127,29 @@
 
 
 	</div>
-	{{-- <div id="tab-3">
+	{{--<div id="tab-3">
 		<p>Background</p>
-	</div>
+	</div>--}}
 	<div id="tab-4">
-		<p>Class/Level</p>
+		<h2 class="text-center">Class/Level</h2>
+		<h3 class="">Class/Level</h3>
+		<h4 class=""><i>select at least 1</i></h4>
+		<div id="class-levels-wrapper" style="border: 1px solid black;border-radius:3px;box-sizing:border-box;padding:25px;">
+			<div class="content-wrap" style="display:flex;">
+				<select id="char_class" name="class" v-model="char_class" style="padding:5px;flex-basis: 0;flex-grow: 1;flex-shrink: 1;margin-right: 120px;" >
+					<option v-for="(value, index) in classes" :value="value.name">@{{value.name}}</option>
+				</select>
+				<input type="number" name="level" v-model="level" style="width:10%;border:1px solid black;border-radius:3px;box-sizing:border-box;padding:5px;"/>
+			</div>
+			<div class="info-wrap" style="display:block">
+				<div style="padding-top:10px;" v-for="(value, index) in classes" v-if="value.name == char_class" class="hit-die">Hit Die: @{{value.hit_die}}</div>
+				<div>Saving Throw Proficiencies:</div>
+				<div>Weapon Proficiencies:</div>
+				<div>Armor Proficiencies:</div>
+			</div>
+		</div>
 	</div>
-	<div id="tab-5">
+	{{--<div id="tab-5">
 		<p>Spells</p>
 	</div>
 	<div id="tab-6">

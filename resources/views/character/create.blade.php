@@ -61,21 +61,23 @@
 		<div class="col-xs-6 right section">
 			@include('character.partials._right')
 		</div>
+		
 	</div>
 	<hr class="spacer small" />
+	
 </div>
 <script>
 
 	var character			= @json($character);
-	var level				= character.level;
-	var name 				= character.name;
-	var race 				= '{{$character->race->name}}';
+	var level					= character.level;
+	var name 					= character.name;
+	var race 					= '{{$character->race->name}}';
 	var char_class 			= '{{$character->char_class->name}}';
 	var hp_max 				= character.hp_max;
 	var hp_current 			= character.hp_current;
-	var speed 				= '{{$character->speed()}}';
+	var speed 					= '{{$character->speed()}}';
 	var passive_perception 	= '{{$character->passive_perception()}}';
-	var ac 					= '{{$character->getArmorClass()}}';
+	var ac 						= '{{$character->getArmorClass()}}';
 	var proficiency_bonus	= '{{$character->prof_bonus()}}';
 	@if(is_null($character->race->darkvision))
 		var darkvision 		= 'No';
@@ -83,9 +85,10 @@
 		var darkvision 		= '{{$character->race->darkvision}}ft';
 	@endif
 	var saving_throws		= @json($character->getSavingThrows());
-	var skills				= @json($character->getSkills());
+	var skills					= @json($character->getSkills());
 	var ability_scores		= @json($character->getAbilityScores());
 	var	race_data			= @json($race_data);
+	var classes				= @json($classes);
 
 </script>
 @endsection
