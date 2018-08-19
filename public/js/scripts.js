@@ -266,7 +266,7 @@ $(document).ready(function() {
 				if(attempt >= 8 && attempt >= minimum_amt)
 				{
 					this.ability_points += paid;
-					this.ability_points -= cost;
+					if(attempt !== minimum_amt){ this.ability_points -= cost; }
 					this.ability_scores[index].amount = attempt;
 					this.setAbilityModifier(index);
 					this.ability_scores[index].points_purchased--;
