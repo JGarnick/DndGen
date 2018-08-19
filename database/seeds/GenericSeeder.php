@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class GenericSeeder extends Seeder
 {
@@ -210,7 +211,7 @@ class GenericSeeder extends Seeder
 		[
 			"name" 		=> "josh",
 			"email"		=> "garnick.josh@gmail.com",
-			"password"	=> 123,
+			"password"	=> ''
 		],
 	];
 	
@@ -233,6 +234,7 @@ class GenericSeeder extends Seeder
     public function run()
     {
 		foreach($this->admins AS $admin){
+			$admin["password"] = Hash::make(123456);
 			DB::table("users")->insert($admin);
 		}
         foreach($this->proficiencies AS $p)

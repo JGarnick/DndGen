@@ -174,7 +174,14 @@ $(document).ready(function() {
 				return value.toLowerCase()
 			}
 		},
-        methods: {
+        methods: {			
+			//For calculating the minimum attribute value based on current race and subrace
+			getBaseAttributeValue: function(attribute){
+				var base = 8;
+				var bonus = this.getComputedAsiByAttribute(attribute);
+				return base + bonus;
+			},
+			//Resets point buy stats
 			resetBaseStats: function(){
 				$.each(this.ability_scores, function(index, value){
 						value.amount = 8;
@@ -195,19 +202,21 @@ $(document).ready(function() {
 				}
 				this.ability_points = 27;
 			},
+			//Return all attributes and their bonuses for current race and subrace
 			getAsiData: function(){
 				var asi_data = [];
 				$.each(app.race_data[app.race]["race_asi"], function(key, value){
 					asi_data[key] = value["amount"];
 				});
-				$.each(app.race_data[app.race]["subraces"] ,function(key, value){
-					$.each( app.race_data[app.race]["subraces"][key]["subrace_asi"], function(key2, val2){
-						asi_data[key2] = val2["amount"];
-					});
+				
+				$.each( app.race_data[app.race]["subraces"][app.subrace]["subrace_asi"], function(key2, val2){
+					asi_data[key2] = val2["amount"];
 				});
+				
 				return asi_data;
 			},
-			getAsiByAttribute: function(attribute){
+			//Return the specific ASI bonus by attribute, including racial and subracial bonuses
+			getComputedAsiByAttribute: function(attribute){
 				var bonus = 0;
 				if(typeof this.race_data[this.race].race_asi !== "undefined"){
 					var race_asi = this.race_data[this.race].race_asi;
@@ -223,12 +232,17 @@ $(document).ready(function() {
 			
 				return bonus;
 			},
+			
+			//Point buy function for adding 1 to a stat
 			buyPoint: function(index){
 				//When purchasing the next point, you must first refund the amount of the current attribute, then spend the point.
 				var attempt 			= this.ability_scores[index].amount + 1; //Current stat + 1
-				var paid				= this.getPointCost(this.ability_scores[index].amount); //Amount you've invested in your skill points so far
+				//var paid				= this.getPointCost(this.ability_scores[index].amount); //Amount you've invested in your skill points so far
 				var cost 				= this.getPointCost(attempt); //How much moving to the next point will cost
 				var current_score_cost 	= this.getPointCost(this.ability_scores[index].amount); //How much the current amount cost
+				if(this.getBaseAttributeValue(index) === this.ability_scores[index].amount){
+					current_score_cost = 0;
+				}
 
 				if(attempt <= 15  && this.ability_points !== 0)
 				{
@@ -241,11 +255,15 @@ $(document).ready(function() {
 
 			},
 			refundPoint: function(index){
+				//Attempt represents the number the user is trying to achieve by refunding
+				//Logic: Get the point cost of the current score (i.e. 9 = 1)
+				//Paid represents what would have had to be spent to get to the current score. This logic has fallacies based on racial bonuses
 				var attempt = this.ability_scores[index].amount - 1;
 				var paid 	= this.getPointCost(this.ability_scores[index].amount);
 				var cost	= this.getPointCost(attempt);
+				var minimum_amt = this.getBaseAttributeValue(index);//Get 8 + racial and subracial ASI.
 
-				if(attempt >= 8)
+				if(attempt >= 8 && attempt >= minimum_amt)
 				{
 					this.ability_points += paid;
 					this.ability_points -= cost;

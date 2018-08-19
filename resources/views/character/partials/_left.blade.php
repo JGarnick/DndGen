@@ -72,14 +72,18 @@
 							<h4>@{{ability_scores[index].abbr}}</h4>
 						</div>
 						<div style="margin-bottom:7px;" class="col-xs-12">
-							<small>base</small>
+							<small>total</small>
 						</div>
 						<div class="col-xs-12">
 							<input min="0" max="30" class="form-control text-center input-medium" v-model="ability_scores[index].amount" @change="setAbilityModifier(index)" type="text" readOnly />
+							<div class="text-center" >
+								<div><small>mod</small></div>
+								<div><small v-if="ability_scores[index].mod > 0">+</small><small>@{{ability_scores[index].mod}}</small></div>
+							</div>
 						</div>
 					</div>
 					<div class=" text-center" >
-						<h4>+</h4>
+						<h4>=</h4>
 					</div>
 				</div>
 				<div class="col-xs-12">
@@ -87,8 +91,8 @@
 				</div>
 				<div class="col-xs-2" v-for="(value, index) in ability_scores" v-if="value.id !== 7">				
 					<div class="text-center" >
-						<div><small>bought</small></div>
-						<div>@{{ability_scores[index].points_purchased}}</div>
+						<div><strong>Bought</strong></div>
+						<div><span class="value-box">@{{ability_scores[index].points_purchased}}</span></div>
 						<div><span><button v-on:click="buyPoint(index)" type="button" role="button">+</button></span><span><button v-on:click="refundPoint(index)" type="button" role="button">-</button></span></div>
 					</div>
 
@@ -97,8 +101,8 @@
 					</div>
 
 					<div class="text-center" >
-						<div><small>race</small></div>
-						<div>@{{getAsiByAttribute(index)}}</div>
+						<div><strong>Race</strong></div>
+						<div><span class="value-box">@{{getComputedAsiByAttribute(index)}}</span></div>
 					</div>
 
 					<div class="text-center" >
@@ -106,20 +110,10 @@
 					</div>
 
 					<div class="text-center" >
-						<div><small>other</small></div>
-						<div>0</div>
+						<div><strong>Other</strong></div>
+						<div><span class="value-box">0</span></div>
 					</div>
-
-					<div class="text-center" >
-						<h4>=</h4>
-					</div>
-
-					<div class="text-center" >
-						<div><small>total</small></div>
-						<div>@{{ability_scores[index].amount + getAsiByAttribute(index) }}</div>
-						<div><small>mod</small></div>
-						<div><small v-if="ability_scores[index].mod > 0">+</small><small>@{{ability_scores[index].mod}}</small></div>
-					</div>
+					
 				</div>
 
 			</div>

@@ -40,3 +40,10 @@ input[type=number]::-webkit-inner-spin-button {
 input[type=number]:hover::-webkit-inner-spin-button { 
     
 }
+.value-box{
+	padding:5px 10px;
+	display: block;
+    width: min-content;
+    margin: 5px auto;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+}
