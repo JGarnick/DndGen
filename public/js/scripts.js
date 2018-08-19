@@ -92,7 +92,8 @@ $(document).ready(function() {
 				return;
 
 			}
-			$(function(){setRaceAttributes(app.race, "");})
+			//$(function(){ setRaceAttributes(app.race, ""); })
+			$(document).ready( function(){ setRaceAttributes(app.race, ""); });
 			function showHideSubraces() {
 				var race = $('.ui-selected')[0].innerText;
 				if ($($('.ui-selected')[0]).attr('data-has-subrace') === 'true') {
@@ -206,11 +207,13 @@ $(document).ready(function() {
 				});
 				return asi_data;
 			},
-			getAsiByAttribute: function(attribute){				
+			getAsiByAttribute: function(attribute){
 				var bonus = 0;
-				var race_asi = this.race_data[this.race].race_asi;
-				if(attribute in race_asi){
-					var bonus = race_asi[attribute].amount;
+				if(typeof this.race_data[this.race].race_asi !== "undefined"){
+					var race_asi = this.race_data[this.race].race_asi;
+					if(attribute in race_asi){
+						var bonus = race_asi[attribute].amount;
+					}
 				}
 				
 				if(this.subrace){

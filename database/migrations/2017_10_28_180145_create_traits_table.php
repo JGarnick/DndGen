@@ -20,9 +20,6 @@ class CreateTraitsTable extends Migration
             $table->integer('race_id')->nullable()->unsigned();
             $table->integer('subrace_id')->nullable()->unsigned();
             $table->timestamps();
-			
-			$table->foreign('race_id')->references('id')->on('races');
-			$table->foreign('subrace_id')->references('id')->on('subraces');
         });
     }
 

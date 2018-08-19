@@ -43,7 +43,7 @@ class RaceASISeeder extends Seeder
 			"Elf" => [
 				"stats" => [
 					[ 
-						"race_id" 		=> Race::where("name", "Halfling")->first()->id,
+						"race_id" 		=> Race::where("name", "Elf")->first()->id,
 						"attribute_id" 	=> Attribute::where("abbr", "Dex")->first()->id,
 						"amount" 		=> 2
 					],
@@ -152,7 +152,7 @@ class RaceASISeeder extends Seeder
 		
 		
 		foreach($races AS $level1)
-		{						
+		{
 			foreach($level1 AS $key => $data){
 				if($key === "stats"){
 					DB::table("racial_asi")->insert($data);

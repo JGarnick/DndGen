@@ -288,14 +288,13 @@ class Character extends Model
 
 		if(!$this->skills->isEmpty())
 		{
-			$skills = $this->skills;
-			return $skill;
+			return $this->skills;
 		}
 
 		foreach($skills AS $skill)
 		{
 			$stat 					= $skill->attribute; //get associated attribute
-			$att_abbr 				= Attribute::where("name", $skill->attribute)->first()->abbr;
+			$att_abbr 				= Attribute::where("name", $stat)->first()->abbr;
 			$base 					= $this->getAbilityModifier($this[strtolower($stat)]); //get the character's modifier for that attribute
 			$total 					= $base;
 			$operator				= "";

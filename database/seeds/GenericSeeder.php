@@ -189,7 +189,7 @@ class GenericSeeder extends Seeder
 	
 	private $attributes = [
 		"Strength" 		=> "Str",
-		"Dextrerity" 	=> "Dex",
+		"Dexterity" 	=> "Dex",
 		"Constitution" 	=> "Con",
 		"Wisdom" 		=> "Wis",
 		"Intelligence" 	=> "Int",
@@ -204,6 +204,14 @@ class GenericSeeder extends Seeder
 		"Simple Weapons",
 		"Martial Weapons",
 		"Shields",
+	];
+	
+	private $admins = [
+		[
+			"name" 		=> "josh",
+			"email"		=> "garnick.josh@gmail.com",
+			"password"	=> 123,
+		],
 	];
 	
 	//TODO: Add the rest of the subraces
@@ -224,6 +232,9 @@ class GenericSeeder extends Seeder
      */
     public function run()
     {
+		foreach($this->admins AS $admin){
+			DB::table("users")->insert($admin);
+		}
         foreach($this->proficiencies AS $p)
 		{
 			DB::table('proficiencies')->insert(["name" => $p]);

@@ -116,7 +116,7 @@
 
 					<div class="text-center" >
 						<div><small>total</small></div>
-						<div>@{{ability_scores[index].amount}}</div>
+						<div>@{{ability_scores[index].amount + getAsiByAttribute(index) }}</div>
 						<div><small>mod</small></div>
 						<div><small v-if="ability_scores[index].mod > 0">+</small><small>@{{ability_scores[index].mod}}</small></div>
 					</div>

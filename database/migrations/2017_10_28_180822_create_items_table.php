@@ -23,10 +23,6 @@ class CreateItemsTable extends Migration
             $table->integer('druidic_focus_id')->unsigned();
             $table->integer('holy_symbol_id')->unsigned();
             $table->timestamps();
-			
-			$table->foreign('arcane_focus_id')->references('id')->on('arcane_foci');
-			$table->foreign('druidic_focus_id')->references('id')->on('druidic_foci');
-			$table->foreign('holy_symbol_id')->references('id')->on('holy_symbols');
         });
     }
 

@@ -32,10 +32,6 @@ class CreateCharactersTable extends Migration
             $table->integer('charisma');
             $table->integer('class_id')->unsigned();
             $table->timestamps();
-			
-			$table->foreign('background_id')->references('id')->on('backgrounds');
-			$table->foreign('race_id')->references('id')->on('races');
-			$table->foreign('class_id')->references('id')->on('classes');
         });
     }
 

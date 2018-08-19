@@ -49,8 +49,8 @@ class CharacterService
 		$character->level 			= 1;
 		$character->race_id			= 1;
         $character->subrace_id      = 0;
-		$character->class_id		= 1;
 		$character->hp_max			= 12;
+		$character->class_id		= 1;
 		$character->hp_current		= 12;
 
 		return [

@@ -18,9 +18,6 @@ class CreateArmorPropertiesTable extends Migration
             $table->integer('armor_id')->unsigned();
             $table->integer('property_id')->unsigned();
             $table->timestamps();
-			
-			$table->foreign('armor_id')->references('id')->on('armors');
-			$table->foreign('property_id')->references('id')->on('properties');
         });
     }
 

@@ -18,9 +18,6 @@ class CreateAttributeBonusTable extends Migration
             $table->integer('bonus_id')->unsigned();
             $table->integer('attribute_id')->unsigned();
             $table->timestamps();
-			
-			$table->foreign('bonus_id')->references('id')->on('bonuses');
-			$table->foreign('attribute_id')->references('id')->on('attributes');
         });
     }
 
