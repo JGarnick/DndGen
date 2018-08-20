@@ -18,7 +18,7 @@ class CreateClassProficienciesTable extends Migration
 			$table->string("type");
 			$table->string("class_id")->nullable();
 			$table->string("attribute_id")->nullable();
-			$table->string("skill_ids")->nullable();
+			$table->string("starting_skills")->nullable();
 			$table->string("num_skills_granted")->nullable();
 			$table->string("weapon_id")->nullable();
 			$table->string("armor_id")->nullable();

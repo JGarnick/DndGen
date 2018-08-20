@@ -144,11 +144,12 @@ $(document).ready(function() {
 				heightStyle: "content",
 
 			});
-			console.log(this.classes);
+			console.log(this.ability_scores["Constitution"]);
 		},
         data: {
             character:          window.character,
 			race_data:			window.race_data,
+			class_data:			window.class_data,
 			level:				window.level,
             name: 				"",
             char_class: 		window.char_class,

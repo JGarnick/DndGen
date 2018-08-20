@@ -12,9 +12,11 @@ class ClassProficiencySeeder extends Seeder
 			'types' => [
 				"attribute" 	=> [1, 3],
 				"armor"			=> ["proficiencies" => [1, 2, 6], "armorIds" => []],
-				"weapon"		=> ["proficiencies" => [4, 5], "weaponIds" => []],
-				"starting_skills"		=> [10, 1, 16, 8, 13, 14],
+				"weapon"		=> ["proficiencies" => [4, 5], "weaponIds" => []],				
 				"tools"			=> []
+			],
+			"starting_skills"	=> [
+				1, 8, 10, 13, 14, 16
 			],
 			"num_skills_granted" => 2
 		],
@@ -23,9 +25,9 @@ class ClassProficiencySeeder extends Seeder
 				"attribute" 	=> [2, 6],
 				"armor"			=> ["proficiencies" => [1], "armorIds" => []],
 				"weapon"		=> ["proficiencies" => [4], "weaponIds" => [19, 35, 23, 25]],
-				"starting_skills"		=> ["Any"],
 				"tools"			=> []
 			],
+			"starting_skills"	=> [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
 			"num_skills_granted" => 3
 		]
 	];
@@ -42,7 +44,7 @@ class ClassProficiencySeeder extends Seeder
 			//$clID = 1
 			foreach($clContent AS $el => $subEl)
 			{
-				//$el = "types" or "num_skills_granted"				
+				//$el = "types" or "num_skills_granted"
 				if($el === "types")
 				{					
 					foreach($subEl AS $key => $valArray) //key = "saving throw" or "armor" etc.
@@ -117,7 +119,7 @@ class ClassProficiencySeeder extends Seeder
 						}
 					}
 				}
-				elseif($el === "num_skills_granted")
+				if($el === "num_skills_granted")
 				{
 					ClassProficiency::create([
 						"type"					=> "num_skills_granted",
@@ -125,7 +127,15 @@ class ClassProficiencySeeder extends Seeder
 						"num_skills_granted"	=> $subEl
 					]);
 				}
+				if($el === "starting_skills"){
+					ClassProficiency::create([
+						"type"				=> "starting_skills",
+						"class_id"			=> $clID,
+						"starting_skills"	=> serialize($subEl)
+					]);
+				}
 			}
 		}
     }
 }
+

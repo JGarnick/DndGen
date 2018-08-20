@@ -64,6 +64,7 @@ class CharacterService
 			"subraces"		=> $subraces,
 			"skills"		=> $skills,
 			"race_data"		=> $this->constructRacesInfo(),
+			"class_data"	=> $classData,
 		];
 	}
 
@@ -146,6 +147,7 @@ class CharacterService
 		foreach($classes AS $class){
 			$class_data[$class->name] = $class->general_info();
 		}
-		dd($class_data);
+		
+		return $class_data;
 	}
 }

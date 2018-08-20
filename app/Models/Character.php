@@ -413,6 +413,7 @@ class Character extends Model
 		{
 			$amount					= $this[strtolower($att->name)];
 			$mod 					= $this->getAbilityModifier($this[strtolower($att->name)]);
+			//dd($mod);
 			$operator				= "";
 
 			if($mod > 0)
@@ -423,6 +424,11 @@ class Character extends Model
 			if($mod < 0)
 			{
 				$operator = "-";
+			}
+			
+			if($mod == 0)
+			{
+				$operator = "";
 			}
 
 			$returnMe[$att->name] = [

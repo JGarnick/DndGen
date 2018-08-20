@@ -136,10 +136,29 @@
 				<input type="number" name="level" v-model="level" style="width:10%;border:1px solid black;border-radius:3px;box-sizing:border-box;padding:5px;"/>
 			</div>
 			<div class="info-wrap" style="display:block">
-				<div style="padding-top:10px;" v-for="(value, index) in classes" v-if="value.name == char_class" class="hit-die">Hit Die: @{{value.hit_die}}</div>
-				<div>Saving Throw Proficiencies:</div>
-				<div>Weapon Proficiencies:</div>
-				<div>Armor Proficiencies:</div>
+				<h4>Hit Points</h4>
+				<div>@{{char_class}}</div>
+				<div style="padding-top:5px;" class="hit-die">Hit Die: @{{class_data[char_class].hit_die["die"]}}</div>
+				<table style="width:100%;">
+					<thead>
+						<tr>
+							<td><strong>Level</strong></td>
+							<td><strong>Base</strong></td>
+							<td><strong>Con</strong></td>
+							<td><strong>Misc</strong></td>
+							<td><strong>Total</strong></td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr style="background-color:rgba(0,0,0,.3);">
+							<td><strong>@{{level}}</strong></td>
+							<td><strong>@{{class_data[char_class].hit_die["base"]}}</strong></td>
+							<td><strong><span v-if="ability_scores['Constitution'].mod > 0">+</span>@{{ability_scores["Constitution"].mod}}</strong></td>
+							<td><strong>0</strong></td>
+							<td><strong>@{{class_data[char_class].hit_die["base"] + ability_scores["Constitution"].mod}}</strong></td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
