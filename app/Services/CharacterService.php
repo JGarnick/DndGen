@@ -9,7 +9,9 @@ use \App\Models\Race;
 use \App\Models\Skill;
 use \App\Models\Subrace;
 use \App\Models\Background;
+use \App\Models\Proficiency;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CharacterService
 {
@@ -52,6 +54,7 @@ class CharacterService
 		$character->hp_max			= 12;
 		$character->class_id		= 1;
 		$character->hp_current		= 12;
+		$classData = $this->constructClassesInfo();
 
 		return [
 			"character" 	=> $character,
@@ -140,7 +143,9 @@ class CharacterService
 		$classes = CharacterClass::all();
 		$class_data = [];
 		
-		//[Barbarian => [ hit_die => "d12", weapon_prof => [ "martial", "ranged" ], armor_prof => [ "light", "medium" ], save_prof => [ "Constitution", "Strength" ] ]]
-		
+		foreach($classes AS $class){
+			$class_data[$class->name] = $class->general_info();
+		}
+		dd($class_data);
 	}
 }

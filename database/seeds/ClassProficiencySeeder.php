@@ -13,7 +13,7 @@ class ClassProficiencySeeder extends Seeder
 				"attribute" 	=> [1, 3],
 				"armor"			=> ["proficiencies" => [1, 2, 6], "armorIds" => []],
 				"weapon"		=> ["proficiencies" => [4, 5], "weaponIds" => []],
-				"skill"			=> [10, 1, 16, 8, 13, 14],
+				"starting_skills"		=> [10, 1, 16, 8, 13, 14],
 				"tools"			=> []
 			],
 			"num_skills_granted" => 2
@@ -23,7 +23,7 @@ class ClassProficiencySeeder extends Seeder
 				"attribute" 	=> [2, 6],
 				"armor"			=> ["proficiencies" => [1], "armorIds" => []],
 				"weapon"		=> ["proficiencies" => [4], "weaponIds" => [19, 35, 23, 25]],
-				"skill"			=> ["Any"],
+				"starting_skills"		=> ["Any"],
 				"tools"			=> []
 			],
 			"num_skills_granted" => 3
@@ -60,7 +60,7 @@ class ClassProficiencySeeder extends Seeder
 											ClassProficiency::create([
 												"type"				=> $key,
 												"class_id"			=> $clID,
-												"proficiency_id"	=> $v
+												"weapon_armor_type_id"	=> $v
 											]);
 										}
 									}

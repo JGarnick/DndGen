@@ -239,7 +239,7 @@ class GenericSeeder extends Seeder
 		}
         foreach($this->proficiencies AS $p)
 		{
-			DB::table('proficiencies')->insert(["name" => $p]);
+			DB::table('weapon_armor_types')->insert(["name" => $p]);
 		}
 		
 		foreach($this->races AS $race)
