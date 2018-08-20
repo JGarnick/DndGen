@@ -135,30 +135,33 @@
 				</select>
 				<input type="number" name="level" v-model="level" style="width:10%;border:1px solid black;border-radius:3px;box-sizing:border-box;padding:5px;"/>
 			</div>
+			<div><small><i>Add another class (coming soon)</i></small></div>
+			
+			<div>Saving Throw Proficiencies: <span v-for="(value, index) in class_data[char_class].proficiencies.saves">
+			 @{{value.abbr | uppercase}} </span></div>
+			<div>Weapon Proficiencies</div>
+			<div>Armor Proficiencies</div>
+			
 			<div class="info-wrap" style="display:block">
 				<h4>Hit Points</h4>
 				<div>@{{char_class}}</div>
 				<div style="padding-top:5px;" class="hit-die">Hit Die: @{{class_data[char_class].hit_die["die"]}}</div>
-				<table style="width:100%;">
-					<thead>
-						<tr>
-							<td><strong>Level</strong></td>
-							<td><strong>Base</strong></td>
-							<td><strong>Con</strong></td>
-							<td><strong>Misc</strong></td>
-							<td><strong>Total</strong></td>
-						</tr>
-					</thead>
-					<tbody>
-						<tr style="background-color:rgba(0,0,0,.3);">
-							<td><strong>@{{level}}</strong></td>
-							<td><strong>@{{class_data[char_class].hit_die["base"]}}</strong></td>
-							<td><strong><span v-if="ability_scores['Constitution'].mod > 0">+</span>@{{ability_scores["Constitution"].mod}}</strong></td>
-							<td><strong>0</strong></td>
-							<td><strong>@{{class_data[char_class].hit_die["base"] + ability_scores["Constitution"].mod}}</strong></td>
-						</tr>
-					</tbody>
-				</table>
+				<div style="display:flex; flex-direction:column;">
+					<div style="display:flex;">
+						<span style="text-align:center;flex-basis:0;flex-grow:1;"><strong>Level</strong></span>
+						<span style="text-align:center;flex-basis:0;flex-grow:1;"><strong>Base</strong></span>
+						<span style="text-align:center;flex-basis:0;flex-grow:1;"><strong>Con</strong></span>
+						<span style="text-align:center;flex-basis:0;flex-grow:1;"><strong>Misc</strong></span>
+						<span style="text-align:center;flex-basis:0;flex-grow:1;"><strong>Total</strong></span>
+					</div>
+					<div style="display:flex;background-color:rgba(0,0,0,.3);">
+						<span style="text-align:center;flex-basis:0;flex-grow:1;"><strong>@{{level}}</strong></span>
+						<span style="text-align:center;flex-basis:0;flex-grow:1;"><strong>@{{class_data[char_class].hit_die["base"]}}</strong></span>
+						<span style="text-align:center;flex-basis:0;flex-grow:1;"><strong><span v-if="ability_scores['Constitution'].mod > 0">+</span>@{{ability_scores["Constitution"].mod}}</strong></span>
+						<span style="text-align:center;flex-basis:0;flex-grow:1;"><strong>0</strong></span>
+						<span style="text-align:center;flex-basis:0;flex-grow:1;"><strong>@{{class_data[char_class].hit_die["base"] + ability_scores["Constitution"].mod}}</strong></span>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

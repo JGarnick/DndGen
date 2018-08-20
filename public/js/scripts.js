@@ -144,7 +144,7 @@ $(document).ready(function() {
 				heightStyle: "content",
 
 			});
-			console.log(this.ability_scores["Constitution"]);
+			//console.log(this.class_data);
 		},
         data: {
             character:          window.character,
@@ -173,6 +173,11 @@ $(document).ready(function() {
 				if (!value) return ''
 				value = value.toString()
 				return value.toLowerCase()
+			},
+			uppercase: function(value){
+				if (!value) return ''
+				value = value.toString()
+				return value.toUpperCase()
 			}
 		},
         methods: {			
