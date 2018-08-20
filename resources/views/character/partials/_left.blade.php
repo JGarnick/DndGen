@@ -137,10 +137,22 @@
 			</div>
 			<div><small><i>Add another class (coming soon)</i></small></div>
 			
-			<div>Saving Throw Proficiencies: <span v-for="(value, index) in class_data[char_class].proficiencies.saves">
-			 @{{value.abbr | uppercase}} </span></div>
-			<div>Weapon Proficiencies</div>
-			<div>Armor Proficiencies</div>
+			<div style="margin-top:10px;">
+				<strong>Saving Throw Proficiencies</strong>: <span v-for="(value, index) in class_data[char_class].proficiencies.saves">
+			 @{{value.abbr | uppercase}} </span>
+			</div>
+			<div>
+				<strong>Weapon Proficiencies</strong>: 
+				<span v-for="(value, index) in class_data[char_class].proficiencies.weapon_types">@{{value | lowercase}}<span v-if="class_data[char_class].proficiencies.weapon_types.length > 1 && value !== class_data[char_class].proficiencies.weapon_types[class_data[char_class].proficiencies.weapon_types.length -1]">, </span>
+				</span><template v-if="typeof class_data[char_class].proficiencies.weapons !== 'undefined'"><span v-if="class_data[char_class].proficiencies.weapons.length > 1">, </span><span v-for="(value, index) in class_data[char_class].proficiencies.weapons">@{{value.name | lowercase}}<span v-if="class_data[char_class].proficiencies.weapons.length > 1 && value !== class_data[char_class].proficiencies.weapons[class_data[char_class].proficiencies.weapons.length -1]">, </span></span>
+				</template>
+			</div>
+			<div>
+				<strong>Armor Proficiencies</strong>: 
+				<span v-for="(value, index) in class_data[char_class].proficiencies.armor_types">@{{value | lowercase}}<span v-if="class_data[char_class].proficiencies.armor_types.length > 1 && value !== class_data[char_class].proficiencies.armor_types[class_data[char_class].proficiencies.armor_types.length -1]">, </span>
+				</span><template v-if="typeof class_data[char_class].proficiencies.armor !== 'undefined'"><span v-if="class_data[char_class].proficiencies.armor.length > 1">, </span><span v-for="(value, index) in class_data[char_class].proficiencies.armor">@{{value.name | lowercase}}<span v-if="class_data[char_class].proficiencies.armor.length > 1 && value !== class_data[char_class].proficiencies.armor[class_data[char_class].proficiencies.armor.length -1]">, </span></span>
+				</template>
+			</div>
 			
 			<div class="info-wrap" style="display:block">
 				<h4>Hit Points</h4>

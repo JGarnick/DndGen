@@ -144,7 +144,7 @@ $(document).ready(function() {
 				heightStyle: "content",
 
 			});
-			//console.log(this.class_data);
+			console.log(this.class_data);
 		},
         data: {
             character:          window.character,
