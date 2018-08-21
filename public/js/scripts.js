@@ -92,7 +92,6 @@ $(document).ready(function() {
 				return;
 
 			}
-			//$(function(){ setRaceAttributes(app.race, ""); })
 			$(document).ready( function(){ setRaceAttributes(app.race, ""); });
 			function showHideSubraces() {
 				var race = $('.ui-selected')[0].innerText;
@@ -144,6 +143,9 @@ $(document).ready(function() {
 				heightStyle: "content",
 
 			});
+			
+			$("[data-abs='constitution']").on("change", function(){ app.computeHp(); });
+			
 			console.log(this.class_data);
 		},
         data: {
@@ -180,7 +182,14 @@ $(document).ready(function() {
 				return value.toUpperCase()
 			}
 		},
-        methods: {			
+        methods: {
+			computeHp: function(){
+				this.hp_max = class_data[this.char_class].hit_die.base + this.ability_scores["Constitution"].mod;
+				this.hp_current = class_data[this.char_class].hit_die.base + this.ability_scores["Constitution"].mod;
+			},
+			changeClass: function(){
+				this.computeHp();				
+			},
 			//For calculating the minimum attribute value based on current race and subrace
 			getBaseAttributeValue: function(attribute){
 				var base = 8;

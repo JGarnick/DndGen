@@ -59,7 +59,7 @@
 							<small>base</small>
 						</div>
 						<div class="col-xs-12">
-							<input min="0" max="30" class="form-control text-center input-medium" v-model="ability_scores[index].amount" @change="setAbilityModifier(index)" type="number" />
+							<input v-bind:data-abs="value.full_name" class="form-control text-center input-medium" min="0" max="30" class="" v-model="ability_scores[index].amount" @change="setAbilityModifier(index)" type="number" />
 						</div>
 					</div>
 				</div>
@@ -130,7 +130,7 @@
 		<h4 class=""><i>select at least 1</i></h4>
 		<div id="class-levels-wrapper" style="border: 1px solid black;border-radius:3px;box-sizing:border-box;padding:25px;">
 			<div class="content-wrap" style="display:flex;">
-				<select id="char_class" name="class" v-model="char_class" style="padding:5px;flex-basis: 0;flex-grow: 1;flex-shrink: 1;margin-right: 120px;" >
+				<select @change="changeClass" id="char_class" name="class" v-model="char_class" style="padding:5px;flex-basis: 0;flex-grow: 1;flex-shrink: 1;margin-right: 120px;" >
 					<option v-for="(value, index) in classes" :value="value.name">@{{value.name}}</option>
 				</select>
 				<input type="number" name="level" v-model="level" style="width:10%;border:1px solid black;border-radius:3px;box-sizing:border-box;padding:5px;"/>
@@ -156,6 +156,7 @@
 			
 			<div class="info-wrap" style="display:block">
 				<h4>Hit Points</h4>
+				<div><strong>Total: @{{hp_max}}</strong></div>
 				<div>@{{char_class}}</div>
 				<div style="padding-top:5px;" class="hit-die">Hit Die: @{{class_data[char_class].hit_die["die"]}}</div>
 				<div style="display:flex; flex-direction:column;">
