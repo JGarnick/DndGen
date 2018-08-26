@@ -59,7 +59,7 @@
 							<small>base</small>
 						</div>
 						<div class="col-xs-12">
-							<input v-bind:data-abs="value.full_name" class="form-control text-center input-medium" min="0" max="30" class="" v-model="ability_scores[index].amount" @change="setAbilityModifier(index)" type="number" />
+							<input v-bind:data-abs="value.full_name" class="form-control text-center input-medium" min="0" max="30" class="" v-model="ability_scores[index].amount" @change="multi_function1(index)" type="number" />
 						</div>
 					</div>
 				</div>
@@ -133,7 +133,7 @@
 				<select @change="changeClass" id="char_class" name="class" v-model="char_class" style="padding:5px;flex-basis: 0;flex-grow: 1;flex-shrink: 1;margin-right: 120px;" >
 					<option v-for="(value, index) in classes" :value="value.name">@{{value.name}}</option>
 				</select>
-				<input type="number" name="level" v-model="level" style="width:10%;border:1px solid black;border-radius:3px;box-sizing:border-box;padding:5px;"/>
+				<input @change="changeLevel" type="number" name="level" v-model="character.level" style="width:10%;border:1px solid black;border-radius:3px;box-sizing:border-box;padding:5px;"/>
 			</div>
 			<div><small><i>Add another class (coming soon)</i></small></div>
 			
@@ -156,9 +156,9 @@
 			
 			<div class="info-wrap" style="display:block">
 				<h4>Hit Points</h4>
-				<div><strong>Total: @{{hp_max}}</strong></div>
+				<div><strong>Total: @{{character.hp_max}}</strong></div>
 				<div>@{{char_class}}</div>
-				<div style="padding-top:5px;" class="hit-die">Hit Die: @{{class_data[char_class].hit_die["die"]}}</div>
+				<div style="padding-top:5px;" class="hit-die">Hit Die: @{{class_data[char_class].hit_die["die"]}} (@{{getAverageOfHitDie()}} avg)</div>
 				<div style="display:flex; flex-direction:column;">
 					<div style="display:flex;">
 						<span style="text-align:center;flex-basis:0;flex-grow:1;"><strong>Level</strong></span>
@@ -168,11 +168,11 @@
 						<span style="text-align:center;flex-basis:0;flex-grow:1;"><strong>Total</strong></span>
 					</div>
 					<div style="display:flex;background-color:rgba(0,0,0,.3);">
-						<span style="text-align:center;flex-basis:0;flex-grow:1;"><strong>@{{level}}</strong></span>
+						<span style="text-align:center;flex-basis:0;flex-grow:1;"><strong>@{{character.level}}</strong></span>
 						<span style="text-align:center;flex-basis:0;flex-grow:1;"><strong>@{{class_data[char_class].hit_die["base"]}}</strong></span>
 						<span style="text-align:center;flex-basis:0;flex-grow:1;"><strong><span v-if="ability_scores['Constitution'].mod > 0">+</span>@{{ability_scores["Constitution"].mod}}</strong></span>
 						<span style="text-align:center;flex-basis:0;flex-grow:1;"><strong>0</strong></span>
-						<span style="text-align:center;flex-basis:0;flex-grow:1;"><strong>@{{class_data[char_class].hit_die["base"] + ability_scores["Constitution"].mod}}</strong></span>
+						<span style="text-align:center;flex-basis:0;flex-grow:1;"><strong>@{{character.hp_max}}</strong></span>
 					</div>
 				</div>
 			</div>

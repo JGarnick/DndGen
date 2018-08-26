@@ -9,47 +9,47 @@
 			{{csrf_field()}}
 			<div class="col-xs-12 col-md-3 form-group">
 				<label class="form-label" for="name">Character Name</label>
-				<input v-model="name" class="form-control form-input" type="text" name="name" />
+				<input v-model="character.name" class="form-control form-input" type="text" name="name" />
 			</div>
 
 			<div class="" id="character-inputs">
-				<label>Level</label>
-				<input name="level" :value="level" />
+				<div><label>Level</label>
+				<input name="level" :value="character.level" />
 				<label>Name</label>
-				<input name="name" :value="name" />
+				<input name="name" :value="player_name" />
 				<label>Race</label>
 				<input name="race" :value="race" />
 				<label>Subrace</label>
-				<input name="subrace" :value="subrace" />
-				<label>Class</label>
+				<input name="subrace" :value="subrace" /></div>
+				<div><label>Class</label>
 				<input name="class" :value="char_class" />
 				<label>HP Max</label>
-				<input name="hp_max" :value="hp_max" />
+				<input name="hp_max" :value="character.hp_max" />
 				<label>HP Current</label>
-				<input name="hp_current" :value="hp_current" />
-				<label>Speed</label>
-				<input name="speed" :value="speed" />
+				<input name="hp_current" :value="character.hp_current" /></div>
+				<div><label>Speed</label>
+				<input name="speed" :value="character.speed" />
 				<label>Darkvision</label>
-				<input name="darkvision" :value="darkvision" />
+				<input name="darkvision" :value="character.darkvision" />
 				<label>Passive Perception</label>
 				<input name="passive_perception" :value="passive_perception" />
 				<label>AC</label>
-				<input name="ac" :value="ac" />
-				<label>Prof Bonus</label>
+				<input name="ac" :value="character.ac" /></div>
+				<div><label>Prof Bonus</label>
 				<input name="proficiency_bonus" :value="proficiency_bonus" />
 				<span v-for="(value, index) in ability_scores">
 					<label>@{{value.abbr}}</label>
 					<input data-type="ability-score" :name="value.full_name | lowercase" :value="ability_scores[index].amount" />
 				</span>
-				<span v-for="(value, index) in skills" >
+				<span v-for="(value, index) in character.skills" >
 					<label>@{{value.name}}</label>
-					<input data-type="skill" :name="value.name" :value="skills[index].total"/>
+					<input data-type="skill" :name="value.name" :value="character.skills[index].bonus"/>
 				</span>
-				<span v-for="(value, index) in saving_throws" >
+				{{--<span v-for="(value, index) in saving_throws" >
 					<label>@{{value.name}} save</label>
 					<input data-type="save" :name="value.name" :value="skills[index].total"/>
-				</span>
-
+				</span>--}}
+				</div>
 			</div>
 			<div class="col-xs-offset-11 col-xs-1">
 				<input type="submit" value="Save" />
@@ -69,27 +69,24 @@
 <script>
 
 	var character			= @json($character);
-	var level				= character.level;
-	var name 				= character.name;
+	character.name			= "Test";
 	var race 				= '{{$character->race->name}}';
 	var char_class 			= '{{$character->char_class->name}}';
-	var hp_max 				= character.hp_max;
-	var hp_current 			= character.hp_current;
-	var speed 				= '{{$character->speed()}}';
+	character.speed 		= '{{$character->speed()}}';
 	var passive_perception 	= '{{$character->passive_perception()}}';
-	var ac 					= '{{$character->getArmorClass()}}';
+	character.ac 			= '{{$character->getArmorClass()}}';
 	var proficiency_bonus	= '{{$character->prof_bonus()}}';
 	@if(is_null($character->race->darkvision))
-		var darkvision 		= 'No';
+		character.darkvision 		= 'No';
 	@else
-		var darkvision 		= '{{$character->race->darkvision}}ft';
+		character.darkvision 		= '{{$character->race->darkvision}}ft';
 	@endif
 	var saving_throws		= @json($character->getSavingThrows());
-	var skills				= @json($character->getSkills());
-	var ability_scores		= @json($character->getAbilityScores());
+	var ability_scores		= @json($ability_scores);
 	var	race_data			= @json($race_data);
 	var	class_data			= @json($class_data);
 	var classes				= @json($classes);
+	var allSkills			= @json($allSkills);
 
 </script>
 @endsection

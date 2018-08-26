@@ -413,33 +413,33 @@ class Character extends Model
 		{
 			$amount					= $this[strtolower($att->name)];
 			$mod 					= $this->getAbilityModifier($this[strtolower($att->name)]);
-			//dd($mod);
-			$operator				= "";
+			//$operator				= "";
 
-			if($mod > 0)
-			{
-				$operator = "+";
-			}
-
-			if($mod < 0)
-			{
-				$operator = "-";
-			}
-			
-			if($mod == 0)
-			{
-				$operator = "";
-			}
+			//if($mod > 0)
+			//{
+			//	$operator = "+";
+			//}
+            //
+			//if($mod < 0)
+			//{
+			//	$operator = "-";
+			//}
+			//
+			//if($mod == 0)
+			//{
+			//	$operator = "";
+			//}
 
 			$returnMe[$att->name] = [
 				"abbr"				=> strtoupper($att->abbr),
 				"full_name"			=> strtolower($att->name),
 				"amount"			=> $amount,
 				"mod"				=> $mod,
-				"operator" 			=> $operator,
+				//"operator" 			=> $operator,
 				"id"				=> $att->id,
 				"points_purchased"  => 0,
 			];
+			//"Strength" => ["abbr" => "", "full_name" => "", "amount", "mod", "operator", "points_purchased"]
 		}
 		
 		return $returnMe;

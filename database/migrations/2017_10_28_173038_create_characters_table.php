@@ -15,21 +15,21 @@ class CreateCharactersTable extends Migration
     {
         Schema::create('characters', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('AC');
-            $table->integer('HP_max');
-            $table->integer('HP_current');
-            $table->integer('Initiative');
-            $table->string('Name');
-            $table->string('Player Name');
+            $table->integer('ac');
+            $table->integer('hp_max');
+            $table->integer('hp_current');
+            $table->integer('initiative');
+            $table->string('name');
+            $table->string('player_name');
             $table->integer('background_id');
             $table->integer('race_id');
             $table->integer('subrace_id');
-            $table->integer('strength');
-            $table->integer('dexterity');
-            $table->integer('constitution');
-            $table->integer('wisdom');
-            $table->integer('intelligence');
-            $table->integer('charisma');
+            //$table->integer('strength');
+            //$table->integer('dexterity');
+            //$table->integer('constitution');
+            //$table->integer('wisdom');
+            //$table->integer('intelligence');
+            //$table->integer('charisma');
             $table->integer('class_id')->unsigned();
             $table->timestamps();
         });

@@ -10,6 +10,7 @@ use \App\Models\Skill;
 use \App\Models\Subrace;
 use \App\Models\Background;
 use \App\Models\Proficiency;
+use \App\Models\Attribute;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -37,17 +38,11 @@ class CharacterService
 	public function create()
 	{
 		$character 		= new Character();
-		$skills 		= Skill::all();
 		$races 			= Race::all();
+		$allSkills		= Skill::all();
 		$classes 		= CharacterClass::all();
 		$backgrounds 	= Background::all();
 		$subraces 		= Subrace::all();
-		$character->strength 		= 8;
-		$character->dexterity 		= 8;
-		$character->constitution 	= 8;
-		$character->wisdom 			= 8;
-		$character->intelligence	= 8;
-		$character->charisma 		= 8;
 		$character->level 			= 1;
 		$character->race_id			= 1;
         $character->subrace_id      = 0;
@@ -55,6 +50,7 @@ class CharacterService
 		$character->class_id		= 1;
 		$character->hp_current		= 12;
 		$classData = $this->constructClassesInfo();
+		$ability_scores = $this->createAbilityScores($character);
 
 		return [
 			"character" 	=> $character,
@@ -62,9 +58,10 @@ class CharacterService
 			"classes"		=> $classes,
 			"backgrounds"	=> $backgrounds,
 			"subraces"		=> $subraces,
-			"skills"		=> $skills,
 			"race_data"		=> $this->constructRacesInfo(),
 			"class_data"	=> $classData,
+			"allSkills"		=> $allSkills,
+			"ability_scores" => $ability_scores,
 		];
 	}
 
@@ -149,5 +146,27 @@ class CharacterService
 		}
 		
 		return $class_data;
+	}
+	
+	public function createAbilityScores($character){
+		$returnMe 	= [];
+		$atts	 	= Attribute::all();
+
+		foreach($atts AS $att)
+		{
+			$base					= 8;
+			$mod 					= $character->getAbilityModifier($base);
+
+			$returnMe[$att->name] = [
+				"abbr"				=> strtoupper($att->abbr),
+				"full_name"			=> strtolower($att->name),
+				"amount"			=> $base,
+				"mod"				=> $mod,
+				"id"				=> $att->id,
+				"points_purchased"  => 0,
+			];
+		}
+		
+		return $returnMe;
 	}
 }

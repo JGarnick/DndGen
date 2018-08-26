@@ -27,7 +27,7 @@
 		<div class="col-xs-6 text-center">
 			<h3>Armor Class</h3>
 			<h4>
-				@{{ac}}
+				@{{character.ac}}
 			</h4>
 		</div>
 		<div class="col-xs-6 text-center">
@@ -39,24 +39,22 @@
 		<div class="col-xs-6 text-center">
 			<h3>Max Hit Points</h3>
 			<h4>
-				@{{hp_current}}/@{{hp_max}}
+				@{{character.hp_current}}/@{{character.hp_max}}
 			</h4>
 		</div>
 		<div class="col-xs-6 text-center">
 			<h3>Skills</h3>
-			<div class="row">
-				<div class="skills-wrapper">
-					<div v-for="skill in skills">
-						<span class="col-xs-9">@{{skill.name}}(@{{skill.abbr}})</span>
-						<span class="col-xs-3"><span v-if="skill.total > 0">@{{skill.operator}}</span>@{{skill.total}}</span>
-					</div>
+			<div class="skills-wrapper">
+				<div v-for="skill, index in char_skills">
+					<span>@{{skill.name}} (@{{skill.attribute_abbr}})</span>
+					<span><span><template v-if="skill.total > 0">@{{skill.operator}}</template></span>@{{skill.bonus}}</span>
 				</div>
 			</div>
 		</div>
 		<div class="col-xs-6 text-center">
 			<h3>Speed</h3>
 			<h4>
-				@{{speed}}
+				@{{character.speed}}
 			</h4>
 		</div>
 		<div class="col-xs-6 text-center">
@@ -73,7 +71,7 @@
 		<div class="col-xs-6 text-center">
 			<h3>Darkvision</h3>
 			<h4>
-				@{{darkvision}}
+				@{{character.darkvision}}
 			</h4>
 		</div>
 	</div>

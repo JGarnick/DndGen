@@ -17,7 +17,26 @@
 .selectable button:focus { outline:unset;}
 .tab-interactable{border:1px solid black; border-radius:10px; color:black;}
 .no-top {margin-top:0px;}
-.skills-wrapper{width:60%;margin:0 auto;}
+.skills-wrapper{display:flex;flex-direction:column;}
+.skills-wrapper > div{
+	width: 60%;
+    margin: 0 auto;
+    text-align: left;
+    display: flex;
+}
+.skills-wrapper > div:nth-child(odd){
+	background-color:rgba(0,0,0,.2);
+}
+.skills-wrapper > div > span:first-of-type{
+	flex-basis: 50%;
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+.skills-wrapper > div > span:nth-of-type(2){
+	flex-basis: 0;
+    flex-grow: 1;
+	text-align:center;
+}
 .input-medium{height:40px;font-size:20px !important;}
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button {opacity: 1;}

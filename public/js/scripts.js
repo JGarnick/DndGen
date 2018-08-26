@@ -51,6 +51,7 @@ $(document).ready(function() {
 					app.ability_scores[key]["amount"] += value["amount"];
 					app.setAbilityModifier(key);
 				});
+				app.computeCharacterSkills();
 			}
 
 			function setSubraceAttributes(subrace_name, previous_subrace, race_change = false, previous_race = "")
@@ -89,10 +90,13 @@ $(document).ready(function() {
 						}
 					});
 				}
+				app.computeCharacterSkills();
 				return;
-
 			}
-			$(document).ready( function(){ setRaceAttributes(app.race, ""); });
+			$(document).ready( function(){
+				setRaceAttributes(app.race, "");
+				app.createCharacterSkills();
+			});
 			function showHideSubraces() {
 				var race = $('.ui-selected')[0].innerText;
 				if ($($('.ui-selected')[0]).attr('data-has-subrace') === 'true') {
@@ -134,10 +138,10 @@ $(document).ready(function() {
 				$(this).attr("name", "ability_scores[" + name + "]");
 			});
 
-			$("[data-type='skill']").each(function(){
-				var name = $(this).attr("name");
-				$(this).attr("name", "skills[" + name + "]");
-			});
+			// $("[data-type='skill']").each(function(){
+				// var name = $(this).attr("name");
+				// $(this).attr("name", "skills[" + name + "]");
+			// });
 
 			$("#ability-scores-wrapper").accordion({
 				heightStyle: "content",
@@ -145,30 +149,25 @@ $(document).ready(function() {
 			});
 			
 			$("[data-abs='constitution']").on("change", function(){ app.computeHp(); });
-			
-			console.log(this.class_data);
 		},
         data: {
             character:          window.character,
+			char_skills:		[],
 			race_data:			window.race_data,
 			class_data:			window.class_data,
-			level:				window.level,
-            name: 				"",
             char_class: 		window.char_class,
             race: 				window.race,
-			hp_max: 			window.hp_max,
-			hp_current: 		window.hp_current,
 			passive_perception: window.passive_perception,
 			speed: 				window.speed,
 			darkvision: 		window.darkvision,
-			ac:					window.ac,
 			saving_throws:		window.saving_throws,
-			skills:				window.skills,
+			allSkills:			window.allSkills,
 			proficiency_bonus:	window.proficiency_bonus,
 			ability_scores:		window.ability_scores,
 			subrace:			"",
 			ability_points:		27,
 			classes:			window.classes,
+			player_name:		"",
         },
 		filters: {
 			lowercase: function(value){
@@ -183,12 +182,98 @@ $(document).ready(function() {
 			}
 		},
         methods: {
+			multi_function1:function(index){
+				this.setAbilityModifier(index);
+				this.computeCharacterSkills();
+			},
+			computeCharacterSkills:function(){
+				for(index in this.char_skills){
+					var skill = this.char_skills[index];
+					var mod = this.ability_scores[skill.attribute].mod;
+					skill.bonus = mod;
+					if(skill.proficient == 1){ skill.bonus += this.getProficiencyBonus(); }
+				}
+			},
+			createCharacterSkills: function(){
+				for(index in this.allSkills){
+					var skill = app.allSkills[index];
+					var att_name = app.ability_scores[skill.attribute].full_name;
+					att_name = att_name.replace(/^\w/, c => c.toUpperCase());
+					app.char_skills[index] = {
+						name: skill.name,
+						attribute_abbr: app.ability_scores[skill.attribute].abbr,
+						attribute: att_name,
+						proficient: 0,
+						expertise: 0,
+						bonus: app.ability_scores[skill.attribute].mod,
+						skill_id: skill.id
+					};
+				}
+			},
+			getAverageOfHitDie: function(){
+				var base = Number(class_data[this.char_class].hit_die.base);
+				switch(base){
+					case 6:
+						return 4;
+						break;
+					case 8:
+						return 5;
+						break;
+					case 10:
+						return 6;
+						break;
+					case 12:
+						return 7;
+						break;
+				}
+			},
 			computeHp: function(){
-				this.hp_max = class_data[this.char_class].hit_die.base + this.ability_scores["Constitution"].mod;
-				this.hp_current = class_data[this.char_class].hit_die.base + this.ability_scores["Constitution"].mod;
+				var con_mod = this.ability_scores["Constitution"].mod;
+				var hp_base = class_data[this.char_class].hit_die.base;
+				var hp_at_level_1 = hp_base + con_mod;
+				if(this.character.level == 1){
+					this.character.hp_max = hp_at_level_1;
+					this.character.hp_current = hp_at_level_1;
+				}else{
+					var average = this.getAverageOfHitDie();
+					this.character.hp_max =  hp_base + (Number(this.character.level) * con_mod) + ( ( (Number(this.character.level) - 1) * average) );
+					this.character.hp_current = this.character.hp_max;
+				}
 			},
 			changeClass: function(){
-				this.computeHp();				
+				this.computeHp();
+				this.computeCharacterSkills();
+			},
+			changeLevel: function(){
+				this.computeHp();
+				this.proficiency_bonus = this.getProficiencyBonus();
+				this.computeCharacterSkills();
+			},
+			getProficiencyBonus: function(){
+				if(this.character.level > 0 && this.character.level < 5)
+				{
+					return 2;
+				}
+
+				if(this.character.level > 4 && this.character.level < 9)
+				{
+					return 3;
+				}
+
+				if(this.character.level > 8 && this.character.level < 13)
+				{
+					return 4;
+				}
+
+				if(this.character.level > 12 && this.character.level < 17)
+				{
+					return 5;
+				}
+
+				if(this.character.level > 16 && this.character.level < 21)
+				{
+					return 6;
+				}
 			},
 			//For calculating the minimum attribute value based on current race and subrace
 			getBaseAttributeValue: function(attribute){
@@ -200,11 +285,13 @@ $(document).ready(function() {
 			resetBaseStats: function(){
 				$.each(this.ability_scores, function(index, value){
 						value.amount = 8;
+						value.mod = -1;
 						value.points_purchased = 0;
 				});
 				$.each(this.race_data[this.race].race_asi, function(key, value){
 					if(key in app.ability_scores){
 						app.ability_scores[key].amount = 8 + value.amount;
+						app.ability_scores[key].mod = app.getAbilityModifier(app.ability_scores[key].amount);
 					}
 				});
 
@@ -212,10 +299,12 @@ $(document).ready(function() {
 					$.each(this.race_data[this.race].subraces[this.subrace].subrace_asi, function(key, value){
 						if(key in app.ability_scores){
 							app.ability_scores[key].amount += value["amount"];
+							app.ability_scores[key].mod = app.getAbilityModifier(app.ability_scores[key].amount);
 						}
 					});
 				}
 				this.ability_points = 27;
+				this.computeCharacterSkills();
 			},
 			//Return all attributes and their bonuses for current race and subrace
 			getAsiData: function(){
@@ -267,7 +356,7 @@ $(document).ready(function() {
 					this.setAbilityModifier(index);
 					this.ability_scores[index].points_purchased++;
 				}
-
+				this.computeCharacterSkills();
 			},
 			refundPoint: function(index){
 				//Attempt represents the number the user is trying to achieve by refunding
@@ -286,6 +375,7 @@ $(document).ready(function() {
 					this.setAbilityModifier(index);
 					this.ability_scores[index].points_purchased--;
 				}
+				this.computeCharacterSkills();
 			},
 			getPointCost: function(num){
 				switch(num){
