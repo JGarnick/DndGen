@@ -41,9 +41,9 @@
 					<label>@{{value.abbr}}</label>
 					<input data-type="ability-score" :name="value.full_name | lowercase" :value="ability_scores[index].amount" />
 				</span>
-				<span v-for="(value, index) in character.skills" >
+				<span v-for="(value, index) in char_skills" >
 					<label>@{{value.name}}</label>
-					<input data-type="skill" :name="value.name" :value="character.skills[index].bonus"/>
+					<input data-type="skill" :name="value.name" :value="char_skills[index].bonus"/>
 				</span>
 				{{--<span v-for="(value, index) in saving_throws" >
 					<label>@{{value.name}} save</label>
@@ -87,6 +87,7 @@
 	var	class_data			= @json($class_data);
 	var classes				= @json($classes);
 	var allSkills			= @json($allSkills);
+	var char_skills			= @json($char_skills);
 
 </script>
 @endsection

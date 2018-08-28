@@ -47,7 +47,7 @@
 			<div class="skills-wrapper">
 				<div v-for="skill, index in char_skills">
 					<span>@{{skill.name}} (@{{skill.attribute_abbr}})</span>
-					<span><span><template v-if="skill.total > 0">@{{skill.operator}}</template></span>@{{skill.bonus}}</span>
+					<span><span><template v-if="skill.bonus > 0">+</template></span>@{{skill.bonus}}</span>
 				</div>
 			</div>
 		</div>

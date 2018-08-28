@@ -47,7 +47,7 @@ class CharacterClass extends Model
 		if(!empty($skill_options)){
 			foreach($skill_options AS $p){
 				$data["starting_skills"][] = Skill::findOrFail($p);
-			}	
+			}
 		}
 		
 		return $data;

@@ -51,6 +51,7 @@ class CharacterService
 		$character->hp_current		= 12;
 		$classData = $this->constructClassesInfo();
 		$ability_scores = $this->createAbilityScores($character);
+		$char_skills	= $this->constructCharSkills($allSkills, $ability_scores);
 
 		return [
 			"character" 	=> $character,
@@ -62,6 +63,7 @@ class CharacterService
 			"class_data"	=> $classData,
 			"allSkills"		=> $allSkills,
 			"ability_scores" => $ability_scores,
+			"char_skills"	=> $char_skills,
 		];
 	}
 
@@ -164,6 +166,23 @@ class CharacterService
 				"mod"				=> $mod,
 				"id"				=> $att->id,
 				"points_purchased"  => 0,
+			];
+		}
+		
+		return $returnMe;
+	}
+	
+	public function constructCharSkills($allSkills, $ability_scores){
+		$returnMe = [];
+		foreach($allSkills AS $skill){
+			$returnMe[$skill->name] = [
+				'name' => $skill["name"],
+				'attribute_abbr' => $ability_scores[$skill["attribute"]]["abbr"],
+				'attribute' => $skill["attribute"],
+				'proficient' => 0,
+				'expertise' => 0,
+				'bonus' => $ability_scores[$skill["attribute"]]["mod"],
+				'skill_id' => $skill["id"]
 			];
 		}
 		

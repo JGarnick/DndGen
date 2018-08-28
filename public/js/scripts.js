@@ -1,8 +1,4 @@
 $(document).ready(function() {
-
-	Vue.component("greeting", {
-		template: "<h1>Welcome Message!</h1>"
-	});
     var app = new Vue({
         el: '#vue-1',
 		mounted: function(){
@@ -15,6 +11,33 @@ $(document).ready(function() {
 				active: 0,
 			});
 
+			$(".skill").on("click", function(){
+				if($(this).hasClass("disabled")){return;}
+				$(this).find("input").attr("checked", function(index, attr){
+					return attr == "checked" ? false : "checked";
+				});
+				$(this).toggleClass("selected");
+				
+				var max_allowed = Number(app.class_data[app.char_class].skills_granted);
+				var num_selected = $("#tab-6 .proficiency-wrapper .skill.selected").length;
+				
+				if(num_selected >= max_allowed){
+					$("#tab-6 .proficiency-wrapper .skill:not(.selected)").addClass("disabled");
+					$("#tab-6 .proficiency-wrapper .skill:not(.selected) input").each(function(index){
+						$(this).prop("disabled", true);
+					});
+				}else{
+					$("#tab-6 .proficiency-wrapper .skill").removeClass("disabled");
+					$("#tab-6 .proficiency-wrapper .skill:not(.selected) input").each(function(index){
+						$(this).prop("disabled", false);
+					});
+				}
+				
+				var name = $(this).find("input").attr("id");
+				app.setSkillProficiency(name);
+			});
+			
+			
 			$('#selectable-race button').on("click", function(){
 				var previous_race = app.race;
 				var race_name = $(this)[0].innerText;
@@ -95,7 +118,6 @@ $(document).ready(function() {
 			}
 			$(document).ready( function(){
 				setRaceAttributes(app.race, "");
-				app.createCharacterSkills();
 			});
 			function showHideSubraces() {
 				var race = $('.ui-selected')[0].innerText;
@@ -138,11 +160,6 @@ $(document).ready(function() {
 				$(this).attr("name", "ability_scores[" + name + "]");
 			});
 
-			// $("[data-type='skill']").each(function(){
-				// var name = $(this).attr("name");
-				// $(this).attr("name", "skills[" + name + "]");
-			// });
-
 			$("#ability-scores-wrapper").accordion({
 				heightStyle: "content",
 
@@ -152,7 +169,7 @@ $(document).ready(function() {
 		},
         data: {
             character:          window.character,
-			char_skills:		[],
+			char_skills:		window.char_skills,
 			race_data:			window.race_data,
 			class_data:			window.class_data,
             char_class: 		window.char_class,
@@ -182,6 +199,12 @@ $(document).ready(function() {
 			}
 		},
         methods: {
+			setSkillProficiency:function(name){
+				this.char_skills[name].proficient = this.char_skills[name].proficient == 0 ? 1 : 0;
+				var bonus = this.ability_scores[this.char_skills[name].attribute].mod;
+				if(this.char_skills[name].proficient == 1){ bonus += this.getProficiencyBonus(); }
+				this.char_skills[name].bonus = bonus;
+			},
 			multi_function1:function(index){
 				this.setAbilityModifier(index);
 				this.computeCharacterSkills();
@@ -191,23 +214,7 @@ $(document).ready(function() {
 					var skill = this.char_skills[index];
 					var mod = this.ability_scores[skill.attribute].mod;
 					skill.bonus = mod;
-					if(skill.proficient == 1){ skill.bonus += this.getProficiencyBonus(); }
-				}
-			},
-			createCharacterSkills: function(){
-				for(index in this.allSkills){
-					var skill = app.allSkills[index];
-					var att_name = app.ability_scores[skill.attribute].full_name;
-					att_name = att_name.replace(/^\w/, c => c.toUpperCase());
-					app.char_skills[index] = {
-						name: skill.name,
-						attribute_abbr: app.ability_scores[skill.attribute].abbr,
-						attribute: att_name,
-						proficient: 0,
-						expertise: 0,
-						bonus: app.ability_scores[skill.attribute].mod,
-						skill_id: skill.id
-					};
+					if(skill.proficient == 1){ console.log("here"); skill.bonus = mod + this.getProficiencyBonus(); }					
 				}
 			},
 			getAverageOfHitDie: function(){

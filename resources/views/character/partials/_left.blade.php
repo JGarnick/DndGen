@@ -4,9 +4,9 @@
 		<li><a href="#tab-2">Ability Scores/Feats</a></li>
 		{{--<li><a href="#tab-3">Background</a></li>--}}
 		<li><a href="#tab-4">Class/Level</a></li>
-		{{--<li><a href="#tab-5">Spells</a></li>
+		{{--<li><a href="#tab-5">Spells</a></li>--}}
 		<li><a href="#tab-6">Proficiencies</a></li>
-		<li><a href="#tab-7">Equipment</a></li> --}}
+		{{--<li><a href="#tab-7">Equipment</a></li> --}}
 	</ul>
 	<div id="tab-1" class="row">
 		<h2 class="col-xs-offset-1">Race</h2>
@@ -59,7 +59,7 @@
 							<small>base</small>
 						</div>
 						<div class="col-xs-12">
-							<input v-bind:data-abs="value.full_name" class="form-control text-center input-medium" min="0" max="30" class="" v-model="ability_scores[index].amount" @change="multi_function1(index)" type="number" />
+							<input v-bind:data-abs="value.full_name" class="form-control text-center input-medium" min="0" max="30" class="" v-model="ability_scores[index].amount" @change="multi_function1(index)" @click="multi_function1(index)" type="number" />
 						</div>
 					</div>
 				</div>
@@ -75,7 +75,7 @@
 							<small>total</small>
 						</div>
 						<div class="col-xs-12">
-							<input min="0" max="30" class="form-control text-center input-medium" v-model="ability_scores[index].amount" @change="setAbilityModifier(index)" type="text" readOnly />
+							<input min="0" max="30" class="form-control text-center input-medium" v-model="ability_scores[index].amount" @change="multi_function1(index)" @click="multi_function1(index)" type="text" readOnly />
 							<div class="text-center" >
 								<div><small>mod</small></div>
 								<div><small v-if="ability_scores[index].mod > 0">+</small><small>@{{ability_scores[index].mod}}</small></div>
@@ -180,11 +180,20 @@
 	</div>
 	{{--<div id="tab-5">
 		<p>Spells</p>
-	</div>
+	</div>--}}
 	<div id="tab-6">
-		<p>Proficiencies</p>
+		<h2 class="text-center">Proficiencies</h2>
+		<h3 class="">@{{char_class}}</h3>
+		<h2>Skill Proficiency</h2>
+		<h4 class=""><i>select @{{class_data[char_class].skills_granted}}</i></h4>
+		<div class="proficiency-wrapper">
+			<div class="skill" v-for="skill, index in class_data[char_class].starting_skills">
+				<label :for="skill.name">@{{skill.name}}</label>
+				<input type="checkbox" :id="skill.name" />
+			</div>
+		</div>
 	</div>
-	<div id="tab-7">
+	{{--<div id="tab-7">
 		<p>Equipment</p>
 	</div> --}}
 </div>
