@@ -73,15 +73,17 @@
 		</div>
 		<div class="col-xs-6 text-center">
 			<h3>Saving Throws</h3>
-			@{{ability_scores}}
 			<h4>
-				<div style="width:50%;margin:0 auto;">
-					<div v-for="(save, index) in ability_scores">						
-						<span>@{{index}}</span>
-						@{{class_data[char_class].proficiencies.saves}}
-						<span><span v-if="save.bonus > 0">+</span>@{{save.bonus}}</span>
-					</div>
-				</div>
+				<table style="width:50%;margin:0 auto;">
+					
+					<tbody>
+						<tr v-for="(save, index) in calculateSaves()">
+							<td style="text-align:left;">@{{save.name}}</td>
+							<td><span v-if="save.bonus > 0">+</span>@{{save.bonus}}</td>
+							<td><span class="far fa-circle" v-if="save.proficient == 0"></span><span class="fas fa-circle" v-if="save.proficient == 1"></span></td>
+						</tr>
+					</tbody>
+				</table>
 			</h4>
 		</div>
 		<div class="col-xs-6 text-center">

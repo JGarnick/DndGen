@@ -198,6 +198,25 @@ $(document).ready(function() {
 			}
 		},
         methods: {
+			calculateSaves(){
+				var saves = this.class_data[this.char_class].proficiencies.saves;
+				var save_atts = [];
+				for ( save in saves ){
+					save_atts.push(saves[save].name);
+				}
+				var saving_throws = [];
+				
+				for(att in this.ability_scores){
+					var bonus = Number(this.ability_scores[att].mod);
+					var proficient = 0;
+					if( save_atts.includes(att) ){
+						bonus += Number(this.proficiency_bonus);
+						proficient = 1;
+					}
+					saving_throws.push( {"name" : att, "bonus" : bonus, "proficient": proficient} );
+				}
+				return saving_throws;
+			},
 			setSkillProficiency:function(name){
 				this.char_skills[name].proficient = this.char_skills[name].proficient == 0 ? 1 : 0;
 				var bonus = this.ability_scores[this.char_skills[name].attribute].mod;
