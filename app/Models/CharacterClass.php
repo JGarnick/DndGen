@@ -26,7 +26,7 @@ class CharacterClass extends Model
 			$data["proficiencies"]["weapon_types"][] = DB::table("weapon_armor_types")->where("id", $p)->first()->name;
 		}
 		//Get actual weapon proficiency, i.e. longsword, rapier, etc.
-		foreach(DB::table("class_proficiencies")->where("class_id", $this->id)->where("type", "weapon")->whereNotNull('weapon_id')->pluck("weapon_id") AS $p){								
+		foreach(DB::table("class_proficiencies")->where("class_id", $this->id)->where("type", "weapon")->whereNotNull('weapon_id')->pluck("weapon_id") AS $p){
 			$data["proficiencies"]["weapons"][] = Weapon::findOrFail($p);
 		}
 		//Get armor category proficiency, i.e. light, medium, etc.
@@ -34,11 +34,11 @@ class CharacterClass extends Model
 			$data["proficiencies"]["armor_types"][] = DB::table("weapon_armor_types")->where("id", $p)->first()->name;
 		}
 		//Get actual armor proficiency, i.e. leather, breastplate, etc.
-		foreach(DB::table("class_proficiencies")->where("class_id", $this->id)->where("type", "armor")->whereNotNull('armor_id')->pluck("armor_id") AS $p){								
+		foreach(DB::table("class_proficiencies")->where("class_id", $this->id)->where("type", "armor")->whereNotNull('armor_id')->pluck("armor_id") AS $p){
 			$data["proficiencies"]["armor"][] = Armor::findOrFail($p);
 		}
 		//Get saving throw proficiency, i.e. Strength, Dexterity, etc.
-		foreach(DB::table("class_proficiencies")->where("class_id", $this->id)->where("type", "saving throw")->whereNotNull('attribute_id')->pluck("attribute_id") AS $p){								
+		foreach(DB::table("class_proficiencies")->where("class_id", $this->id)->where("type", "saving throw")->whereNotNull('attribute_id')->pluck("attribute_id") AS $p){
 			$data["proficiencies"]["saves"][] = Attribute::findOrFail($p);
 		}
 		//Get skill proficiency, i.e. Acrobatics, Perception, etc.
@@ -53,10 +53,10 @@ class CharacterClass extends Model
 		return $data;
 	}
 	
-	public function saving_throws()
-	{
-		$attIDs = $this->proficiencies->where('type', 'saving throw')->pluck('attribute_id');
-		$attArray = Attribute::whereIn('id', $attIDs)->pluck("name");
-		return $attArray;
-	}
+	// public function saving_throws()
+	// {
+		// $attIDs = $this->proficiencies->where('type', 'saving throw')->pluck('attribute_id');
+		// $attArray = Attribute::whereIn('id', $attIDs)->pluck("name");
+		// return $attArray;
+	// }
 }

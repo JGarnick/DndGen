@@ -177,7 +177,6 @@ $(document).ready(function() {
 			passive_perception: window.passive_perception,
 			speed: 				window.speed,
 			darkvision: 		window.darkvision,
-			saving_throws:		window.saving_throws,
 			allSkills:			window.allSkills,
 			proficiency_bonus:	window.proficiency_bonus,
 			ability_scores:		window.ability_scores,

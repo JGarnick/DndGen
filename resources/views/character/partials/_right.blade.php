@@ -45,10 +45,24 @@
 		<div class="col-xs-6 text-center">
 			<h3>Skills</h3>
 			<div class="skills-wrapper">
-				<div v-for="skill, index in char_skills">
-					<span>@{{skill.name}} (@{{skill.attribute_abbr}})</span>
-					<span><span><template v-if="skill.bonus > 0">+</template></span>@{{skill.bonus}}</span>
-				</div>
+				<table>
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Bonus</th>
+							<th>P</th>
+							<th>E</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr v-for="skill, index in char_skills">
+							<td>@{{skill.name}} (@{{skill.attribute_abbr}})</td>
+							<td><span v-if="skill.bonus > 0">+</span>@{{skill.bonus}}</td>
+							<td><span class="far fa-circle" v-if="skill.proficient == 0"></span><span class="fas fa-circle" v-if="skill.proficient == 1"></span></td>
+							<td><span class="fab fa-ethereum" v-if="skill.expertise == 1"></span></td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
 		<div class="col-xs-6 text-center">
@@ -59,11 +73,13 @@
 		</div>
 		<div class="col-xs-6 text-center">
 			<h3>Saving Throws</h3>
+			@{{ability_scores}}
 			<h4>
 				<div style="width:50%;margin:0 auto;">
-					<div v-for="save in saving_throws">
-						<span class="col-xs-6">@{{save.name}}</span>
-						<span class="col-xs-6"><span v-if="save.total > 0">@{{save.operator}}</span>@{{save.total}}</span>
+					<div v-for="(save, index) in ability_scores">						
+						<span>@{{index}}</span>
+						@{{class_data[char_class].proficiencies.saves}}
+						<span><span v-if="save.bonus > 0">+</span>@{{save.bonus}}</span>
 					</div>
 				</div>
 			</h4>

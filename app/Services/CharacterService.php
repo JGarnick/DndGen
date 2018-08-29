@@ -52,6 +52,7 @@ class CharacterService
 		$classData = $this->constructClassesInfo();
 		$ability_scores = $this->createAbilityScores($character);
 		$char_skills	= $this->constructCharSkills($allSkills, $ability_scores);
+		$saving_throws	= $this->constructSavingThrows();
 
 		return [
 			"character" 	=> $character,
@@ -188,4 +189,10 @@ class CharacterService
 		
 		return $returnMe;
 	}
+	
+	public function constructSavingThrows(){
+		$returnMe = [];
+		
+	}
+	
 }
