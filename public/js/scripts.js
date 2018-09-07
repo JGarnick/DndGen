@@ -38,19 +38,10 @@ $(document).ready(function() {
 			});
 			
 			
-			$('#selectable-race button').on("click", function(){
-				var previous_race = app.race;
-				var race_name = $(this)[0].innerText;
-				app.race = race_name;
-				setRaceAttributes(race_name, previous_race);
-
-				var subrace_name = app.subrace;
-				if(subrace_name !== ""){
-					//Changing race while subrace is selected, must reset the subrace bonuses by passing the current subrace as a previous subrace
-					setSubraceAttributes("", subrace_name, true, previous_race);
-				}
-
+			$('#selectable-race button').on("click", function(){				
+				app.race = $(this)[0].innerText;
 				app.subrace = "";
+				setRaceAttributes()
 				$('#selectable-race button').each(function(){
 					$(this).removeClass('ui-selected');
 				});
@@ -58,61 +49,49 @@ $(document).ready(function() {
 				showHideSubraces();
 			});
 
-			function setRaceAttributes(name, previous)
+			function setRaceAttributes()
 			{
-				//first reset attributes the previous race gave bonuses to
-				if(previous !== ""){
-					$.each(app.race_data[previous]["race_asi"], function(key, value){
-						//key = "Constitution, value = [amount => 2, att_id => 3]
-						app.ability_scores[key]["amount"] -= value["amount"];
-						app.setAbilityModifier(key);
-					});
-				}
-				//then add the new bonuses
-				$.each(app.race_data[name]["race_asi"], function(key, value){
+				resetAbilityScores();
+				var race_data = app.race_data[app.race]["race_asi"];
+				$.each(race_data, function(key, value){
 					//key = "Constitution, value = [amount => 2, att_id => 3]
 					app.ability_scores[key]["amount"] += value["amount"];
 					app.setAbilityModifier(key);
 				});
+				
 				app.computeCharacterSkills();
 			}
+			
+			function resetAbilityScores(){
+				$.each(app.ability_scores, function(){
+					this.amount = 8;
+					this.mod = -1;
+					this.points_purchased = 0;
+				});
+			}
 
-			function setSubraceAttributes(subrace_name, previous_subrace, race_change = false, previous_race = "")
+			function setSubraceAttributes()
 			{
-				//If changing race, we need to provide the previous race so we can reset the bonuses it's selected subrace provided
-				if(race_change && previous_race !== ""){
-					$.each(app.race_data[previous_race]["subraces"][previous_subrace]["subrace_asi"], function(key, value){
+				if(app.subrace !== ""){
+					var parent_race_data = app.race_data[app.race]["race_asi"];
+					$.each(app.race_data[app.race]["subraces"][app.subrace]["subrace_asi"], function(key, value){
+						var parent_bonus = 0;
+						if( typeof parent_race_data[key] != "undefined" ){
+							parent_bonus = parent_race_data[key].amount;
+						}
 						//key = "Constitution, value = [amount => 2, att_id => 3]
-						app.ability_scores[key]["amount"] -= value["amount"];
+						app.ability_scores[key]["amount"] = 8 + parent_bonus + value["amount"];
 						app.setAbilityModifier(key);
 					});
-
-					$('#selectable-sub-race button').each(function(){
-						$(this).removeClass('ui-selected');
-					});
-
-					return;
+				}else{
+					
 				}
+				
 
-				if(previous_subrace !== "" ){
-					$.each(app.race_data[app.race].subraces[previous_subrace].subrace_asi, function(key, value){
-						//key = "Constitution, value = [amount => 2, att_id => 3]
-						if(key in app.ability_scores){
-							app.ability_scores[key].amount -= value["amount"];
-							app.setAbilityModifier(key);
-						}
-						
-					});
-				}
-				if(subrace_name !== "" && previous_subrace !== subrace_name){
-					$.each(app.race_data[app.race].subraces[subrace_name].subrace_asi, function(key, value){
-						//key = Wisdom, value = [ amount => 1, att_id => 4 ]
-						if(key in app.ability_scores){
-							app.ability_scores[key].amount += value["amount"];
-							app.setAbilityModifier(key);
-						}
-					});
-				}
+				$('#selectable-sub-race button').each(function(){
+					$(this).removeClass('ui-selected');
+				});
+				
 				app.computeCharacterSkills();
 				return;
 			}
@@ -152,7 +131,7 @@ $(document).ready(function() {
 					app.subrace = name;
 					$(this).addClass("ui-selected");
 				}
-				setSubraceAttributes(name, previous); //adjusts the player's stats based on subrace
+				setSubraceAttributes(); //adjusts the player's stats based on subrace
 			});
 
 			$("[data-type='ability-score']").each(function(){
@@ -354,7 +333,7 @@ $(document).ready(function() {
 					}
 				}
 				
-				if(this.subrace){
+				if( this.subrace != ""){
 					var subrace_asi = this.race_data[this.race].subraces[this.subrace].subrace_asi;
 					if(attribute in subrace_asi){ bonus += subrace_asi[attribute].amount }
 				}
