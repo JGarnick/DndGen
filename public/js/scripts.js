@@ -41,62 +41,50 @@ $(document).ready(function() {
 			$('#selectable-race button').on("click", function(){				
 				app.race = $(this)[0].innerText;
 				app.subrace = "";
-				setRaceAttributes()
+				setRaceAttributes();
 				$('#selectable-race button').each(function(){
 					$(this).removeClass('ui-selected');
 				});
 				$(this).addClass("ui-selected");
+				$('#selectable-sub-race button').each(function(){
+					$(this).removeClass('ui-selected');
+				});
 				showHideSubraces();
 			});
-
-			function setRaceAttributes()
-			{
-				resetAbilityScores();
+			
+			function setRaceAttributes(){
 				var race_data = app.race_data[app.race]["race_asi"];
-				$.each(race_data, function(key, value){
-					//key = "Constitution, value = [amount => 2, att_id => 3]
-					app.ability_scores[key]["amount"] += value["amount"];
+				var subrace_data;
+				if(app.subrace != ""){ subrace_data = app.race_data[app.race]["subraces"][app.subrace]["subrace_asi"]; }
+				
+				$.each(app.ability_scores, function(key, value){
+					this.amount = 8;
+					if( typeof race_data[key] != "undefined" ){ this.amount += race_data[key].amount; }
+					if( typeof subrace_data != "undefined" && typeof subrace_data[key] != "undefined" ){ this.amount += subrace_data[key].amount; }
 					app.setAbilityModifier(key);
 				});
-				
 				app.computeCharacterSkills();
 			}
 			
-			function resetAbilityScores(){
-				$.each(app.ability_scores, function(){
-					this.amount = 8;
-					this.mod = -1;
-					this.points_purchased = 0;
-				});
-			}
-
-			function setSubraceAttributes()
-			{
-				if(app.subrace !== ""){
-					var parent_race_data = app.race_data[app.race]["race_asi"];
-					$.each(app.race_data[app.race]["subraces"][app.subrace]["subrace_asi"], function(key, value){
-						var parent_bonus = 0;
-						if( typeof parent_race_data[key] != "undefined" ){
-							parent_bonus = parent_race_data[key].amount;
-						}
-						//key = "Constitution, value = [amount => 2, att_id => 3]
-						app.ability_scores[key]["amount"] = 8 + parent_bonus + value["amount"];
-						app.setAbilityModifier(key);
-					});
-				}else{
-					
-				}
-				
+			$('#selectable-sub-race button').on("click", function(){
+				var previous = app.subrace;
+				var name = $(this)[0].innerText;
 
 				$('#selectable-sub-race button').each(function(){
 					$(this).removeClass('ui-selected');
 				});
-				
-				app.computeCharacterSkills();
-				return;
-			}
+				if(app.subrace === name){
+					app.subrace = "";
+					$(this).removeClass("ui-selected");
+				}else{
+					app.subrace = name;
+					$(this).addClass("ui-selected");
+				}
+				setRaceAttributes();
+			});
+			
 			$(document).ready( function(){
-				setRaceAttributes(app.race, "");
+				setRaceAttributes();
 			});
 			function showHideSubraces() {
 				var race = $('.ui-selected')[0].innerText;
@@ -116,23 +104,6 @@ $(document).ready(function() {
 			};
 
 			showHideSubraces();
-
-			$('#selectable-sub-race button').on("click", function(){
-				var previous = app.subrace;
-				var name = $(this)[0].innerText;
-
-				$('#selectable-sub-race button').each(function(){
-					$(this).removeClass('ui-selected'); //removes the selected class from all the buttons
-				});
-				if(app.subrace === name){
-					app.subrace = "";
-					$(this).removeClass("ui-selected");
-				}else{
-					app.subrace = name;
-					$(this).addClass("ui-selected");
-				}
-				setSubraceAttributes(); //adjusts the player's stats based on subrace
-			});
 
 			$("[data-type='ability-score']").each(function(){
 				var name = $(this).attr("name");
