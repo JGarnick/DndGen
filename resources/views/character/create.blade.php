@@ -12,7 +12,7 @@
 				<input v-model="character.name" class="form-control form-input" type="text" name="name" />
 			</div>
 
-			<div class="" id="character-inputs">
+			{{--<div class="" id="character-inputs">
 				<div><label>Level</label>
 				<input name="level" :value="character.level" />
 				<label>Name</label>
@@ -45,12 +45,12 @@
 					<label>@{{value.name}}</label>
 					<input data-type="skill" :name="value.name" :value="char_skills[index].bonus"/>
 				</span>
-				{{--<span v-for="(value, index) in saving_throws" >
+				<span v-for="(value, index) in saving_throws" >
 					<label>@{{value.name}} save</label>
 					<input data-type="save" :name="value.name" :value="skills[index].total"/>
-				</span>--}}
+				</span>
 				</div>
-			</div>
+			</div>--}}
 			<div class="col-xs-offset-11 col-xs-1">
 				<input type="submit" value="Save" />
 			</div>

@@ -75,12 +75,13 @@
 			<h3>Saving Throws</h3>
 			<h4>
 				<table style="width:50%;margin:0 auto;">
-					
 					<tbody>
 						<tr v-for="(save, index) in calculateSaves()">
-							<td style="text-align:left;">@{{save.name}}</td>
-							<td><span v-if="save.bonus > 0">+</span>@{{save.bonus}}</td>
-							<td><span class="far fa-circle" v-if="save.proficient == 0"></span><span class="fas fa-circle" v-if="save.proficient == 1"></span></td>
+							<template v-if="save.name != 'Choice'">
+								<td style="text-align:left;">@{{save.name}}</td>
+								<td><span v-if="save.bonus > 0">+</span>@{{save.bonus}}</td>
+								<td><span class="far fa-circle" v-if="save.proficient == 0"></span><span class="fas fa-circle" v-if="save.proficient == 1"></span></td>
+							</template>
 						</tr>
 					</tbody>
 				</table>
@@ -90,6 +91,12 @@
 			<h3>Darkvision</h3>
 			<h4>
 				@{{character.darkvision}}
+			</h4>
+		</div>
+		<div class="col-xs-6 text-center">
+			<h3>Initiative</h3>
+			<h4>
+				<span v-if="getInitiativeBonus() > 0">+</span>@{{getInitiativeBonus()}}
 			</h4>
 		</div>
 	</div>
