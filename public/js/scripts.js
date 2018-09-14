@@ -38,7 +38,7 @@ $(document).ready(function() {
 			});
 			
 			
-			$('#selectable-race button').on("click", function(){				
+			$('#selectable-race button').on("click", function(){
 				app.race = $(this)[0].innerText;
 				app.subrace = "";
 				setRaceAttributes();
@@ -53,17 +53,62 @@ $(document).ready(function() {
 			});
 			
 			function setRaceAttributes(){
-				var race_data = app.race_data[app.race]["race_asi"];
-				var subrace_data;
-				if(app.subrace != ""){ subrace_data = app.race_data[app.race]["subraces"][app.subrace]["subrace_asi"]; }
+				var race_bonuses = app.race_data[app.race]["race_asi"];
+				var parent_has_choice = checkForChoiceAtt(race_bonuses);
+				var subrace_bonuses;
+				if(app.subrace != ""){ subrace_bonuses = app.race_data[app.race]["subraces"][app.subrace]["subrace_asi"]; }
+				var child_has_choice = checkForChoiceAtt(subrace_bonuses);
 				
-				$.each(app.ability_scores, function(key, value){
-					this.amount = 8;
-					if( typeof race_data[key] != "undefined" ){ this.amount += race_data[key].amount; }
-					if( typeof subrace_data != "undefined" && typeof subrace_data[key] != "undefined" ){ this.amount += subrace_data[key].amount; }
-					app.setAbilityModifier(key);
-				});
+				if(!parent_has_choice && !child_has_choice){
+					$.each(app.ability_scores, function(key, value){
+						this.amount = 8;
+						if( typeof race_bonuses[key] != "undefined" ){ this.amount += race_bonuses[key].amount; }
+						if( typeof subrace_bonuses != "undefined" && typeof subrace_bonuses[key] != "undefined" ){ this.amount += subrace_bonuses[key].amount; }
+						app.setAbilityModifier(key);
+					});
+				}
+				
+				// if(parent_has_choice){
+					// //If parent race has choice which is not likely, then I must foreach over the bonuses parent race provides. On each loop, if option is choice, display
+					// //The attributes as Choice option 1, Choice option 2, etc. If loop value is instead an attribute, it should just add that bonus 
+					// $.each(race_bonuses, function(key, value){
+						// if(key.includes("Choice")){
+							// //Show options
+						// }else{
+							// app.ability_scores[key].amount = 8 + value.amount;
+						// }
+					// });
+				// }
+				
+				if(child_has_choice){
+					//Separate out the hard bonuses from the choices. I.E. Strength +1, Dex +1, Choice +1
+					$.each(subrace_bonuses, function(key, value){
+						if(key.includes("Choice")){
+							//Show options
+						}else{
+							$.each(app.ability_scores, function(key, value){
+								this.amount = computeAbilityScore(key);
+								app.setAbilityModifier(key);
+							});
+						}
+					});
+				}
 				app.computeCharacterSkills();
+			}
+			
+			function computeAbilityScore(key){
+				var amount = 8;
+				if( typeof race_bonuses[key] != "undefined" ){ amount += race_bonuses[key].amount; }
+				if( typeof subrace_bonuses != "undefined" && typeof subrace_bonuses[key] != "undefined" ){ amount += subrace_bonuses[key].amount; }
+				return amount;
+			}
+			
+			//Return true if Choice exists in data
+			function checkForChoiceAtt(data){
+				if( typeof data == "undefined" ){return false;}
+				if( Object.keys(data).length < 1 ){return false;}
+				if( "Choice_1" in data ){return true;}
+				return false;
 			}
 			
 			$('#selectable-sub-race button').on("click", function(){
@@ -148,7 +193,11 @@ $(document).ready(function() {
 			}
 		},
         methods: {
-			calculateSaves(){
+			getInitiativeBonus:function(){
+				return this.ability_scores["Dexterity"].mod;
+				//This will need to calulate +5 if player chooses Alert feat
+			},
+			calculateSaves:function(){
 				var saves = this.class_data[this.char_class].proficiencies.saves;
 				var save_atts = [];
 				for ( save in saves ){
