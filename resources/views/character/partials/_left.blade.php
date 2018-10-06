@@ -41,10 +41,6 @@
 					<label :for="index">@{{index}}</label>
 					<input type="checkbox" :id="index" data-amount="" >
 				</div>
-
-				{{--<button class="tab-interactable ui-widget-content" v-for="(value, index) in ability_scores" v-if="value.id !== 7" :data-att="index" data-amount="">
-					@{{index}}
-				</button>--}}
 			</div>
 		</div>
 	</div>

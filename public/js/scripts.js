@@ -41,7 +41,7 @@ $(document).ready(function () {
 
 
 			$('#selectable-race button').on("click", function () {
-				app.race = $(this)[0].innerText;
+				app.race = $(this).text().trim();
 				app.subrace = "";
 				setRaceAttributes();
 				$('#selectable-race button').each(function () {
@@ -64,6 +64,7 @@ $(document).ready(function () {
 				var child_has_choice = checkForChoiceAtt(subrace_bonuses);
 
 				if (!parent_has_choice && !child_has_choice) {
+					$(".attribute-options").parent().hide();
 					$.each(app.ability_scores, function (key, value) {
 						this.amount = 8;
 						if (typeof race_bonuses[key] != "undefined") {
@@ -116,14 +117,10 @@ $(document).ready(function () {
 			}
 
 			function displayAttributeOptions(key, value, choice_count) {
-				if ($(".attribute-options").parent().css("display") == "none") {
-					let word = choice_count > 1 ? "attributes" : "attribute";
-					$(".attribute-options").prev().find("i").text("Select " + choice_count + " " + word);
-					$(".attribute-options .att-choice").each(function () {
-						$(this).attr("data-amount", value.amount);
-					});
-					$(".attribute-options").parent().show();
-				}
+				let word = choice_count > 1 ? "attributes" : "attribute";
+				$(".attribute-options").prev().find("i").text("Select " + choice_count + " " + word);
+				$(".attribute-options .att-choice input").attr("data-amount", value.amount);
+				$(".attribute-options").parent().show();
 			}
 
 			$('.attribute-options').on("click", ".att-choice", function () {
@@ -152,8 +149,13 @@ $(document).ready(function () {
 					});
 				}
 
-				var name = $(this).find("input").attr("id");
-				app.setSkillProficiency(name);
+				let name = $(this).find("input").attr("id");
+				let amount = $(this).find("input").attr("data-amount");
+				let selected = false;
+				if ($(this).hasClass("selected")) {
+					selected = true;
+				}
+				app.processAttributeChoice(name, amount, selected);
 			});
 
 			function computeAbilityScore(key) {
@@ -181,18 +183,18 @@ $(document).ready(function () {
 				return false;
 			}
 
-			$('#selectable-sub-race button').on("click", function () {
+			$('#selectable-sub-race').on("click", "button", function () {
 				var previous = app.subrace;
-				var name = $(this)[0].innerText;
+				var name = $(this).text();
 
 				$('#selectable-sub-race button').each(function () {
 					$(this).removeClass('ui-selected');
 				});
-				if (app.subrace === name) {
+				if (app.subrace === name.trim()) {
 					app.subrace = "";
 					$(this).removeClass("ui-selected");
 				} else {
-					app.subrace = name;
+					app.subrace = name.trim();
 					$(this).addClass("ui-selected");
 				}
 				setRaceAttributes();
@@ -266,6 +268,18 @@ $(document).ready(function () {
 			}
 		},
 		methods: {
+			processAttributeChoice: function (attribute, amount, selected) {
+				if (selected) {
+					this.ability_scores[attribute].amount += Number(amount);
+				}
+
+				if (!selected) {
+					this.ability_scores[attribute].amount -= Number(amount);
+				}
+
+				this.setAbilityModifier(attribute);
+				this.computeCharacterSkills();
+			},
 			getInitiativeBonus: function () {
 				return this.ability_scores["Dexterity"].mod;
 				//This will need to calulate +5 if player chooses Alert feat
@@ -389,20 +403,34 @@ $(document).ready(function () {
 					value.mod = -1;
 					value.points_purchased = 0;
 				});
-				$.each(this.race_data[this.race].race_asi, function (key, value) {
-					if (key in app.ability_scores) {
-						app.ability_scores[key].amount = 8 + value.amount;
-						app.ability_scores[key].mod = app.getAbilityModifier(app.ability_scores[key].amount);
-					}
-				});
-
-				if (this.subrace !== "") {
-					$.each(this.race_data[this.race].subraces[this.subrace].subrace_asi, function (key, value) {
+				if (this.subrace !== "Variant Human") {
+					$.each(this.race_data[this.race].race_asi, function (key, value) {
 						if (key in app.ability_scores) {
-							app.ability_scores[key].amount += value["amount"];
+							app.ability_scores[key].amount = 8 + value.amount;
 							app.ability_scores[key].mod = app.getAbilityModifier(app.ability_scores[key].amount);
 						}
 					});
+
+					if (this.subrace !== "") {
+						$.each(this.race_data[this.race].subraces[this.subrace].subrace_asi, function (key, value) {
+							if (key in app.ability_scores) {
+								app.ability_scores[key].amount += value["amount"];
+								app.ability_scores[key].mod = app.getAbilityModifier(app.ability_scores[key].amount);
+							}
+						});
+					}
+				}
+
+				if (this.subrace === "Variant Human") {
+					let selected_atts = $(".attribute-options .selected input");
+					if (selected_atts.length > 0) {
+						$.each(selected_atts, function (index, value) {
+							let att = $(value).attr("id");
+							let amt = $(value).attr("data-amount");
+							app.ability_scores[att].amount += Number(amt);
+							app.ability_scores[att].mod = app.getAbilityModifier(app.ability_scores[att].amount);
+						});
+					}
 				}
 				this.ability_points = 27;
 				this.computeCharacterSkills();
