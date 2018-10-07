@@ -52,6 +52,7 @@ $(document).ready(function () {
 					$(this).removeClass('ui-selected');
 				});
 				showHideSubraces();
+				$('.attribute-options .att-choice').removeClass("disabled").removeClass("selected").find("input").removeAttr("checked").removeAttr("disabled")
 			});
 
 			function setRaceAttributes() {
@@ -451,6 +452,22 @@ $(document).ready(function () {
 			//Return the specific ASI bonus by attribute, including racial and subracial bonuses
 			getComputedAsiByAttribute: function (attribute) {
 				var bonus = 0;
+
+				if (typeof this.subrace != "undefined" && this.subrace === "Variant Human") {
+					let array = $(".attribute-options .att-choice.selected input");
+					let chosen_attributes = {};
+					for (let i = 0; i < array.length; i++) {
+						let element = array[i];
+						let att = $(element).attr("id");
+						let amt = $(element).attr("data-amount");
+						chosen_attributes[att] = amt;
+					}
+					if (attribute in chosen_attributes) {
+						bonus = chosen_attributes[attribute];
+					}
+					return Number(bonus);
+				}
+
 				if (typeof this.race_data[this.race].race_asi !== "undefined") {
 					var race_asi = this.race_data[this.race].race_asi;
 					if (attribute in race_asi) {
@@ -461,7 +478,7 @@ $(document).ready(function () {
 				if (this.subrace != "") {
 					var subrace_asi = this.race_data[this.race].subraces[this.subrace].subrace_asi;
 					if (attribute in subrace_asi) {
-						bonus += subrace_asi[attribute].amount
+						bonus += Number(subrace_asi[attribute].amount);
 					}
 				}
 
