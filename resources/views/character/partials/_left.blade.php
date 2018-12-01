@@ -43,6 +43,67 @@
 				</div>
 			</div>
 		</div>
+		<div style="display:none;">
+			<h2 class="col-xs-offset-1">Draconic Ancestry</h2>
+			<h4 class="col-xs-offset-1"><i>Select a dragon origin</i></h4>
+			<div class="draconic-ancestry selectable">
+				<div style="margin-bottom:20px;">
+					<span>Origin</span>
+					<span>Damage Type</span>
+					<span>Breath Weapon</span>
+				</div>
+				<div>
+					<button class="tab-interactable ui-widget-content">Black</button>
+					<div>Acid</div>
+					<div>5 by 30ft. line (Dex. save)</div>
+				</div>
+				<div>
+					<button class="tab-interactable ui-widget-content">Blue</button>
+					<div>Lightning</div>
+					<div>5 by 30ft. line (Dex. save)</div>
+				</div>
+				<div>
+					<button class="tab-interactable ui-widget-content">Brass</button>
+					<div>Fire</div>
+					<div>5 by 30ft. line (Dex. save)</div>
+				</div>
+				<div>
+					<button class="tab-interactable ui-widget-content">Bronze</button>
+					<div>Lightning</div>
+					<div>5 by 30ft. line (Dex. save)</div>
+				</div>
+				<div>
+					<button class="tab-interactable ui-widget-content">Copper</button>
+					<div>Acid</div>
+					<div>5 by 30ft. line (Dex. save)</div>
+				</div>
+				<div>
+					<button class="tab-interactable ui-widget-content">Gold</button>
+					<div>Fire</div>
+					<div>15ft. cone (Dex. save)</div>
+				</div>
+				<div>
+					<button class="tab-interactable ui-widget-content">Green</button>
+					<div>Poison</div>
+					<div>15ft. cone (Con. save)</div>
+				</div>
+				<div>
+					<button class="tab-interactable ui-widget-content">Red</button>
+					<div>Fire</div>
+					<div>15ft. cone (Dex. save)</div>
+				</div>
+				<div>
+					<button class="tab-interactable ui-widget-content">Silver</button>
+					<div>Cold</div>
+					<div>15ft. cone (Con. save)</div>
+				</div>
+				<div>
+					<button class="tab-interactable ui-widget-content">White</button>
+					<div>Cold</div>
+					<div>15ft. cone (Con. save)</div>
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<div id="tab-2">

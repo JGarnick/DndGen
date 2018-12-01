@@ -9,21 +9,21 @@
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 
 // Route::get('/', function () {
     // return view('welcome');
 // });
 
 Auth::routes();
-Route::get('/testSeeder', function(){
+Route::get('/testSeeder', function () {
 	Artisan::call('db:seed');
 });
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/logout', "Auth\LoginController@logout")->name('logout');
 
-Route::group(['middleware' => ['auth']], function($router){
-	Route::prefix('character')->group(function($router){
+Route::group(['middleware' => ['auth']], function ($router) {
+	Route::prefix('character')->group(function ($router) {
 		$router->get('/index', 'CharacterController@index')->name('character.index');
 		$router->get('/create', 'CharacterController@create')->name('character.create');
 		$router->post('/store', 'CharacterController@store')->name('character.store');
@@ -31,7 +31,7 @@ Route::group(['middleware' => ['auth']], function($router){
 		$router->post('/{id}/update', 'CharacterController@update')->name('character.update');
 	});
 
-	Route::prefix('user')->group(function($router){
+	Route::prefix('user')->group(function ($router) {
 		$router->get('/index', 'UserController@index')->name('user.index');
 		$router->get('/create', 'UserController@create')->name('user.create');
 		$router->get('/store', 'UserController@store')->name('user.store');
@@ -39,4 +39,14 @@ Route::group(['middleware' => ['auth']], function($router){
 	});
 });
 
+Route::GET("/phpinfo", function () {
+	if (in_array('curl', get_loaded_extensions())) {
+
+		echo "CURL is available on your web server";
+
+	} else {
+		echo "CURL is not available on your web server";
+	}
+	phpinfo();
+});
 

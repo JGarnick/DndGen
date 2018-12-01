@@ -52,7 +52,12 @@ $(document).ready(function () {
 					$(this).removeClass('ui-selected');
 				});
 				showHideSubraces();
-				$('.attribute-options .att-choice').removeClass("disabled").removeClass("selected").find("input").removeAttr("checked").removeAttr("disabled")
+				$('.attribute-options .att-choice').removeClass("disabled").removeClass("selected").find("input").removeAttr("checked").removeAttr("disabled");
+				if (app.race === "Dragonborn") {
+					$('.draconic-ancestry').parent().show();
+				} else {
+					$('.draconic-ancestry').parent().hide();
+				}
 			});
 
 			function setRaceAttributes() {
@@ -489,7 +494,6 @@ $(document).ready(function () {
 			buyPoint: function (index) {
 				//When purchasing the next point, you must first refund the amount of the current attribute, then spend the point.
 				var attempt = this.ability_scores[index].amount + 1; //Current stat + 1
-				//var paid				= this.getPointCost(this.ability_scores[index].amount); //Amount you've invested in your skill points so far
 				var cost = this.getPointCost(attempt); //How much moving to the next point will cost
 				var current_score_cost = this.getPointCost(this.ability_scores[index].amount); //How much the current amount cost
 				if (this.getBaseAttributeValue(index) === this.ability_scores[index].amount) {
