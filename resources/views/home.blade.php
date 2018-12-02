@@ -13,6 +13,8 @@
                     <div><a href="{{route('character.create')}}" class="btn btn-primary button-section">New Character</a></div>
 					<hr class="spacer-small" />
                     <div><a disabled="true" onClick="event.preventDefault();" class="btn btn-primary button-section">Campaign</a></div>
+                    <hr class="spacer-small" />
+                    <div><a href="{{ route('search') }}" class="btn btn-primary button-section">Search</a></div>
                 </div>
             </div>
         </div>

@@ -39,6 +39,8 @@ class SpellSeeder extends Seeder
             }
             if (!isset($to_save["higher_level"])) {
                 $to_save["higher_level"] = 0;
+            }else{
+                $to_save["higher_level"] = str_replace("â€™", "'", $spell->higher_level);
             }
             foreach ($to_save as $i => $prop) {
                 if (gettype($prop) == "array") {

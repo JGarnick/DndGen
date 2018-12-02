@@ -9,6 +9,11 @@ class SearchController extends Controller
 {
     function index()
     {
-        return view("search")->with("spells", Spell::all());
+        $not_used = ["created_at", "updated_at", "id"];
+        $hide_rows = ["desc", "page", "ritual", "material", "classes", "higher_level"];
+        
+        return view("search/search")->with("spells", Spell::all())
+                                    ->with("not_used", $not_used)
+                                    ->with("hide_rows", $hide_rows);
     }
 }

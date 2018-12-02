@@ -22,4 +22,14 @@ class Spell extends Model
         'components',
         'higher_levels'
     ];
+
+    public function components()
+    {
+        return unserialize($this->components);
+    }
+
+    public function desc()
+    {
+        return unserialize($this->desc);
+    }
 }
