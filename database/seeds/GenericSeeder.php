@@ -208,14 +208,6 @@ class GenericSeeder extends Seeder
 		"Shields",
 	];
 
-	private $admins = [
-		[
-			"name" => "josh",
-			"email" => "garnick.josh@gmail.com",
-			"password" => ''
-		],
-	];
-
 	private $subraces = [
 		["name" => "Lightfoot", "parent_race_id" => 3],
 		["name" => "Stout", "parent_race_id" => 3],
@@ -235,10 +227,7 @@ class GenericSeeder extends Seeder
 	 */
 	public function run()
 	{
-		foreach ($this->admins as $admin) {
-			$admin["password"] = Hash::make(123456);
-			DB::table("users")->insert($admin);
-		}
+
 		foreach ($this->proficiencies as $p) {
 			DB::table('weapon_armor_types')->insert(["name" => $p]);
 		}

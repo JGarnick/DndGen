@@ -11,19 +11,25 @@ class CreateSpellsTable extends Migration
      *
      * @return void
      */
+
     public function up()
     {
         Schema::create('spells', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->longText('desc');
+            $table->string('page');
             $table->string('school');
             $table->integer('level');
             $table->string('range');
             $table->string('concentration');
-            $table->string('cast_time');
+            $table->longText('material');
+            $table->string('ritual');
+            $table->string('classes');
+            $table->string('casting_time');
             $table->string('duration');
             $table->string('components');
-            $table->string('at_higher_levels');
+            $table->longText('higher_level');
             $table->timestamps();
         });
     }

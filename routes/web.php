@@ -1,5 +1,6 @@
 <?php
-
+use Ixudra\Curl\Facades\Curl;
+use Illuminate\Support\Facades\DB;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,16 +38,6 @@ Route::group(['middleware' => ['auth']], function ($router) {
 		$router->get('/store', 'UserController@store')->name('user.store');
 		$router->get('/show', 'UserController@show')->name('user.show');
 	});
+
+	$router->get("/lookup", "SearchController@index")->name('search');
 });
-
-Route::GET("/phpinfo", function () {
-	if (in_array('curl', get_loaded_extensions())) {
-
-		echo "CURL is available on your web server";
-
-	} else {
-		echo "CURL is not available on your web server";
-	}
-	phpinfo();
-});
-
