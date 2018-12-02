@@ -4,7 +4,18 @@
 <div class="container">
     <div class="spell-wrap">
     <div class="filter-block">
-        <button class="filter evocation btn btn-primary">Evocation</button>
+        <button style="margin-bottom:20px;" class="reset btn btn-info">Reset</button>
+        <label>
+            <div style="font-size:16px;font-weight:bold;">Search by school of magic</div>
+            <button data-school="evocation" class="school-filter evocation btn btn-primary">Evocation</button>
+            <button data-school="abjuration" class="school-filter abjuration btn btn-primary">Abjuration</button>
+            <button data-school="conjuration" class="school-filter conjuration btn btn-primary">Conjuration</button>
+            <button data-school="divination" class="school-filter divination btn btn-primary">Divination</button>
+            <button data-school="enchantment" class="school-filter enchantment btn btn-primary">Enchantment</button>
+            <button data-school="illusion" class="school-filter illusion btn btn-primary">Illusion</button>
+            <button data-school="necromancy" class="school-filter necromancy btn btn-primary">Necromancy</button>
+            <button data-school="transmutation" class="school-filter transmutation btn btn-primary">Transmutation</button>
+        </label>
     </div>
     <table id="search-table" style="width:100%;">
         <thead>
@@ -83,11 +94,21 @@
         "lengthMenu": [[25, 10, 50, -1], [25, 10, 50, "All"]]
     });
 
-    $(".filter.evocation").on("click", function(e){
+    $(".filter-block").on("click", ".school-filter", function(e){
         e.preventDefault();
+        var school = $(this).text();
+        
         table
             .columns(".school")
-            .search("Evocation")
+            .search(school)
+            .draw();
+    });
+
+    $(".filter-block").on("click", ".reset.btn", function(e){
+        e.preventDefault();
+        table
+            .search( '' )
+            .columns().search( '' )
             .draw();
     });
 
@@ -100,4 +121,8 @@
     //     }
     // );
 </script>
+
+<style>
+    .filter-block{margin:100px 10px 50px 10px;}
+</style>
 @endsection
