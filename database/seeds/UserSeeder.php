@@ -6,8 +6,13 @@ class UserSeeder extends Seeder
 {
     private $admins = [
         [
-            "name" => "josh",
+            "name" => "Josh",
             "email" => "garnick.josh@gmail.com",
+            "password" => ''
+        ],
+        [
+            "name" => "Dave",
+            "email" => "davegarnick@gmail.com",
             "password" => ''
         ],
     ];

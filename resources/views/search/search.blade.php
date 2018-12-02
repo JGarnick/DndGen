@@ -91,7 +91,7 @@
             { responsivePriority: 100, targets: 12 }, //components
             { responsivePriority: 100, targets: 13 } //higher_level
         ],
-        "lengthMenu": [[25, 10, 50, -1], [25, 10, 50, "All"]]
+        "lengthMenu": [[10, 25, 50, 100], [10, 25, 50, 100]]
     });
 
     $(".filter-block").on("click", ".school-filter", function(e){
