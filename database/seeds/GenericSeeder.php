@@ -219,6 +219,9 @@ class GenericSeeder extends Seeder
 		["name" => "Variant Human", "parent_race_id" => 4],
 		["name" => "Forest", "parent_race_id" => 6],
 		["name" => "Rock", "parent_race_id" => 6],
+		["name" => "Protector", "parent_race_id" => 10],
+		["name" => "Scourge", "parent_race_id" => 10],
+		["name" => "Fallen", "parent_race_id" => 10],
 	];
 	/**
 	 * Run the database seeds.

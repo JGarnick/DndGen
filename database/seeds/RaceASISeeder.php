@@ -72,7 +72,6 @@ class RaceASISeeder extends Seeder
 					]
 				]
 			],
-
 			"Halfling" => [
 				"stats" => [
 					[
@@ -222,11 +221,157 @@ class RaceASISeeder extends Seeder
 
 				]
 			],
+
+			"Tiefling" => [
+				"stats" => [
+					[
+						"race_id" => Race::where("name", "Tiefling")->first()->id,
+						"attribute_id" => Attribute::where("abbr", "Int")->first()->id,
+						"amount" => 1
+					],
+					[
+						"race_id" => Race::where("name", "Tiefling")->first()->id,
+						"attribute_id" => Attribute::where("abbr", "Cha")->first()->id,
+						"amount" => 2
+					]
+
+				]
+			],
+
+			"Aasimar" => [
+				"stats" => [
+					[
+						"race_id" => Race::where("name", "Aasimar")->first()->id,
+						"attribute_id" => Attribute::where("abbr", "Cha")->first()->id,
+						"amount" => 2
+					]
+				],
+				"subraces" => [
+					"Fallen" => [
+						[
+							"subrace_id" => Subrace::where("name", "Fallen")->first()->id,
+							"attribute_id" => Attribute::where("abbr", "Str")->first()->id,
+							"amount" => 1
+						]
+					],
+					"Scourge" => [
+						[
+							"subrace_id" => Subrace::where("name", "Scourge")->first()->id,
+							"attribute_id" => Attribute::where("abbr", "Con")->first()->id,
+							"amount" => 1
+						]
+					],
+					"Protector" => [
+						[
+							"subrace_id" => Subrace::where("name", "Protector")->first()->id,
+							"attribute_id" => Attribute::where("abbr", "Wis")->first()->id,
+							"amount" => 1
+						]
+					]
+				]
+			],
+
+			"Firbolg" => [
+				"stats" => [
+					[
+						"race_id" => Race::where("name", "Firbolg")->first()->id,
+						"attribute_id" => Attribute::where("abbr", "Wis")->first()->id,
+						"amount" => 2
+					],
+					[
+						"race_id" => Race::where("name", "Firbolg")->first()->id,
+						"attribute_id" => Attribute::where("abbr", "Str")->first()->id,
+						"amount" => 1
+					]
+
+				]
+			],
+
+			"Goliath" => [
+				"stats" => [
+					[
+						"race_id" => Race::where("name", "Goliath")->first()->id,
+						"attribute_id" => Attribute::where("abbr", "Str")->first()->id,
+						"amount" => 2
+					],
+					[
+						"race_id" => Race::where("name", "Goliath")->first()->id,
+						"attribute_id" => Attribute::where("abbr", "Con")->first()->id,
+						"amount" => 1
+					]
+
+				]
+			],
+
+			"Kenku" => [
+				"stats" => [
+					[
+						"race_id" => Race::where("name", "Kenku")->first()->id,
+						"attribute_id" => Attribute::where("abbr", "Dex")->first()->id,
+						"amount" => 2
+					],
+					[
+						"race_id" => Race::where("name", "Kenku")->first()->id,
+						"attribute_id" => Attribute::where("abbr", "Wis")->first()->id,
+						"amount" => 1
+					]
+
+				]
+			],
+
+			"Lizardfolk" => [
+				"stats" => [
+					[
+						"race_id" => Race::where("name", "Lizardfolk")->first()->id,
+						"attribute_id" => Attribute::where("abbr", "Con")->first()->id,
+						"amount" => 2
+					],
+					[
+						"race_id" => Race::where("name", "Lizardfolk")->first()->id,
+						"attribute_id" => Attribute::where("abbr", "Wis")->first()->id,
+						"amount" => 1
+					]
+
+				]
+			],
+
+			"Tabaxi" => [
+				"stats" => [
+					[
+						"race_id" => Race::where("name", "Tabaxi")->first()->id,
+						"attribute_id" => Attribute::where("abbr", "Dex")->first()->id,
+						"amount" => 2
+					],
+					[
+						"race_id" => Race::where("name", "Tabaxi")->first()->id,
+						"attribute_id" => Attribute::where("abbr", "Cha")->first()->id,
+						"amount" => 1
+					]
+
+				]
+			],
+
+			"Triton" => [
+				"stats" => [
+					[
+						"race_id" => Race::where("name", "Triton")->first()->id,
+						"attribute_id" => Attribute::where("abbr", "Str")->first()->id,
+						"amount" => 2
+					],
+					[
+						"race_id" => Race::where("name", "Triton")->first()->id,
+						"attribute_id" => Attribute::where("abbr", "Cha")->first()->id,
+						"amount" => 1
+					],
+					[
+						"race_id" => Race::where("name", "Triton")->first()->id,
+						"attribute_id" => Attribute::where("abbr", "Con")->first()->id,
+						"amount" => 1
+					]
+				]
+			],
 		];
 		
-		//TODO: Add the rest of the races and subraces
-
-
 		foreach ($races as $level1) {
 			foreach ($level1 as $key => $data) {
 				if ($key === "stats") {

@@ -13,12 +13,12 @@ class DatabaseSeeder extends Seeder
   public function run()
   {
     $this->call([
-      //'UserSeeder',
-      //'GenericSeeder',
-      //'ClassProficiencySeeder',
-      //'WeaponSeeder',
-      //'RaceASISeeder',
-      //'SpellSeeder_API'
+      'UserSeeder',
+      'GenericSeeder',
+      'ClassProficiencySeeder',
+      'WeaponSeeder',
+      'RaceASISeeder',
+      //'SpellSeeder_API' //Only used initially to grab data from API
       "SpellsTableSeeder"
     ]);
       $this->call(SpellsTableSeeder::class);
