@@ -9,12 +9,7 @@ class UserSeeder extends Seeder
             "name" => "Josh",
             "email" => "garnick.josh@gmail.com",
             "password" => ''
-        ],
-        [
-            "name" => "Dave",
-            "email" => "davegarnick@gmail.com",
-            "password" => ''
-        ],
+        ]
     ];
     /**
      * Run the database seeds.

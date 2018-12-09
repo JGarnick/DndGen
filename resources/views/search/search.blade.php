@@ -48,25 +48,6 @@
             @endforeach
         </tbody>
     </table>
-    <!-- <div class="col-xs-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">{{$spell->name}}</div>
-            
-            <div class="panel-body">
-                <div><strong>Level:</strong> {{$spell->level}}</div>
-                <div><strong>Concentration:</strong> {{$spell->concentration}}</div>
-                <div><strong>Components:</strong> @foreach($spell->components() as $c) <span>{{$c}} </span>  @endforeach</div>
-                <div><strong>Material Cost:</strong> {{$spell->materials}}</div>
-                <div><strong>School:</strong> {{$spell->school}}</div>
-                <div><strong>Range:</strong> {{$spell->range}}</div>
-                <div><strong>Duration:</strong> {{$spell->duration}}</div>
-                <div><strong>Casting Time:</strong> {{$spell->casting_time}}</div>
-                <div><strong>Description:</strong> @foreach($spell->desc() as $desc) <div>{{$desc}}</div> @endforeach</div>
-            </div>
-        </div>
-    </div> -->
-        
-    
     </div>
 </div>
 <script>

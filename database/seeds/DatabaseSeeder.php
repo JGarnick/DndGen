@@ -13,12 +13,14 @@ class DatabaseSeeder extends Seeder
   public function run()
   {
     $this->call([
-      'UserSeeder',
-      'GenericSeeder',
-      'ClassProficiencySeeder',
-      'WeaponSeeder',
-      'RaceASISeeder',
-      'SpellSeeder'
+      //'UserSeeder',
+      //'GenericSeeder',
+      //'ClassProficiencySeeder',
+      //'WeaponSeeder',
+      //'RaceASISeeder',
+      //'SpellSeeder_API'
+      "SpellsTableSeeder"
     ]);
-  }
+      $this->call(SpellsTableSeeder::class);
+    }
 }
