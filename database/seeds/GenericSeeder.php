@@ -223,6 +223,268 @@ class GenericSeeder extends Seeder
 		["name" => "Scourge", "parent_race_id" => 10],
 		["name" => "Fallen", "parent_race_id" => 10],
 	];
+
+	private $tools = [
+		[
+			"name" => "Alchemist's supplies",
+			"type" => "Artisan's tools",
+			"cost" => "50 gp",
+			"weight" => "8 lb.",
+			"desc" => "These special tools include the items needed to pursue a craft or trade. Proficiency with a set of artisan's tools lets you add your proficiency bonus to any ability checks you make using the tools in your craft. Each type of artisan's tools requires a separate proficiency."
+		],
+		[
+			"name" => "Brewer's supplies",
+			"type" => "Artisan's tools",
+			"cost" => "20 gp",
+			"weight" => "9 lb.",
+			"desc" => "These special tools include the items needed to pursue a craft or trade. Proficiency with a set of artisan's tools lets you add your proficiency bonus to any ability checks you make using the tools in your craft. Each type of artisan's tools requires a separate proficiency."
+		],
+		[
+			"name" => "Calligrapher's supplies",
+			"type" => "Artisan's tools",
+			"cost" => "10 gp",
+			"weight" => "5 lb.",
+			"desc" => "These special tools include the items needed to pursue a craft or trade. Proficiency with a set of artisan's tools lets you add your proficiency bonus to any ability checks you make using the tools in your craft. Each type of artisan's tools requires a separate proficiency."
+		],
+		[
+			"name" => "Cartographer's tools",
+			"type" => "Artisan's tools",
+			"cost" => "15 gp",
+			"weight" => "6 lb.",
+			"desc" => "These special tools include the items needed to pursue a craft or trade. Proficiency with a set of artisan's tools lets you add your proficiency bonus to any ability checks you make using the tools in your craft. Each type of artisan's tools requires a separate proficiency."
+		],
+		[
+			"name" => "Cobbler's tools",
+			"type" => "Artisan's tools",
+			"cost" => "5 gp",
+			"weight" => "5 lb.",
+			"desc" => "These special tools include the items needed to pursue a craft or trade. Proficiency with a set of artisan's tools lets you add your proficiency bonus to any ability checks you make using the tools in your craft. Each type of artisan's tools requires a separate proficiency."
+		],
+		[
+			"name" => "Cook's utensils",
+			"type" => "Artisan's tools",
+			"cost" => "1 gp",
+			"weight" => "8 lb.",
+			"desc" => "These special tools include the items needed to pursue a craft or trade. Proficiency with a set of artisan's tools lets you add your proficiency bonus to any ability checks you make using the tools in your craft. Each type of artisan's tools requires a separate proficiency."
+		],
+		[
+			"name" => "Glassblower's tools",
+			"type" => "Artisan's tools",
+			"cost" => "30 gp",
+			"weight" => "5 lb.",
+			"desc" => "These special tools include the items needed to pursue a craft or trade. Proficiency with a set of artisan's tools lets you add your proficiency bonus to any ability checks you make using the tools in your craft. Each type of artisan's tools requires a separate proficiency."
+		],
+		[
+			"name" => "Jeweler's tools",
+			"type" => "Artisan's tools",
+			"cost" => "25 gp",
+			"weight" => "2 lb.",
+			"desc" => "These special tools include the items needed to pursue a craft or trade. Proficiency with a set of artisan's tools lets you add your proficiency bonus to any ability checks you make using the tools in your craft. Each type of artisan's tools requires a separate proficiency."
+		],
+		[
+			"name" => "Leatherworker's tools",
+			"type" => "Artisan's tools",
+			"cost" => "5 gp",
+			"weight" => "5 lb.",
+			"desc" => "These special tools include the items needed to pursue a craft or trade. Proficiency with a set of artisan's tools lets you add your proficiency bonus to any ability checks you make using the tools in your craft. Each type of artisan's tools requires a separate proficiency."
+		],
+		[
+			"name" => "Mason's tools",
+			"type" => "Artisan's tools",
+			"cost" => "10 gp",
+			"weight" => "8 lb.",
+			"desc" => "These special tools include the items needed to pursue a craft or trade. Proficiency with a set of artisan's tools lets you add your proficiency bonus to any ability checks you make using the tools in your craft. Each type of artisan's tools requires a separate proficiency."
+		],
+		[
+			"name" => "Painter's supplies",
+			"type" => "Artisan's tools",
+			"cost" => "10 gp",
+			"weight" => "5 lb.",
+			"desc" => "These special tools include the items needed to pursue a craft or trade. Proficiency with a set of artisan's tools lets you add your proficiency bonus to any ability checks you make using the tools in your craft. Each type of artisan's tools requires a separate proficiency."
+		],
+		[
+			"name" => "Potter's tools",
+			"type" => "Artisan's tools",
+			"cost" => "10 gp",
+			"weight" => "3 lb.",
+			"desc" => "These special tools include the items needed to pursue a craft or trade. Proficiency with a set of artisan's tools lets you add your proficiency bonus to any ability checks you make using the tools in your craft. Each type of artisan's tools requires a separate proficiency."
+		],
+		[
+			"name" => "Smith's tools",
+			"type" => "Artisan's tools",
+			"cost" => "20 gp",
+			"weight" => "8 lb.",
+			"desc" => "These special tools include the items needed to pursue a craft or trade. Proficiency with a set of artisan's tools lets you add your proficiency bonus to any ability checks you make using the tools in your craft. Each type of artisan's tools requires a separate proficiency."
+		],
+		[
+			"name" => "Tinker's tools",
+			"type" => "Artisan's tools",
+			"cost" => "50 gp",
+			"weight" => "10 lb.",
+			"desc" => "These special tools include the items needed to pursue a craft or trade. Proficiency with a set of artisan's tools lets you add your proficiency bonus to any ability checks you make using the tools in your craft. Each type of artisan's tools requires a separate proficiency."
+		],
+		[
+			"name" => "Weaver's tools",
+			"type" => "Artisan's tools",
+			"cost" => "1 gp",
+			"weight" => "5 lb.",
+			"desc" => "These special tools include the items needed to pursue a craft or trade. Proficiency with a set of artisan's tools lets you add your proficiency bonus to any ability checks you make using the tools in your craft. Each type of artisan's tools requires a separate proficiency."
+		],
+		[
+			"name" => "Woodcarver's tools",
+			"type" => "Artisan's tools",
+			"cost" => "1 gp",
+			"weight" => "5 lb.",
+			"desc" => "These special tools include the items needed to pursue a craft or trade. Proficiency with a set of artisan's tools lets you add your proficiency bonus to any ability checks you make using the tools in your craft. Each type of artisan's tools requires a separate proficiency."
+		],
+		[
+			"name" => "Disguise kit",
+			"type" => "Kit",
+			"cost" => "25 gp",
+			"weight" => "3 lb.",
+			"desc" => "This poush of cosmetics, hair dye, and small props lets you create disguises that change your physical appearance. Proficiency with this kit lets you add your proficiency bonus to any ability checks you make to create a visual disguise."
+		],
+		[
+			"name" => "Forgery kit",
+			"type" => "Kit",
+			"cost" => "15 gp",
+			"weight" => "5 lb.",
+			"desc" => "This small box contains a variety of papers and parchments, pens and inks, seals and sealing wax, gold and silver leaf, and other supplies necessary to create convincing forgeries of physical documents. Proficiency with this kit lets you add your proficiency bonus to any ability checks you make to create a physical forgery of a document."
+		],
+		[
+			"name" => "Dice set",
+			"type" => "Gaming set",
+			"cost" => "1 sp",
+			"weight" => "0 lb.",
+			"desc" => "If you are proficient with a gaming set, you can add your proficiency bonus to ability checks you make to play a game with that set. Each type of gaming set requires a separate proficiency."
+		],
+		[
+			"name" => "Dragonchess set",
+			"type" => "Gaming set",
+			"cost" => "1 gp",
+			"weight" => "1/2 lb.",
+			"desc" => "If you are proficient with a gaming set, you can add your proficiency bonus to ability checks you make to play a game with that set. Each type of gaming set requires a separate proficiency."
+		],
+		[
+			"name" => "Playing card set",
+			"type" => "Gaming set",
+			"cost" => "5 sp",
+			"weight" => "0 lb.",
+			"desc" => "If you are proficient with a gaming set, you can add your proficiency bonus to ability checks you make to play a game with that set. Each type of gaming set requires a separate proficiency."
+		],
+		[
+			"name" => "Three-Dragon Ante set",
+			"type" => "Gaming set",
+			"cost" => "1 gp",
+			"weight" => "0 lb.",
+			"desc" => "If you are proficient with a gaming set, you can add your proficiency bonus to ability checks you make to play a game with that set. Each type of gaming set requires a separate proficiency."
+		],
+		[
+			"name" => "Herbalism kit",
+			"type" => "Kit",
+			"cost" => "5 gp",
+			"weight" => "3 lb.",
+			"desc" => "This kit contains a variety of instruments such as clippers, mortar and pestle, and pouches and vials used by herbalists to create remedies and potions. Proficiency with this kit lets you add your proficiency bonus to any ability checks you make to identify or apply herbs. Also, proficiency with this kit is required to create antitoxin and any potions of healing."
+		],
+		[
+			"name" => "Bagpipes",
+			"type" => "Musical instrument",
+			"cost" => "30 gp",
+			"weight" => "6 lb.",
+			"desc" => "If you have proficiency with a given musical instrument, you can add your proficiency bonus to any ability checks you make to play music with the instrument. A bard can use bagpipes as a spellcasting focus. Each type of musical instrument requires a separate proficiency."
+		],
+		[
+			"name" => "Drum",
+			"type" => "Musical instrument",
+			"cost" => "6 gp",
+			"weight" => "3 lb.",
+			"desc" => "If you have proficiency with a given musical instrument, you can add your proficiency bonus to any ability checks you make to play music with the instrument. A bard can use bagpipes as a spellcasting focus. Each type of musical instrument requires a separate proficiency."
+		],
+		[
+			"name" => "Dulcimer",
+			"type" => "Musical instrument",
+			"cost" => "25 gp",
+			"weight" => "10 lb.",
+			"desc" => "If you have proficiency with a given musical instrument, you can add your proficiency bonus to any ability checks you make to play music with the instrument. A bard can use bagpipes as a spellcasting focus. Each type of musical instrument requires a separate proficiency."
+		],
+		[
+			"name" => "Flute",
+			"type" => "Musical instrument",
+			"cost" => "2 gp",
+			"weight" => "1 lb.",
+			"desc" => "If you have proficiency with a given musical instrument, you can add your proficiency bonus to any ability checks you make to play music with the instrument. A bard can use bagpipes as a spellcasting focus. Each type of musical instrument requires a separate proficiency."
+		],
+		[
+			"name" => "Lute",
+			"type" => "Musical instrument",
+			"cost" => "35 gp",
+			"weight" => "2 lb.",
+			"desc" => "If you have proficiency with a given musical instrument, you can add your proficiency bonus to any ability checks you make to play music with the instrument. A bard can use bagpipes as a spellcasting focus. Each type of musical instrument requires a separate proficiency."
+		],
+		[
+			"name" => "Lyre",
+			"type" => "Musical instrument",
+			"cost" => "30 gp",
+			"weight" => "2 lb.",
+			"desc" => "If you have proficiency with a given musical instrument, you can add your proficiency bonus to any ability checks you make to play music with the instrument. A bard can use bagpipes as a spellcasting focus. Each type of musical instrument requires a separate proficiency."
+		],
+		[
+			"name" => "Horn",
+			"type" => "Musical instrument",
+			"cost" => "3 gp",
+			"weight" => "2 lb.",
+			"desc" => "If you have proficiency with a given musical instrument, you can add your proficiency bonus to any ability checks you make to play music with the instrument. A bard can use bagpipes as a spellcasting focus. Each type of musical instrument requires a separate proficiency."
+		],
+		[
+			"name" => "Pan flute",
+			"type" => "Musical instrument",
+			"cost" => "12 gp",
+			"weight" => "2 lb.",
+			"desc" => "If you have proficiency with a given musical instrument, you can add your proficiency bonus to any ability checks you make to play music with the instrument. A bard can use bagpipes as a spellcasting focus. Each type of musical instrument requires a separate proficiency."
+		],
+		[
+			"name" => "Shawm",
+			"type" => "Musical instrument",
+			"cost" => "2 gp",
+			"weight" => "1 lb.",
+			"desc" => "If you have proficiency with a given musical instrument, you can add your proficiency bonus to any ability checks you make to play music with the instrument. A bard can use bagpipes as a spellcasting focus. Each type of musical instrument requires a separate proficiency."
+		],
+		[
+			"name" => "Viol",
+			"type" => "Musical instrument",
+			"cost" => "30 gp",
+			"weight" => "1 lb.",
+			"desc" => "If you have proficiency with a given musical instrument, you can add your proficiency bonus to any ability checks you make to play music with the instrument. A bard can use bagpipes as a spellcasting focus. Each type of musical instrument requires a separate proficiency."
+		],
+		[
+			"name" => "Navigator's tools",
+			"type" => "Other",
+			"cost" => "25 gp",
+			"weight" => "2 lb. ",
+			"desc" => "This set of instruments is used for navigation at sea. Proficiency with navigator's tools lets you chart a ship's course and follow navigation charts. In addition, these tools allow you to add your proficiency bonus to any ability check you make to avoid getting lost at sea."
+		],
+		[
+			"name" => "Poisoner's kit",
+			"type" => "Kit",
+			"cost" => "50 gp",
+			"weight" => "2 lb.",
+			"desc" => "A poisoner's kit includes the vials, chemicals, and other equipment necessary for the creation of poisons. Proficiency with this kit lets you add your proficiency bonus to any ability checks you make to craft or use poisons."
+		],
+		[
+			"name" => "Thieves' tools",
+			"type" => "Other",
+			"cost" => "25 gp",
+			"weight" => "1 lb.",
+			"desc" => "This set of tools includes a small file, a set of lock picks, a small mirror mounted on a metal handle, a set of narrow-bladed scissors, and a pair of pliers. Proficiency with these tools lets you add your proficiency bonus to any ability checks you make to disarm traps or open locks."
+		],
+		[
+			"name" => "Choose 1 musical instrument or 1 artisan's tools",
+			"type" => "Choice",
+			"cost" => "",
+			"weight" => "",
+			"desc" => "Choose 1 musical instrument or 1 artisan's tools"
+		],
+	];
 	/**
 	 * Run the database seeds.
 	 *
@@ -270,6 +532,10 @@ class GenericSeeder extends Seeder
 
 		foreach ($this->subraces as $data) {
 			DB::table("subraces")->insert($data);
+		}
+
+		foreach($this->tools as $tool){
+			DB::table("tools")->insert($tool);
 		}
 	}
 }

@@ -15,11 +15,11 @@ class DatabaseSeeder extends Seeder
     $this->call([
       'UserSeeder',
       'GenericSeeder',
-      'ClassProficiencySeeder',
       'WeaponSeeder',
       'RaceASISeeder',
       //'SpellSeeder_API' //Only used initially to grab data from API
-      "SpellsTableSeeder"
+      "SpellsTableSeeder",
+      'ClassProficiencySeeder',
     ]);
       $this->call(SpellsTableSeeder::class);
     }

@@ -20,7 +20,7 @@ class AbilitiesSeeder extends Seeder
             "Description" => "You know the thaumaturgy cantrip. Once you reach 3rd level, you can cast the hellish rebuke spell once per day as a 2nd-level spell. Once you reach 5th level, you can also cast the darkness spell once per day. Charisma is your spellcasting ability for these spells.",
             "adds_bonus" => true,
             "bonus_type" => "spell",
-            "bonus_id" => [/* thaumaturgy ID, hellish rebuke ID, darkness ID */ ],
+            "bonus_id" => [ 291, 156, 72], /* thaumaturgy ID, hellish rebuke ID, darkness ID */ 
             "level_req" => 1
         ],
         [

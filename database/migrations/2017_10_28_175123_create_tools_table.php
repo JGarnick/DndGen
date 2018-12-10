@@ -19,6 +19,7 @@ class CreateToolsTable extends Migration
             $table->string('type');
             $table->string('cost');
             $table->string('weight');
+            $table->longText('desc');
             $table->timestamps();
         });
     }
