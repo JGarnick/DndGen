@@ -1,9 +1,11 @@
 <template>
-
+    <div>
+        {{tab.title}}
+    </div>
 </template>
 
 <script>
 export default {
-    props: ["title", "tabID"],
+    props: ["tab"],
 }
 </script>
