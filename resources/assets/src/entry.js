@@ -52,21 +52,21 @@ $(document).ready(() => {
         data(){
             return {
                 left_tabs: [
-                    {title: "Race", active: true},
-                    {title: "Ability Scores", active: false},
-                    {title: "Background", active: false},
-                    {title: "Class / Level", active: false},
-                    {title: "Spells", active: false},
-                    {title: "Proficiencies", active: false},
-                    {title: "Equipment", active: false},
+                    {title: "Race", active: true, content: "v-race-content"},
+                    {title: "Ability Scores", active: false, content: "v-ability-scores-content"},
+                    {title: "Background", active: false, content: "v-background-content"},
+                    {title: "Class / Level", active: false, content: "v-class-level-content"},
+                    {title: "Spells", active: false, content: "v-spells-left-content"},
+                    {title: "Proficiencies", active: false, content: "v-proficiencies-left-content"},
+                    {title: "Equipment", active: false, content: "v-equipment-left-content"},
                 ],
                 right_tabs: [
-                    {title: "Summary", active:true},
-                    {title: "Combat", active:false},
-                    {title: "Proficiencies", active:false},
-                    {title: "Spells", active:false},
-                    {title: "Features", active:false},
-                    {title: "Equipment", active:false},
+                    {title: "Summary", active:true, content: "v-summary-content"},
+                    {title: "Combat", active:false, content: "v-combat-content"},
+                    {title: "Proficiencies", active:false, content: "v-proficiencies-right-content"},
+                    {title: "Spells", active:false, content: "v-spells-right-content"},
+                    {title: "Features", active:false, content: "v-features-content"},
+                    {title: "Equipment", active:false, content: "v-equipment-right-content"},
                 ]
             }
         },

@@ -5,9 +5,7 @@
                 <v-tab @setActive="setActive" :key="'t-'+index" :tab="tab" :id="index"></v-tab>						
             </template>
         </div>
-        <template v-for="( tab, index) in tabs">				
-            <v-tabcontent :key="'tc-'+index" v-show="tab.active" ></v-tabcontent>
-        </template>
+        <component v-bind:is="activeContent" :tab="activeTab" class="tab-content" ></component>
     </div>
 </template>
 
@@ -22,6 +20,15 @@ export default {
 
             this.tabs[id].active = true;
         },
+    },
+    computed: {
+        activeContent: function(){
+            return this.activeTab.content;
+        },
+        activeTab: function(){
+            let active = this.tabs.filter((t) => { return t.active; });
+            return active[0];
+        }
     }
 }
 </script>
