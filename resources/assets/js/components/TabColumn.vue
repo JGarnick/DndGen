@@ -2,10 +2,10 @@
     <div class="column col-6">
         <div class="tabgroup" role="tabgroup">
             <template v-for="( tab, index) in tabs">				
-                <v-tab @setActive="setActive" :key="'t-'+index" :tab="tab" :id="index"></v-tab>						
+                <v-tab @setActive="setActive" :key="index" :tab="tab" :id="index"></v-tab>						
             </template>
         </div>
-        <component v-bind:is="activeContent" :tab="activeTab" class="tab-content" ></component>
+        <v-tab-content-parent :tab="activeTab" ></v-tab-content-parent>
     </div>
 </template>
 
@@ -22,9 +22,6 @@ export default {
         },
     },
     computed: {
-        activeContent: function(){
-            return this.activeTab.content;
-        },
         activeTab: function(){
             let active = this.tabs.filter((t) => { return t.active; });
             return active[0];

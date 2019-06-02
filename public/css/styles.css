@@ -73,6 +73,12 @@ a.tab.active:after {
     margin-bottom: 50px;
 }
 
+.tab-content > .header{
+    font-size: 30px;
+    text-align: center;
+    margin: 30px auto;
+}
+
 .skills-wrapper table {
     width: 100%;
 }

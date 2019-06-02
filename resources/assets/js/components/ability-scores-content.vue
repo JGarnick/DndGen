@@ -1,9 +1,11 @@
 <template>
-    <div>{{tab.title}}</div>
+    <div>
+        Ability Scores content
+    </div>
 </template>
 
 <script>
 export default {
-    props: ["tab", "id"],
+    props: [],
 }
 </script>
