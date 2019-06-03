@@ -14,11 +14,26 @@
     font-size: 24px;
     font-weight: 700;
 }
-
 .form-input {
     font-size: 20px;
 }
-
+.race.selectable{
+    border: 1px solid black;
+    box-sizing: border-box;
+    padding: 10px;
+    border-radius: 3px;
+    margin: 3px 10px;
+    width: 110px;
+    text-align: center;
+    cursor:pointer;
+}
+.race.selectable:hover{
+    background-color:rgba(0,0,0,.2);
+}
+.race.selectable.active{
+    background-color: #ffc107;
+    font-weight:bold;
+}
 .button-section {
     padding: 10px;
     font-size: 30px;
@@ -56,7 +71,6 @@
     background-color:rgba(0, 0, 0, .2);
 }
 .tab.active{
-    /* background-color: #ffc107; */
     background-color: #fff;
     border-bottom:0;
     position:relative;
