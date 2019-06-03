@@ -1,11 +1,16 @@
 <template>
     <div>
-        Race content
+        
     </div>
 </template>
 
 <script>
 export default {
     props: [],
+    // data(){
+    //     return {
+    //         races: ''
+    //     }
+    // }
 }
 </script>

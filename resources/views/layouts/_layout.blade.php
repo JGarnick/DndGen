@@ -19,19 +19,18 @@
 </head>
 <body>
     <div id="app-wrapper">
-		<div class="container">
-			<a class="pull-right" href="{{route('logout')}}">Logout</a>
-		</div>
+		<nav class="container header d-flex justify-content-end">
+			<a href="{{route('home')}}">Home</a>
+			<a href="{{route('logout')}}">Logout</a>
+        </nav>
 
         @yield('content')
 
 	</div>
     <!-- Scripts -->
-    <!--<script src="{{ asset('js/app.js') }}"></script>-->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 	<script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 	<!-- <script src="{{ asset('js/responsive.bootstrap.min.js')}}"></script> -->
-    {{--<script src="{{ asset('js/scripts.js') }}"></script>--}}
     <script src="{{ asset('js/bundle.js') }}"></script>
 </body>
 </html>

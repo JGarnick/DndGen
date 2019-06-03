@@ -25,8 +25,8 @@
 	
 </div>
 <script>
-
-	
+	window.races = @json($races);
+	window.skills = @json($skills);
 
 </script>
 @endsection

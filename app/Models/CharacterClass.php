@@ -27,7 +27,7 @@ class CharacterClass extends Model
 		}
 		//Get actual weapon proficiency, i.e. longsword, rapier, etc.
 		foreach(DB::table("class_proficiencies")->where("class_id", $this->id)->where("type", "weapon")->whereNotNull('weapon_id')->pluck("weapon_id") AS $p){
-			$data["proficiencies"]["weapons"][] = Weapon::findOrFail($p);
+			$data["proficiencies"]["weapons"][] = $p;
 		}
 		//Get armor category proficiency, i.e. light, medium, etc.
 		foreach(DB::table("class_proficiencies")->where("class_id", $this->id)->where("type", "armor")->whereNotNull('weapon_armor_type_id')->pluck("weapon_armor_type_id") AS $p){								
@@ -35,18 +35,18 @@ class CharacterClass extends Model
 		}
 		//Get actual armor proficiency, i.e. leather, breastplate, etc.
 		foreach(DB::table("class_proficiencies")->where("class_id", $this->id)->where("type", "armor")->whereNotNull('armor_id')->pluck("armor_id") AS $p){
-			$data["proficiencies"]["armor"][] = Armor::findOrFail($p);
+			$data["proficiencies"]["armor"][] = $p;
 		}
 		//Get saving throw proficiency, i.e. Strength, Dexterity, etc.
 		foreach(DB::table("class_proficiencies")->where("class_id", $this->id)->where("type", "saving throw")->whereNotNull('attribute_id')->pluck("attribute_id") AS $p){
-			$data["proficiencies"]["saves"][] = Attribute::findOrFail($p);
+			$data["proficiencies"]["saves"][] = $p;
 		}
 		//Get skill proficiency, i.e. Acrobatics, Perception, etc.
 		$skill_options = unserialize(DB::table("class_proficiencies")->where("class_id", $this->id)->where("type", "starting_skills")->pluck("starting_skills")->first());
 		
 		if(!empty($skill_options)){
 			foreach($skill_options AS $p){
-				$data["starting_skills"][] = Skill::findOrFail($p);
+				$data["starting_skills"][] = $p;
 			}
 		}
 		

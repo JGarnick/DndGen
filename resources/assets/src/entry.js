@@ -6,15 +6,16 @@ const requireComponent = require.context(
     // The relative path of the components folder
     '../js/components',
     // Whether or not to look in subfolders
-    false,
+    true,
     // The regular expression used to match base component filenames
     /.+.(vue)/
 );
 
 requireComponent.keys().forEach(fileName => {
-    const componentConfig = requireComponent(fileName)
-    const componentName = "v-" + fileName.replace(/^\.\/(.*)\.\w+$/, '$1').toLowerCase();
-    
+    const componentConfig = requireComponent(fileName);
+    fileName = fileName.split("/");
+    fileName = fileName[fileName.length - 1];
+    const componentName = "v-" + fileName.replace(/.vue$/, '').toLowerCase();
     Vue.component(
         componentName,
         componentConfig.default || componentConfig
@@ -44,6 +45,9 @@ $(document).ready(() => {
             speed: 30,
             passive_perception: 10,
             num_atks: 1
+        },
+        data: {
+            races: window.races,
         }
     });
 

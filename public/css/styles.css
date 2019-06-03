@@ -1,7 +1,15 @@
 .pad-t-15{
     padding-top:15px;
 }
-
+.container.header{
+    border: 1px solid black;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-top: 0;
+}
+.container.header a{
+    padding:15px;
+}
 .form-label {
     font-size: 24px;
     font-weight: 700;

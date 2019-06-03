@@ -16,55 +16,61 @@ use Illuminate\Support\Facades\DB;
 
 class CharacterService
 {
-    public function show($id)
-	{
-		$character 		= Character::find($id);
-		$races 			= Race::all();
-		$skills 		= Skill::all();
-		$classes 		= CharacterClass::all();
-		$backgrounds 	= Background::all();
-		$subraces 		= Subrace::all();
+    // public function show($id)
+	// {
+	// 	$character 		= Character::find($id);
+	// 	$races 			= Race::all();
+	// 	$skills 		= Skill::all();
+	// 	$classes 		= CharacterClass::all();
+	// 	$backgrounds 	= Background::all();
+	// 	$subraces 		= Subrace::all();
 
-		return [
-			"character" 	=> $character,
-			"races"			=> $races,
-			"classes"		=> $classes,
-			"backgrounds"	=> $backgrounds,
-			"subraces"		=> $subraces,
-			"skills"		=> $skills,
-		];
-	}
+	// 	return [
+	// 		"character" 	=> $character,
+	// 		"races"			=> $races,
+	// 		"classes"		=> $classes,
+	// 		"backgrounds"	=> $backgrounds,
+	// 		"subraces"		=> $subraces,
+	// 		"skills"		=> $skills,
+	// 	];
+	// }
 
 	public function create()
 	{
-		$character 		= new Character();
-		$races 			= Race::all();
-		$allSkills		= Skill::all();
-		$classes 		= CharacterClass::all();
-		$backgrounds 	= Background::all();
-		$subraces 		= Subrace::all();
-		$character->level 			= 1;
-		$character->race_id			= 1;
-        $character->subrace_id      = 0;
-		$character->hp_max			= 12;
-		$character->class_id		= 1;
-		$character->hp_current		= 12;
-		$classData = $this->constructClassesInfo();
-		$ability_scores = $this->createAbilityScores($character);
-		$char_skills	= $this->constructCharSkills($allSkills, $ability_scores);
-		$saving_throws	= $this->constructSavingThrows();
+		$races 			= Race::all()->toArray();
+		array_unshift($races, "deleteme");
+		unset($races[0]);
+		
+		$attributes		= Attribute::all()->toArray();
+		array_unshift($attributes, "deleteme");
+		unset($attributes[0]);
+
+		$skills			= Skill::all()->toArray();
+		array_unshift($skills, "deleteme");
+		unset($skills[0]);
+
+		$classes 		= CharacterClass::all()->toArray();
+		array_unshift($classes, "deleteme");
+		unset($classes[0]);
+
+		$backgrounds 	= Background::all()->toArray();
+		array_unshift($backgrounds, "deleteme");
+		unset($backgrounds[0]);
+
+		$subraces 		= Subrace::all()->toArray();
+		array_unshift($subraces, "deleteme");
+		unset($subraces[0]);
+
+		$classData 		= $this->constructClassesInfo();
 
 		return [
-			"character" 	=> $character,
 			"races"			=> $races,
 			"classes"		=> $classes,
 			"backgrounds"	=> $backgrounds,
 			"subraces"		=> $subraces,
-			"race_data"		=> $this->constructRacesInfo(),
 			"class_data"	=> $classData,
-			"allSkills"		=> $allSkills,
-			"ability_scores" => $ability_scores,
-			"char_skills"	=> $char_skills,
+			"skills"		=> $skills,
+			"attributes"	=> $attributes
 		];
 	}
 
@@ -151,48 +157,48 @@ class CharacterService
 		return $class_data;
 	}
 	
-	public function createAbilityScores($character){
-		$returnMe 	= [];
-		$atts	 	= Attribute::all();
+	// public function createAbilityScores($character){
+	// 	$returnMe 	= [];
+	// 	$atts	 	= Attribute::all();
 
-		foreach($atts AS $att)
-		{
-			$base					= 8;
-			$mod 					= $character->getAbilityModifier($base);
+	// 	foreach($atts AS $att)
+	// 	{
+	// 		$base					= 8;
+	// 		$mod 					= $character->getAbilityModifier($base);
 
-			$returnMe[$att->name] = [
-				"abbr"				=> strtoupper($att->abbr),
-				"full_name"			=> strtolower($att->name),
-				"amount"			=> $base,
-				"mod"				=> $mod,
-				"id"				=> $att->id,
-				"points_purchased"  => 0,
-			];
-		}
+	// 		$returnMe[$att->name] = [
+	// 			"abbr"				=> strtoupper($att->abbr),
+	// 			"full_name"			=> strtolower($att->name),
+	// 			"amount"			=> $base,
+	// 			"mod"				=> $mod,
+	// 			"id"				=> $att->id,
+	// 			"points_purchased"  => 0,
+	// 		];
+	// 	}
 		
-		return $returnMe;
-	}
+	// 	return $returnMe;
+	// }
 	
-	public function constructCharSkills($allSkills, $ability_scores){
-		$returnMe = [];
-		foreach($allSkills AS $skill){
-			$returnMe[$skill->name] = [
-				'name' => $skill["name"],
-				'attribute_abbr' => $ability_scores[$skill["attribute"]]["abbr"],
-				'attribute' => $skill["attribute"],
-				'proficient' => 0,
-				'expertise' => 0,
-				'bonus' => $ability_scores[$skill["attribute"]]["mod"],
-				'skill_id' => $skill["id"]
-			];
-		}
+	// public function constructCharSkills($allSkills, $ability_scores){
+	// 	$returnMe = [];
+	// 	foreach($allSkills AS $skill){
+	// 		$returnMe[$skill->name] = [
+	// 			'name' => $skill["name"],
+	// 			'attribute_abbr' => $ability_scores[$skill["attribute"]]["abbr"],
+	// 			'attribute' => $skill["attribute"],
+	// 			'proficient' => 0,
+	// 			'expertise' => 0,
+	// 			'bonus' => $ability_scores[$skill["attribute"]]["mod"],
+	// 			'skill_id' => $skill["id"]
+	// 		];
+	// 	}
 		
-		return $returnMe;
-	}
+	// 	return $returnMe;
+	// }
 	
-	public function constructSavingThrows(){
-		$returnMe = [];
+	// public function constructSavingThrows(){
+	// 	$returnMe = [];
 		
-	}
+	// }
 	
 }
