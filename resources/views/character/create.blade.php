@@ -10,6 +10,11 @@
 				<label class="form-label" for="name">Character Name</label>
 				<input v-model="$store.state.char.name" class="form-control form-input" type="text" name="name" />
 			</div>
+			
+			<div class="display-data">
+				<div><span><strong>Race: </strong></span><span>@{{$store.state.char.race}}</span></div>
+				<div><span><strong>Sub Race: </strong></span><span>@{{$store.state.char.subrace}}</span></div>
+			</div>
 
 			<div class="col-offset-11 col-1">
 				<input type="submit" value="Save" />
@@ -26,6 +31,7 @@
 </div>
 <script>
 	window.races = @json($races);
+	window.subraces = @json($subraces);
 	window.skills = @json($skills);
 
 </script>

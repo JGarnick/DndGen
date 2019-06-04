@@ -50,21 +50,31 @@ $(document).ready(() => {
             },
             data: {
                 races: window.races,
+                subraces: window.subraces,
             }
         },
         actions: {
             changeRace: function({commit}, payload){
                 commit('mutateChangeRace', payload);
+            },
+            changeSubrace: function({commit}, payload){
+                commit('mutateChangeSubrace', payload);
             }
         },
         mutations: {
             mutateChangeRace: function(state, payload){
                 state.char.race = payload;
+            },
+            mutateChangeSubrace: function(state, payload){
+                state.char.subrace = payload;
             }
         },
         getters: {
             characterRace(state){
                 return state.char.race;
+            },
+            characterSubrace(state){
+                return state.char.subrace;
             }
         }
     });
