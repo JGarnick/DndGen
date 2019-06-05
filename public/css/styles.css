@@ -23,7 +23,7 @@
     padding: 10px;
     border-radius: 3px;
     margin: 3px 22px 3px 0;
-    width: 110px;
+    width: 135px;
     text-align: center;
     cursor:pointer;
 }
@@ -32,7 +32,7 @@
 }
 .race.selectable.active{
     background-color: #ffc107;
-    font-weight:bold;
+    /* font-weight:bold; */
 }
 .button-section {
     padding: 10px;

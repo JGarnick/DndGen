@@ -4,8 +4,7 @@
         <div class="d-flex flex-wrap races-container">
             <v-race-selectable v-for="(race, index) in races" :key="index" :race="race" :active="isActiveRace(race)" @setActive="setActiveRace"></v-race-selectable>
         </div>
-        <div class="spacer sm"></div>
-        <h3>Choose a Subrace</h3>
+        <h3 style="padding-top:20px;">Choose a Subrace</h3>
         <div class="d-flex flex-wrap races-container">
             <v-race-selectable v-for="(race, index) in activeSubraces()" :key="index" :race="race" :active="isActiveSubrace(race)" @setActive="setActiveSubrace"></v-race-selectable>
         </div>
@@ -45,11 +44,20 @@ export default {
         setActiveRace(id){
             this.activeRace = this.races[id];
             this.changeRace(this.activeRace.name);
+
+            this.activeSubrace = false;
+            this.changeSubrace(false);
         },
         setActiveSubrace(id){
-            this.activeSubrace = this.subraces[id];
+            let name = false;
+            if(this.isActiveSubrace(this.subraces[id])){
+                this.activeSubrace = false;
+            }else{
+                this.activeSubrace = this.subraces[id];
+                name = this.activeSubrace.name;
+            }
             
-            this.changeSubrace(this.activeSubrace.name);
+            this.changeSubrace(name);
         },
         ...mapActions([ // spread operator so that other methods can still be added.
             'changeRace',
