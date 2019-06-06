@@ -1,6 +1,10 @@
 .pad-t-15{
     padding-top:15px;
 }
+.display-data{
+    display:inline-block;
+    padding-right:10px;
+}
 .container.header{
     border: 1px solid black;
     border-bottom-left-radius: 3px;
@@ -294,4 +298,64 @@ input[type=number]::-webkit-inner-spin-button {
 .draconic-ancestry.selectable div div:last-child {
     flex-basis: 50%;
     justify-content: flex-end;
+}
+.att-input {
+    font-size: 26px;
+    box-sizing: border-box;
+    padding: 0 5px;
+    max-width: 45px;
+    height:42px;
+    text-align: center;
+    border:1px solid;
+    border-right:0;
+}
+.att-input-container {
+    display: flex;
+    position: relative;
+    padding-right: 20px;
+}
+.atts-container{
+    display: flex;
+    justify-content: space-evenly;
+}
+.increase {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border: 1px solid;
+    line-height: 1;
+    font-size: 22px;
+    padding: 0;
+    overflow: hidden;
+    display: block;
+    cursor:pointer;
+}
+.decrease {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border: 1px solid;
+    line-height: 1;
+    font-size: 22px;
+    padding: 0;
+    overflow: hidden;
+    display: block;
+    cursor:pointer;
+}
+.increase:hover,
+.decrease:hover{
+    color:white;
+    background-color:black;
+    border:2px solid black;
+}
+.increase > span,
+.decrease > span{
+    position: relative;
+    top: -4px;
 }

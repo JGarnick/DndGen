@@ -11,10 +11,22 @@
 				<input v-model="$store.state.char.name" class="form-control form-input" type="text" name="name" />
 			</div>
 			
-			<div class="display-data">
+			<span class="display-data">
 				<div><span><strong>Race: </strong></span><span>@{{$store.state.char.race}}</span></div>
 				<div><span><strong>Sub Race: </strong></span><span>@{{$store.state.char.subrace}}</span></div>
-			</div>
+			</span>
+			<span class="display-data">
+				<div><span><strong>Strength: </strong></span><span>@{{$store.state.char.str}}</span></div>
+				<div><span><strong>Dexterity: </strong></span><span>@{{$store.state.char.dex}}</span></div>
+			</span>
+			<span class="display-data">
+				<div><span><strong>Constitution: </strong></span><span>@{{$store.state.char.con}}</span></div>
+				<div><span><strong>Intelligence: </strong></span><span>@{{$store.state.char.int}}</span></div>
+			</span>
+			<span class="display-data">
+				<div><span><strong>Wisdom: </strong></span><span>@{{$store.state.char.wis}}</span></div>
+				<div><span><strong>Charisma: </strong></span><span>@{{$store.state.char.cha}}</span></div>
+			</span>
 
 			<div class="col-offset-11 col-1">
 				<input type="submit" value="Save" />
@@ -33,6 +45,7 @@
 	window.races = @json($races);
 	window.subraces = @json($subraces);
 	window.skills = @json($skills);
+	window.cattributes = @json($attributes);
 
 </script>
 @endsection

@@ -51,6 +51,7 @@ $(document).ready(() => {
             data: {
                 races: window.races,
                 subraces: window.subraces,
+                cattributes: window.cattributes
             }
         },
         actions: {
@@ -59,7 +60,25 @@ $(document).ready(() => {
             },
             changeSubrace: function({commit}, payload){
                 commit('mutateChangeSubrace', payload);
-            }
+            },
+            changeStr: function({commit}, payload){
+                commit('mutateChangeStr', payload);
+            },
+            changeDex: function({commit}, payload){
+                commit('mutateChangeDex', payload);
+            },
+            changeCon: function({commit}, payload){
+                commit('mutateChangeCon', payload);
+            },
+            changeInt: function({commit}, payload){
+                commit('mutateChangeInt', payload);
+            },
+            changeWis: function({commit}, payload){
+                commit('mutateChangeWis', payload);
+            },
+            changeCha: function({commit}, payload){
+                commit('mutateChangeCha', payload);
+            },
         },
         mutations: {
             mutateChangeRace: function(state, payload){
@@ -67,7 +86,25 @@ $(document).ready(() => {
             },
             mutateChangeSubrace: function(state, payload){
                 state.char.subrace = payload;
-            }
+            },
+            mutateChangeStr: function(state, payload){
+                state.char.str = payload;
+            },
+            mutateChangeDex: function(state, payload){
+                state.char.dex = payload;
+            },
+            mutateChangeCon: function(state, payload){
+                state.char.con = payload;
+            },
+            mutateChangeInt: function(state, payload){
+                state.char.int = payload;
+            },
+            mutateChangeWis: function(state, payload){
+                state.char.wis = payload;
+            },
+            mutateChangeCha: function(state, payload){
+                state.char.cha = payload;
+            },
         },
         getters: {
             characterRace(state){
@@ -75,6 +112,9 @@ $(document).ready(() => {
             },
             characterSubrace(state){
                 return state.char.subrace;
+            },
+            characterAttributes(state){
+                return state.char.atts;
             }
         }
     });
