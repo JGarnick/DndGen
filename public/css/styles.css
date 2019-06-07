@@ -310,13 +310,19 @@ input[type=number]::-webkit-inner-spin-button {
     border-right:0;
 }
 .att-input-container {
-    display: flex;
     position: relative;
     padding-right: 20px;
+    margin: auto;
 }
 .atts-container{
     display: flex;
     justify-content: space-evenly;
+}
+.att-header{
+    font-size: 26px;
+    padding-bottom: 10px;
+    text-align: center;
+    font-weight: bold;
 }
 .increase {
     position: absolute;
@@ -353,6 +359,11 @@ input[type=number]::-webkit-inner-spin-button {
     color:white;
     background-color:black;
     border:2px solid black;
+}
+.increase:active,
+.decrease:active{
+    background-color: #E0DEDE;
+    color: #525151;
 }
 .increase > span,
 .decrease > span{
