@@ -1,17 +1,17 @@
 <template>
     <div>
-        <div class="section" :class="{collapsed:point_buy_collapsed}" @click="expand_collapse">
-            <div class="section-heading">Point Buy</div>
+        <div class="section" :class="{collapsed:point_buy_collapsed}" >
+            <div class="section-heading point-buy" @click="expand_collapse">Point Buy</div>
             <div v-show="!point_buy_collapsed">Points: {{points}}</div>
-            <div class="atts-container point-buy" v-show="!point_buy_collapsed">
-                <v-att-selector v-for="(attOb, index) in charAtts" :attOb="attOb" :key="index" @increaseAtt="increase" @decreaseAtt="decrease" @changeVal="changeVal" @validate="validate"></v-att-selector>
+            <div class="atts-container " v-show="!point_buy_collapsed">
+                <v-att-selector v-for="(attOb, index) in charAtts" :disabled="true" :attOb="attOb" :key="index" @increaseAtt="increasePB" @decreaseAtt="decreasePB" @changeVal="changeVal" @validate="validate"></v-att-selector>
             </div>
         </div>
 
-        <div class="section" :class="{collapsed:manual_entry_collapsed}" @click="expand_collapse">
-            <div class="section-heading">Manual Entry</div>
-            <div class="atts-container manual-entry" v-show="!manual_entry_collapsed">
-                <v-att-selector v-for="(attOb, index) in charAtts" :attOb="attOb" :key="index" @increaseAtt="increase" @decreaseAtt="decrease" @changeVal="changeVal" @validate="validate"></v-att-selector>
+        <div class="section" :class="{collapsed:manual_entry_collapsed}" >
+            <div class="section-heading manual-entry" @click="expand_collapse" >Manual Entry</div>
+            <div class="atts-container " v-show="!manual_entry_collapsed">
+                <v-att-selector v-for="(attOb, index) in charAtts" :attOb="attOb" :disabled="false" :key="index" @increaseAtt="increase" @decreaseAtt="decrease" @changeVal="changeVal" @validate="validate"></v-att-selector>
             </div>
         </div>
     </div>
@@ -23,8 +23,8 @@ export default {
     props: [],
     data(){
         return {
-            point_buy_collapsed: false,
-            manual_entry_collapsed: true,
+            point_buy_collapsed: true,
+            manual_entry_collapsed: false,
             charAtts: [
                 {attIndex:1, charVal:this.$store.state.char.str},
                 {attIndex:2, charVal:this.$store.state.char.dex},
@@ -33,16 +33,19 @@ export default {
                 {attIndex:5, charVal:this.$store.state.char.wis},
                 {attIndex:6, charVal:this.$store.state.char.cha},
             ],
-            points: 27
+            points: 27,
         }
     },
     methods: {
-        expand_collapse(){
+        expand_collapse(el){
             this.point_buy_collapsed = !this.point_buy_collapsed;
             this.manual_entry_collapsed = !this.manual_entry_collapsed;
-
-            if(!this.point_buy_collapsed){
+            
+            if(this.point_buy_collapsed){
                 this.resetAttributes();
+            }else{
+                this.setAttributesBase();
+                this.points = 27;
             }
         },
         ...mapActions([ // spread operator so that other methods can still be added.
@@ -53,6 +56,45 @@ export default {
             'changeWis',
             'changeCha'
         ]),
+        setAttributesBase(){
+            /*
+                str: 8,
+                dex: 8,
+                con: 8,
+                int: 8,
+                wis: 8,
+                cha: 8
+            */
+            let vm = this;
+            this.charAtts.forEach(function(ob){
+                switch(ob.attIndex){
+                    case 1:
+                        ob.charVal = 8;
+                        vm.changeStr(ob.charVal);
+                        break;
+                    case 2:
+                        ob.charVal = 8;
+                        vm.changeDex(ob.charVal);
+                        break;
+                    case 3:
+                        ob.charVal = 8;
+                        vm.changeCon(ob.charVal);
+                        break;
+                    case 4:
+                        ob.charVal = 8;
+                        vm.changeInt(ob.charVal);
+                        break;
+                    case 5:
+                        ob.charVal = 8;
+                        vm.changeWis(ob.charVal);
+                        break;
+                    case 6:
+                        ob.charVal = 8;
+                        vm.changeCha(ob.charVal);
+                        break;
+                }
+           });
+        },
         resetAttributes(){
             /*
                 str: 15,
@@ -60,37 +102,54 @@ export default {
                 con: 13,
                 int: 12,
                 wis: 10,
-                cha: 8,
+                cha: 8
             */
             let vm = this;
             this.charAtts.forEach(function(ob){
                 switch(ob.attIndex){
                     case 1:
                         ob.charVal = 15;
-                        vm.changeStr(15);
+                        vm.changeStr(ob.charVal);
                         break;
                     case 2:
                         ob.charVal = 14;
-                        vm.changeDex(14);
+                        vm.changeDex(ob.charVal);
                         break;
                     case 3:
                         ob.charVal = 13;
-                        vm.changeCon(13);
+                        vm.changeCon(ob.charVal);
                         break;
                     case 4:
                         ob.charVal = 12;
-                        vm.changeInt(12);
+                        vm.changeInt(ob.charVal);
                         break;
                     case 5:
                         ob.charVal = 10;
-                        vm.changeWis(10);
+                        vm.changeWis(ob.charVal);
                         break;
                     case 6:
                         ob.charVal = 8;
-                        vm.changeCha(8);
+                        vm.changeCha(ob.charVal);
                         break;
                 }
            });
+        },
+        increasePB(global, local){
+            let att = global.abbr.toLowerCase();
+            
+            //Before actually reducing the value, test it and make sure there are enough points to detract
+            let test = local.charVal + 1;
+            if(test > 15){ return; }
+            let point_cost = this.getPointValue(parseInt(test));
+            let refund = this.getPointValue(parseInt(local.charVal));
+            let points_after = (this.points + refund) - point_cost;
+
+            if( points_after >= 0 ){
+                this.points += refund;
+                this.points -= point_cost;
+                local.charVal++;
+                this.changeCharAttribute(att, local.charVal);
+            }
         },
         increase(global, local){
             //get the ability, get the value, check against min and max, update character ability
@@ -105,6 +164,22 @@ export default {
             local.charVal--;
             local.charVal = this.verifyRange(local.charVal);
             this.changeCharAttribute(att, local.charVal);
+        },
+        decreasePB(global, local){
+            let att = global.abbr.toLowerCase();
+
+            //Before actually reducing the value, test it and make sure there are enough points to detract
+            let test = local.charVal - 1;
+            if(test < 8){ return; }
+            let point_cost = this.getPointValue(parseInt(test));
+            let refund = this.getPointValue(parseInt(local.charVal));
+            let points_after = (this.points + refund) - point_cost;
+            if( points_after <= 27 ){
+                this.points += refund;
+                this.points -= point_cost;
+                local.charVal--;
+                this.changeCharAttribute(att, local.charVal);
+            }
         },
         validate(local, data){
             if( isNaN( parseInt(data) ) ){

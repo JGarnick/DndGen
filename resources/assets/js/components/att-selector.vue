@@ -3,7 +3,7 @@
     <div class="att-header">{{gAtt.abbr}}</div>
     <div class="d-flex">
         <div class="att-input-container">
-            <input type="text" class="att-input" :name="gAtt.name" @input="validate" @change="changeVal" v-model="attOb.charVal">
+            <input type="text" class="att-input" :name="gAtt.name" @input="validate" :disabled="disabled" @change="changeVal" v-model="attOb.charVal">
             <button class="increase" @click.stop="increaseVal"><span>+</span></button>
             <button class="decrease" @click.stop="decreaseVal"><span>-</span></button>
         </div>
@@ -14,7 +14,7 @@
 <script>
 
 export default {
-    props: ["attOb"],
+    props: ["attOb", "disabled"],
     data(){
         return {
             gAtt: this.$store.state.data.cattributes[this.attOb.attIndex],
