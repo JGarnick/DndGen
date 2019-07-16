@@ -1,19 +1,19 @@
 version: '3.1'
 volumes:
   dbdata:
-  app-data:
 networks:
   app-network:
     driver: bridge
 services:
   # The Application
   app:
+    container_name: app
     build:
       context: ./
       dockerfile: app.dockerfile
     working_dir: /var/www
     volumes:
-      - app-data:/var/www
+      - ./:/var/www
     environment:
       - "DB_PORT=3306"
       - "DB_HOST=db"
@@ -21,18 +21,20 @@ services:
       - app-network
   # The Web Server
   web:
+    container_name: web
     build:
       context: ./
       dockerfile: web.dockerfile
     working_dir: /var/www
     volumes:
-      - app-data:/var/www
+      - ./:/var/www
     ports:
       - 80:80
     networks:
       - app-network
   # The Database
   db:
+    container_name: db
     image: mysql:8
     command: --default-authentication-plugin=mysql_native_password
     restart: always
@@ -48,6 +50,7 @@ services:
     networks:
       - app-network
   phpmyadmin:
+    container_name: phpma
     image: phpmyadmin/phpmyadmin
     restart: always
     ports:
@@ -57,11 +60,37 @@ services:
       PMA_PORT: 3306
     networks:
       - app-network
-  workspace:
+  composer:
+    restart: 'no'
+    image: composer:latest
+    working_dir: /var/www
+    command: install
+    volumes:
+      - ./:/var/www
+  node:
+    restart: 'no'
+    image: node:latest
+    working_dir: /var/www
+    command: npm install
+    volumes:
+      - ./:/var/www
+  dev:
+    container_name: dev
+    working_dir: /var/www
+    depends_on:
+      - app
     build:
       context: ./
-      dockerfile: workspace.dockerfile
-    volumes: 
-      - app-data:/var/www
+      dockerfile: dev.dockerfile
+    volumes:
+      - ./:/var/www
     networks:
       - app-network
+  #workspace:
+  #  build:
+  #    context: ./
+  #    dockerfile: workspace.dockerfile
+  #  volumes: 
+  #    - ./:/var/www
+  #  networks:
+  #    - app-network

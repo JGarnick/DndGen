@@ -5,6 +5,7 @@ const {
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin');
 
 module.exports = {
+    mode: "development",
     entry: path.resolve("./resources/assets/src/entry.js"),
     output: {
         filename: "bundle.js",
