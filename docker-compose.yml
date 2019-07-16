@@ -1,0 +1,67 @@
+version: '3.1'
+volumes:
+  dbdata:
+  app-data:
+networks:
+  app-network:
+    driver: bridge
+services:
+  # The Application
+  app:
+    build:
+      context: ./
+      dockerfile: app.dockerfile
+    working_dir: /var/www
+    volumes:
+      - app-data:/var/www
+    environment:
+      - "DB_PORT=3306"
+      - "DB_HOST=db"
+    networks:
+      - app-network
+  # The Web Server
+  web:
+    build:
+      context: ./
+      dockerfile: web.dockerfile
+    working_dir: /var/www
+    volumes:
+      - app-data:/var/www
+    ports:
+      - 80:80
+    networks:
+      - app-network
+  # The Database
+  db:
+    image: mysql:8
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    volumes:
+      - dbdata:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: dndgendb
+      MYSQL_USER: dndgenuser
+      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: secret
+    ports:
+        - "3306:3306"
+    networks:
+      - app-network
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports:
+      - '81:80'
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+    networks:
+      - app-network
+  workspace:
+    build:
+      context: ./
+      dockerfile: workspace.dockerfile
+    volumes: 
+      - app-data:/var/www
+    networks:
+      - app-network
