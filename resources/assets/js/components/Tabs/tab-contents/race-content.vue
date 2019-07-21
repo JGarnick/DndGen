@@ -13,22 +13,27 @@
 
 <script>
 import { mapActions } from 'vuex';
+import {mixin} from "../../../../src/mixins.js"
 export default {
     props: [],
+    mixins: [mixin],
     data(){
         return {
             races: this.$store.state.data.races,
             subraces: this.$store.state.data.subraces,
-            activeRace: races['4'],
-            activeSubrace: false
         }
-    },
-    mounted(){
-
     },
     watch: {
         activeRace: function(){
             this.activeSubraces();
+        }
+    },
+    computed: {
+        activeRace(){
+            return this.getRace();
+        },
+        activeSubrace(){
+            return this.getSubRace();
         }
     },
     methods: {
@@ -42,19 +47,13 @@ export default {
             return false;
         },
         setActiveRace(id){
-            this.activeRace = this.races[id];
-            this.changeRace(this.activeRace.name);
-
-            this.activeSubrace = false;
+            this.changeRace(this.races[id].name);
             this.changeSubrace(false);
         },
         setActiveSubrace(id){
             let name = false;
-            if(this.isActiveSubrace(this.subraces[id])){
-                this.activeSubrace = false;
-            }else{
-                this.activeSubrace = this.subraces[id];
-                name = this.activeSubrace.name;
+            if( !this.isActiveSubrace(this.subraces[id]) ){
+                name = this.subraces[id].name;
             }
             
             this.changeSubrace(name);

@@ -35,18 +35,56 @@ $(document).ready(() => {
                 ac: 13,
                 hp_max: 13,
                 hp_current: 13,
-                str: 15,
-                dex: 14,
-                con: 13,
-                int: 12,
-                wis: 10,
-                cha: 8,
+                str: {val: 15, mod: 2},
+                dex: {val: 14, mod:2},
+                con: {val: 13, mod: 1},
+                int: {val: 12, mod: 1},
+                wis: {val: 10, mod: 0},
+                cha: {val: 8, mod: -1},
                 proficiencies: [],
                 saves: ["str", "con"],
                 darkvision: false,
                 speed: 30,
                 passive_perception: 10,
-                num_atks: 1
+                num_atks: 1,
+                bonuses: [
+                    {
+                        type: 'race',
+                        source: 'human',
+                        key: 'str',
+                        val: 1
+                    },
+                    {
+                        type: 'race',
+                        source: 'human',
+                        key: 'dex',
+                        val: 1
+                    },
+                    {
+                        type: 'race',
+                        source: 'human',
+                        key: 'con',
+                        val: 1
+                    },
+                    {
+                        type: 'race',
+                        source: 'human',
+                        key: 'int',
+                        val: 1
+                    },
+                    {
+                        type: 'race',
+                        source: 'human',
+                        key: 'wis',
+                        val: 1
+                    },
+                    {
+                        type: 'race',
+                        source: 'human',
+                        key: 'cha',
+                        val: 1
+                    }
+                ]
             },
             data: {
                 races: window.races,
@@ -112,9 +150,6 @@ $(document).ready(() => {
             },
             characterSubrace(state){
                 return state.char.subrace;
-            },
-            characterAttributes(state){
-                return state.char.atts;
             }
         }
     });

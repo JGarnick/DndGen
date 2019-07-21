@@ -16,16 +16,26 @@
 				<div><span><strong>Sub Race: </strong></span><span>@{{$store.state.char.subrace}}</span></div>
 			</span>
 			<span class="display-data">
-				<div><span><strong>Strength: </strong></span><span>@{{$store.state.char.str}}</span></div>
-				<div><span><strong>Dexterity: </strong></span><span>@{{$store.state.char.dex}}</span></div>
+				<div><span><strong>Strength: </strong></span><span>@{{$store.state.char.str.val}}</span></div>
+				<div><span><strong>Dexterity: </strong></span><span>@{{$store.state.char.dex.val}}</span></div>
 			</span>
 			<span class="display-data">
-				<div><span><strong>Constitution: </strong></span><span>@{{$store.state.char.con}}</span></div>
-				<div><span><strong>Intelligence: </strong></span><span>@{{$store.state.char.int}}</span></div>
+				<div><span><strong>Constitution: </strong></span><span>@{{$store.state.char.con.val}}</span></div>
+				<div><span><strong>Intelligence: </strong></span><span>@{{$store.state.char.int.val}}</span></div>
 			</span>
 			<span class="display-data">
-				<div><span><strong>Wisdom: </strong></span><span>@{{$store.state.char.wis}}</span></div>
-				<div><span><strong>Charisma: </strong></span><span>@{{$store.state.char.cha}}</span></div>
+				<div><span><strong>Wisdom: </strong></span><span>@{{$store.state.char.wis.val}}</span></div>
+				<div><span><strong>Charisma: </strong></span><span>@{{$store.state.char.cha.val}}</span></div>
+			</span>
+
+			<span v-for="bonus in $store.state.char.bonuses" class="display-data">
+				<div>
+					<span><strong>Bonus: </strong></span>
+					<span>Kind: @{{bonus.type}}, </span>
+					<span>From: @{{bonus.source}}, </span>
+					<span>To: @{{bonus.key}}, </span>
+					<span>Amount: @{{bonus.val}}</span>
+				</div>
 			</span>
 
 			<div class="col-offset-11 col-1">

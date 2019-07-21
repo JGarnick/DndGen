@@ -24,5 +24,8 @@ module.exports = {
         }
     },
     plugins: [new VueLoaderPlugin()],
-    watch: true
+    watch: true,
+    watchOptions: {
+        poll: 2000 // Check for changes every second
+    }
 }

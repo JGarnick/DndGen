@@ -278,9 +278,17 @@ a.tab.active:after {
     padding-right: 20px;
     margin: auto;
 }
+.atts-container.display-only .att-input-container{
+    padding-right: 0;
+    font-size: 22px;
+}
 .atts-container{
     display: flex;
     justify-content: space-evenly;
+}
+.atts-container.display-only .att-header{
+    font-size: 24px;
+    padding-bottom: 0;
 }
 .att-header{
     font-size: 26px;
@@ -348,4 +356,22 @@ a.tab.active:after {
 }
 .section.collapsed:hover{
     background-color:rgba(0, 0, 0, .2);
+}
+.mod-container{
+    text-align:center;
+}
+.mod-container>div:nth-child(2){
+    line-height: 1;
+}
+.mod-container>div:first-child{
+    font-weight:bold;
+}
+.misc-row{
+    justify-content:space-evenly;
+    text-align:center;
+    padding:10px;
+}
+.misc-row > span{
+    max-width:65px;
+    min-width:65px;
 }
