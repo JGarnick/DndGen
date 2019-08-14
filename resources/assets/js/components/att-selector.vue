@@ -4,7 +4,7 @@
     <div class="d-flex">
         <div class="att-input-container">
             <template v-if="displayOnly">
-                <div>{{attOb.charVal.val}}</div>
+                <div>{{value}}</div>
             </template>
             <template v-else>
                 <input type="text" class="att-input" :name="gAtt.name" @input="validate" :disabled="disabled" @change="changeVal" v-model="attOb.charVal.val">
@@ -13,17 +13,14 @@
             </template>
         </div>
     </div>
-    <div class="mod-container">
-        <div>Mod</div>
-        <div>{{attOb.charVal.mod}}</div>
-    </div>
 </div>
 </template>
 
 <script>
-
+import {mixin} from "./../mixins.js";
 export default {
-    props: ["attOb", "disabled", "displayOnly"],
+    props: ["attOb", "disabled", "displayOnly", "total"],
+    mixins: [mixin],
     data(){
         return {
             gAtt: this.$store.state.data.cattributes[this.attOb.attIndex],
@@ -41,6 +38,14 @@ export default {
         },
         validate(el){
             this.$emit("validate", this.attOb, el.data);
+        }
+    },
+    computed: {
+        value(){
+            if(this.total){
+                return this.getTotal(this.gAtt.abbr.toLowerCase(), this.attOb.charVal.val);
+            }
+            
         }
     }
 }

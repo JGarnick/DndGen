@@ -28,8 +28,8 @@
 				<div><span><strong>Charisma: </strong></span><span>@{{$store.state.char.cha.val}}</span></div>
 			</span>
 
-			<span v-for="bonus in $store.state.char.bonuses" class="display-data">
-				<div>
+			<span v-for="category in $store.state.char.bonuses" class="display-data">
+				<div v-for="bonus in category">
 					<span><strong>Bonus: </strong></span>
 					<span>Kind: @{{bonus.type}}, </span>
 					<span>From: @{{bonus.source}}, </span>

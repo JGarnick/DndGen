@@ -19,29 +19,39 @@
         </div>
         <div class="center">Racial Bonuses ({{getRace('name')}})</div>
         <div class="misc-row d-flex">
-            <span v-for="(att, i) in charAtts" :key="i">{{bonus(getAtt(att.attIndex).abbr.toLowerCase(), 'race')}}</span>
+            <span v-for="(att, i) in charAtts" :key="i">{{bonus("race", getAtt(att.attIndex).abbr.toLowerCase())}}</span>
+        </div>
+        <div class="misc-row d-flex">
+            <span v-for="(a, b) in charAtts" :key="b">+</span>
+        </div>
+        <div class="center">Sub Racial Bonuses ({{getSubRace('name')}})</div>
+        <div class="misc-row d-flex">
+            <span v-for="(att, i) in charAtts" :key="i">{{bonus("subrace", getAtt(att.attIndex).abbr.toLowerCase())}}</span>
+        </div>
+        <div class="misc-row d-flex">
+            <span v-for="(a, b) in charAtts" :key="b">+</span>
+        </div>
+        <div class="center">Misc</div>
+        <div class="misc-row d-flex">
+            <span v-for="(att, i) in charAtts" :key="i">{{bonus("item", getAtt(att.attIndex).abbr.toLowerCase())}}</span>
+        </div>
+        <div class="center">Totals</div>
+        <div class="misc-row d-flex">
+            <span v-for="(att, i) in charAtts" :key="i">{{getTotal(getAtt(att.attIndex).abbr.toLowerCase(), att.charVal.val)}}</span>
         </div>
     </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
-import { mixin } from '../../../../src/mixins.js'; 
+import { mixin, char } from '../../../mixins.js'; 
 export default { 
     props: [], 
-    mixins: [mixin],  
+    mixins: [mixin, char],  
     data(){
         return {
             point_buy_collapsed: true,
             manual_entry_collapsed: false,
-            charAtts: [
-                {attIndex:1, charVal:this.$store.state.char.str},
-                {attIndex:2, charVal:this.$store.state.char.dex},
-                {attIndex:3, charVal:this.$store.state.char.con},
-                {attIndex:4, charVal:this.$store.state.char.int},
-                {attIndex:5, charVal:this.$store.state.char.wis},
-                {attIndex:6, charVal:this.$store.state.char.cha},
-            ],
             points: 27,
         }
     },
@@ -82,33 +92,27 @@ export default {
                 switch(ob.attIndex){
                     case 1:
                         ob.charVal.val = 8;
-                        ob.charVal.mod = -1;
-                        vm.changeStr({val: ob.charVal.val, mod: ob.charVal.mod});
+                        vm.changeStr({val: ob.charVal.val});
                         break;
                     case 2:
                         ob.charVal.val = 8;
-                        ob.charVal.mod = -1;
-                        vm.changeDex({val: ob.charVal.val, mod: ob.charVal.mod});
+                        vm.changeDex({val: ob.charVal.val});
                         break;
                     case 3:
                         ob.charVal.val = 8;
-                        ob.charVal.mod = -1;
-                        vm.changeCon({val: ob.charVal.val, mod: ob.charVal.mod});
+                        vm.changeCon({val: ob.charVal.val});
                         break;
                     case 4:
                         ob.charVal.val = 8;
-                        ob.charVal.mod = -1;
-                        vm.changeInt({val: ob.charVal.val, mod: ob.charVal.mod});
+                        vm.changeInt({val: ob.charVal.val});
                         break;
                     case 5:
                         ob.charVal.val = 8;
-                        ob.charVal.mod = -1;
-                        vm.changeWis({val: ob.charVal.val, mod: ob.charVal.mod});
+                        vm.changeWis({val: ob.charVal.val});
                         break;
                     case 6:
                         ob.charVal.val = 8;
-                        ob.charVal.mod = -1;
-                        vm.changeCha({val: ob.charVal.val, mod: ob.charVal.mod});
+                        vm.changeCha({val: ob.charVal.val});
                         break;
                 }
            });
@@ -127,33 +131,27 @@ export default {
                 switch(ob.attIndex){
                     case 1:
                         ob.charVal.val = 15;
-                        ob.charVal.mod = 2;
-                        vm.changeStr({val: ob.charVal.val, mod: ob.charVal.mod});
+                        vm.changeStr({val: ob.charVal.val});
                         break;
                     case 2:
                         ob.charVal.val = 14;
-                        ob.charVal.mod = 2;
-                        vm.changeDex({val: ob.charVal.val, mod: ob.charVal.mod});
+                        vm.changeDex({val: ob.charVal.val});
                         break;
                     case 3:
                         ob.charVal.val = 13;
-                        ob.charVal.mod = 1;
-                        vm.changeCon({val: ob.charVal.val, mod: ob.charVal.mod});
+                        vm.changeCon({val: ob.charVal.val});
                         break;
                     case 4:
                         ob.charVal.val = 12;
-                        ob.charVal.mod = 1;
-                        vm.changeInt({val: ob.charVal.val, mod: ob.charVal.mod});
+                        vm.changeInt({val: ob.charVal.val});
                         break;
                     case 5:
                         ob.charVal.val = 10;
-                        ob.charVal.mod = 0;
-                        vm.changeWis({val: ob.charVal.val, mod: ob.charVal.mod});
+                        vm.changeWis({val: ob.charVal.val});
                         break;
                     case 6:
                         ob.charVal.val = 8;
-                        ob.charVal.mod = -1;
-                        vm.changeCha({val: ob.charVal.val, mod: ob.charVal.mod});
+                        vm.changeCha({val: ob.charVal.val});
                         break;
                 }
            });
@@ -172,9 +170,8 @@ export default {
                 this.points += refund;
                 this.points -= point_cost;
                 local.charVal.val++;
-                local.charVal.mod = this.getMod(local.charVal.val);
                 
-                this.changeCharAttribute(att, {val: local.charVal.val, mod: local.charVal.mod});
+                this.changeCharAttribute(att, {val: local.charVal.val});
             }
         },
         increase(global, local){
@@ -183,17 +180,15 @@ export default {
             let att = global.abbr.toLowerCase();
             local.charVal.val++;
             local.charVal.val = this.verifyRange(local.charVal.val);
-            local.charVal.mod = this.getMod(local.charVal.val);
-            console.log(local.charVal.mod);
-            this.changeCharAttribute(att, {val: local.charVal.val, mod: local.charVal.mod});
+            
+            this.changeCharAttribute(att, {val: local.charVal.val});
         },
         decrease(global, local){
             let att = global.abbr.toLowerCase();
             local.charVal.val--;
             local.charVal.val = this.verifyRange(local.charVal.val);
-            local.charVal.mod = this.getMod(local.charVal.val);
-            console.log(local.charVal.mod);
-            this.changeCharAttribute(att, {val: local.charVal.val, mod: local.charVal.mod});
+            
+            this.changeCharAttribute(att, {val: local.charVal.val});
         },
         decreasePB(global, local){
             let att = global.abbr.toLowerCase();
@@ -208,8 +203,7 @@ export default {
                 this.points += refund;
                 this.points -= point_cost;
                 local.charVal.val--;
-                local.charVal.mod = this.getMod(local.charVal.val);
-                this.changeCharAttribute(att, {val: local.charVal.val, mod: local.charVal.mod});
+                this.changeCharAttribute(att, {val: local.charVal.val});
             }
         },
         validate(local, data){
@@ -221,8 +215,8 @@ export default {
         changeVal(local, data, global){
             let att = global.abbr.toLowerCase();
             local.charVal.val = this.verifyRange(local.charVal.val);
-            local.charVal.mod = this.getMod(local.charVal.val);
-            this.changeCharAttribute(att, {val: local.charVal.val, mod: local.charVal.mod});
+            
+            this.changeCharAttribute(att, {val: local.charVal.val});
         },
         changeCharAttribute(global, payload){
             switch(global){

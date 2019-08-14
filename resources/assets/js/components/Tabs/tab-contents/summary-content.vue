@@ -1,30 +1,33 @@
 <template>
     <div>
         <h3>Attributes</h3>
-        <div class="atts-container display-only">
-            <v-att-selector v-for="(attOb, index) in charAtts" :attOb="attOb" :key="index" :display-only="true"></v-att-selector>
+        <div class="d-flex flex-column">
+            <div class="atts-container display-only">
+                <v-att-selector v-for="(attOb, index) in charAtts" :attOb="attOb" :key="'att-'+index" :display-only="true" :total="true"></v-att-selector>
+            </div>
+            <div class="d-flex mods-container">
+                <div v-for="(attOb, index) in charAtts" :key="'mod-'+index" class="mod-container">
+                    <div>Mod</div>
+                    <div>{{getMod(getTotal(getAtt(attOb), attOb.charVal.val))}}</div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
+import {char, mixin} from "../../../mixins.js"
 export default {
     props: [],
+    mixins: [char, mixin],
     data(){
         return {
             
         }
     },
-    computed: {
-        charAtts(){
-            return [
-                {attIndex:1, charVal:this.$store.state.char.str},
-                {attIndex:2, charVal:this.$store.state.char.dex},
-                {attIndex:3, charVal:this.$store.state.char.con},
-                {attIndex:4, charVal:this.$store.state.char.int},
-                {attIndex:5, charVal:this.$store.state.char.wis},
-                {attIndex:6, charVal:this.$store.state.char.cha},
-            ]
+    methods: {
+        getAtt(attOb){
+            return this.$store.state.data.cattributes[attOb.attIndex].abbr.toLowerCase();            
         }
     }
 }

@@ -13,7 +13,7 @@
 
 <script>
 import { mapActions } from 'vuex';
-import {mixin} from "../../../../src/mixins.js"
+import {mixin} from "../../../mixins.js"
 export default {
     props: [],
     mixins: [mixin],
@@ -46,8 +46,9 @@ export default {
             }
             return false;
         },
-        setActiveRace(id){
-            this.changeRace(this.races[id].name);
+        setActiveRace(id, bonuses){
+            this.updateRacialBonuses(bonuses);
+            this.changeRace(this.races[id]);
             this.changeSubrace(false);
         },
         setActiveSubrace(id){
@@ -55,12 +56,14 @@ export default {
             if( !this.isActiveSubrace(this.subraces[id]) ){
                 name = this.subraces[id].name;
             }
-            
+
             this.changeSubrace(name);
         },
         ...mapActions([ // spread operator so that other methods can still be added.
             'changeRace',
-            'changeSubrace'
+            'changeSubrace',
+            'updateRacialBonuses',
+            'updateSubRacialBonuses'
         ]),
         activeSubraces(){
             let returnMe = {};

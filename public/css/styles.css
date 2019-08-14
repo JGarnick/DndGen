@@ -1,6 +1,11 @@
 .pad-t-15{
     padding-top:15px;
 }
+.justify-content-even{
+    -webkit-box-pack: justify!important;
+    -ms-flex-pack: justify!important;
+    justify-content: space-evenly!important;
+}
 .display-data{
     display:inline-block;
     padding-right:10px;
@@ -99,7 +104,6 @@ a.tab.active:after {
     box-sizing: border-box;
     padding: 15px;
     min-height: 600px;
-    max-height: 600px;
     margin-bottom: 50px;
 }
 
@@ -284,7 +288,10 @@ a.tab.active:after {
 }
 .atts-container{
     display: flex;
-    justify-content: space-evenly;
+}
+.atts-container > div,
+.mods-container > div{
+    flex: 1 1 20%;
 }
 .atts-container.display-only .att-header{
     font-size: 24px;

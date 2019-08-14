@@ -35,56 +35,62 @@ $(document).ready(() => {
                 ac: 13,
                 hp_max: 13,
                 hp_current: 13,
-                str: {val: 15, mod: 2},
-                dex: {val: 14, mod:2},
-                con: {val: 13, mod: 1},
-                int: {val: 12, mod: 1},
-                wis: {val: 10, mod: 0},
-                cha: {val: 8, mod: -1},
+                str: {val: 15},
+                dex: {val: 14},
+                con: {val: 13},
+                int: {val: 12},
+                wis: {val: 10},
+                cha: {val: 8},
                 proficiencies: [],
                 saves: ["str", "con"],
                 darkvision: false,
                 speed: 30,
                 passive_perception: 10,
                 num_atks: 1,
-                bonuses: [
-                    {
-                        type: 'race',
-                        source: 'human',
-                        key: 'str',
-                        val: 1
-                    },
-                    {
-                        type: 'race',
-                        source: 'human',
-                        key: 'dex',
-                        val: 1
-                    },
-                    {
-                        type: 'race',
-                        source: 'human',
-                        key: 'con',
-                        val: 1
-                    },
-                    {
-                        type: 'race',
-                        source: 'human',
-                        key: 'int',
-                        val: 1
-                    },
-                    {
-                        type: 'race',
-                        source: 'human',
-                        key: 'wis',
-                        val: 1
-                    },
-                    {
-                        type: 'race',
-                        source: 'human',
-                        key: 'cha',
-                        val: 1
-                    }
-                ]
+                bonuses: {
+                    "race"      : [
+                        {
+                            type: "race",
+                            source: "human",
+                            key: "str",
+                            val: 1
+                        },
+                        {
+                            type: "race",
+                            source: "human",
+                            key: "dex",
+                            val: 1
+                        },
+                        {
+                            type: "race",
+                            source: "human",
+                            key: "con",
+                            val: 1
+                        },
+                        {
+                            type: "race",
+                            source: "human",
+                            key: "wis",
+                            val: 1
+                        },
+                        {
+                            type: "race",
+                            source: "human",
+                            key: "int",
+                            val: 1
+                        },
+                        {
+                            type: "race",
+                            source: "human",
+                            key: "cha",
+                            val: 1
+                        }
+                    ],
+                    "class"     : [],
+                    "feat"      : [],
+                    "subrace"   : [],
+                    "item"      : []
+                }
             },
             data: {
                 races: window.races,
@@ -93,6 +99,12 @@ $(document).ready(() => {
             }
         },
         actions: {
+            updateRacialBonuses: function({commit}, payload){
+                commit('mutateUpdateRacialBonuses', payload);
+            },
+            updateSubRacialBonuses: function({commit}, payload){
+                commit('mutateUpdateSubRacialBonuses', payload);
+            },
             changeRace: function({commit}, payload){
                 commit('mutateChangeRace', payload);
             },
@@ -119,8 +131,20 @@ $(document).ready(() => {
             },
         },
         mutations: {
+            mutateUpdateRacialBonuses: function(state, payload){
+                state.char.bonuses.race = [];
+                for(let bonus of payload){
+                    state.char.bonuses.race.push(bonus);
+                }
+            },
+            mutateUpdateSubRacialBonuses: function(state, payload){
+                state.char.bonuses.subrace = [];
+                for(let bonus of payload){
+                    state.char.bonuses.subrace.push(bonus);
+                }
+            },
             mutateChangeRace: function(state, payload){
-                state.char.race = payload;
+                state.char.race = payload.name;
             },
             mutateChangeSubrace: function(state, payload){
                 state.char.subrace = payload;

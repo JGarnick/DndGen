@@ -14,6 +14,14 @@ class Subrace extends Model
 	
 	public function asi()
 	{
-		return $this->belongsToMany(Attribute::class, "racial_asi")->withPivot("amount");
+		return $this->belongsToMany(Attribute::class, "racial_asi")->withPivot("amount", "attribute_id");
+	}
+
+	public function addBonus($payload){
+		return $this->attributes["bonuses"][] = $payload;
+	}
+
+	public function getBonusesAttribute(){
+		return $this->attributes["bonuses"];
 	}
 }

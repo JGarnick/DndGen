@@ -36,23 +36,33 @@ var mixin = {
 
             return false;
         },
-        bonus(key, type = "", source = ""){
+        bonus(category, key, source = ""){
             let bonusAmt = 0;
-            this.$store.state.char.bonuses.forEach(function(bonus){
-                if(type !== "" && bonus.type != type){
-                    return;
-                }
+            this.$store.state.char.bonuses[category].forEach(function(bonus){
                 if(source !== "" && bonus.source !== source){
                     return;
                 }
                 if(bonus.key !== key){
                     return;
                 }
-
+                
                 bonusAmt += parseInt(bonus.val);
             });
 
             return bonusAmt;
+        },
+        getTotal(key, starting_val){
+            let total = starting_val;
+
+            for(const bonuses of Object.values(this.$store.state.char.bonuses)){
+                for(const bonus of bonuses){
+                    if(bonus.key == key){
+                        total += bonus.val;
+                    }
+                }
+            }
+
+            return total;
         },
         getMod(val){
             switch(val){
@@ -151,4 +161,19 @@ var mixin = {
     }
 }
 
-export {mixin};
+var char = {
+    computed: {
+        charAtts(){
+            return [
+                {attIndex:1, charVal:this.$store.state.char.str},
+                {attIndex:2, charVal:this.$store.state.char.dex},
+                {attIndex:3, charVal:this.$store.state.char.con},
+                {attIndex:4, charVal:this.$store.state.char.int},
+                {attIndex:5, charVal:this.$store.state.char.wis},
+                {attIndex:6, charVal:this.$store.state.char.cha},
+            ]
+        }
+    }
+}
+
+export {mixin, char};

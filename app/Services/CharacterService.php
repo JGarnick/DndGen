@@ -37,7 +37,7 @@ class CharacterService
 
 	public function create()
 	{
-		$races 			= Race::all()->toArray();
+		$races = $this->getRacesWithRacialBonuses();
 		array_unshift($races, "deleteme");
 		unset($races[0]);
 		
@@ -57,7 +57,7 @@ class CharacterService
 		array_unshift($backgrounds, "deleteme");
 		unset($backgrounds[0]);
 
-		$subraces 		= Subrace::all()->toArray();
+		$subraces 		= $this->getSubRacesWithRacialBonuses();
 		array_unshift($subraces, "deleteme");
 		unset($subraces[0]);
 
@@ -144,6 +144,43 @@ class CharacterService
 		}
 
 		return $race_data;
+	}
+
+	public function getRacesWithRacialBonuses(){
+		$races = Race::all();
+		foreach($races AS $r){
+			$r["bonuses"] = [];
+			foreach($r->asi AS $bonus){
+				
+				$toAdd = [
+					"type" => "race",
+					"val" => $bonus->pivot->amount,
+					"key" => strtolower(Attribute::find($bonus->pivot->attribute_id)->abbr),
+					"source" => strtolower($r->name)
+				];
+				$r->addBonus($toAdd);
+			}
+		}
+		
+		return $races->toArray();
+	}
+	public function getSubRacesWithRacialBonuses(){
+		$subraces = Subrace::all();
+		foreach($subraces AS $r){
+			$r["bonuses"] = [];
+			foreach($r->asi AS $bonus){
+				
+				$toAdd = [
+					"type" => "race",
+					"val" => $bonus->pivot->amount,
+					"key" => strtolower(Attribute::find($bonus->pivot->attribute_id)->abbr),
+					"source" => strtolower($r->name)
+				];
+				$r->addBonus($toAdd);
+			}
+		}
+		
+		return $subraces->toArray();
 	}
 	
 	public function constructClassesInfo(){

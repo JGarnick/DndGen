@@ -10,7 +10,7 @@ export default {
     props: ["race", "active"],
     methods: {
         setActive(){
-            this.$emit("setActive", this.race.id);
+            this.$emit("setActive", this.race.id, this.racial_bonuses);
         }
     },
     computed:{
@@ -20,6 +20,9 @@ export default {
             }
 
             return "";
+        },
+        racial_bonuses: function(){
+            return this.race.bonuses;
         }
     }
 }
